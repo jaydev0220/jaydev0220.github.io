@@ -35,7 +35,7 @@ test.describe('Homepage Core Flows', () => {
 			const techStack = page.getByTestId('tech-stack-section');
 			await expect(techStack).toBeVisible();
 			// Verify at least one tech category is visible
-			await expect(techStack.getByTestId('tech-category-frontend')).toBeVisible();
+			await expect(techStack.getByTestId('tech-category-前端開發')).toBeVisible();
 
 			// Portfolio section
 			const portfolio = page.getByTestId('portfolio-section');
@@ -53,7 +53,7 @@ test.describe('Homepage Core Flows', () => {
 
 			// Check all navigation links are present
 			await expect(nav.getByTestId('nav-link-about')).toBeVisible();
-			await expect(nav.getByTestId('nav-link-tech stack')).toBeVisible();
+			await expect(nav.getByTestId('nav-link-tech-stack')).toBeVisible();
 			await expect(nav.getByTestId('nav-link-portfolio')).toBeVisible();
 			await expect(nav.getByTestId('nav-link-contact')).toBeVisible();
 		});
@@ -81,7 +81,7 @@ test.describe('Homepage Core Flows', () => {
 
 			// Verify mobile nav links are visible
 			await expect(drawer.getByTestId('mobile-nav-link-about')).toBeVisible();
-			await expect(drawer.getByTestId('mobile-nav-link-tech stack')).toBeVisible();
+			await expect(drawer.getByTestId('mobile-nav-link-tech-stack')).toBeVisible();
 		});
 
 		test('should close mobile menu when overlay is clicked', async ({ page }) => {
