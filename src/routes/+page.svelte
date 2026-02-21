@@ -229,23 +229,17 @@
 				<div class="about-column">
 					<h2 class="section-title">關於我</h2>
 					<div class="about-content">
-						{#each resume.aboutExtended as paragraph, index (index)}
-							<p class="about-paragraph">{paragraph}</p>
-						{/each}
+						<p class="about-paragraph">{resume.about}</p>
 					</div>
 
 					<!-- Contact & Social Links -->
 					<div class="contact-section" id="contact">
 						<h3 class="subsection-title">聯絡方式</h3>
 						<div class="contact-info">
-							<a href={`mailto:${resume.email}`} class="contact-item">
+							<div class="contact-item">
 								<span class="contact-icon">[email]</span>
 								<span>{resume.email}</span>
-							</a>
-							<a href={`tel:${resume.phone}`} class="contact-item">
-								<span class="contact-icon">[phone]</span>
-								<span>{resume.phone}</span>
-							</a>
+							</div>
 							<div class="contact-item">
 								<span class="contact-icon">[location]</span>
 								<span>{resume.location}</span>
@@ -273,15 +267,13 @@
 				<div class="education-column">
 					<h2 class="section-title">學歷</h2>
 					<div class="education-timeline">
-						{#each education as edu (edu.degree + edu.institution)}
+						{#each education as edu (edu.institution)}
 							<div class="education-card" data-testid="education-card">
-								<div class="education-period">{edu.period}</div>
-								<h3 class="education-degree">{edu.degree}</h3>
-								<div class="education-institution">{edu.institution}</div>
-								<div class="education-location">{edu.location}</div>
-								{#if edu.description}
-									<p class="education-description">{edu.description}</p>
+								<h3 class="education-institution">{edu.institution}</h3>
+								{#if edu.degree}
+									<div class="education-degree">{edu.degree}</div>
 								{/if}
+								<div class="education-location">{edu.location}</div>
 							</div>
 						{/each}
 					</div>

@@ -45,9 +45,7 @@ export interface ResumeData {
 	title: string;
 	location: string;
 	email: string;
-	phone: string;
 	about: string;
-	aboutExtended: string[];
 }
 
 export const resume: ResumeData = {
@@ -55,35 +53,29 @@ export const resume: ResumeData = {
 	title: '全端工程師',
 	location: '台灣・台北',
 	email: 'mengche@example.com',
-	phone: '+886-912-345-678',
-	about: '專注在產品體驗與系統可維護性的全端工程師。',
-	aboutExtended: [
-		'擅長使用 TypeScript 與現代前端框架打造高可用、可擴充的產品介面，並兼顧工程品質與交付效率。',
-		'在後端與資料層面，我重視可觀測性、部署流程與模組邊界，讓團隊能穩定地持續迭代。',
-		'平時會持續關注開源生態、測試策略與效能優化，並把可讀性與維護成本放在設計優先順序。'
-	]
+	about: '專注在產品體驗與系統可維護性的全端工程師。'
 };
 
 export const socialLinks: SocialLink[] = [
 	{
 		name: 'GitHub',
 		url: 'https://github.com/mengche',
-		icon: '👨‍💻'
+		icon: 'github'
 	},
 	{
 		name: 'LinkedIn',
 		url: 'https://linkedin.com/in/mengche',
-		icon: '💼'
+		icon: 'linkedin'
 	},
 	{
 		name: 'X',
 		url: 'https://x.com/mengche',
-		icon: '🐦'
+		icon: 'x'
 	},
 	{
 		name: 'Email',
 		url: 'mailto:mengche@example.com',
-		icon: '📧'
+		icon: 'mail'
 	}
 ];
 
@@ -108,34 +100,34 @@ export const skillCategories: SkillCategory[] = [
 	{
 		category: '前端開發',
 		skills: [
-			{ name: 'Svelte', icon: '🧡' },
-			{ name: 'React', icon: '⚛️' },
-			{ name: 'TypeScript', icon: '📘' },
-			{ name: 'Tailwind CSS', icon: '🎨' },
-			{ name: 'Vite', icon: '⚡' },
-			{ name: 'Playwright', icon: '🎭' }
+			{ name: 'Svelte', icon: 'terminal' },
+			{ name: 'React', icon: 'component' },
+			{ name: 'TypeScript', icon: 'typed' },
+			{ name: 'Tailwind CSS', icon: 'style' },
+			{ name: 'Vite', icon: 'bolt' },
+			{ name: 'Playwright', icon: 'test' }
 		]
 	},
 	{
 		category: '後端與 API',
 		skills: [
-			{ name: 'Node.js', icon: '🟢' },
-			{ name: 'Python', icon: '🐍' },
-			{ name: 'Go', icon: '🔵' },
-			{ name: 'FastAPI', icon: '⚡' },
-			{ name: 'GraphQL', icon: '🔷' },
-			{ name: 'REST', icon: '📡' }
+			{ name: 'Node.js', icon: 'runtime' },
+			{ name: 'Python', icon: 'script' },
+			{ name: 'Go', icon: 'service' },
+			{ name: 'FastAPI', icon: 'api' },
+			{ name: 'GraphQL', icon: 'graph' },
+			{ name: 'REST', icon: 'network' }
 		]
 	},
 	{
 		category: '資料與平台',
 		skills: [
-			{ name: 'PostgreSQL', icon: '🐘' },
-			{ name: 'Redis', icon: '🔴' },
-			{ name: 'MongoDB', icon: '🍃' },
-			{ name: 'Docker', icon: '🐳' },
-			{ name: 'GitHub Actions', icon: '⚙️' },
-			{ name: 'Kubernetes', icon: '☸️' }
+			{ name: 'PostgreSQL', icon: 'database' },
+			{ name: 'Redis', icon: 'cache' },
+			{ name: 'MongoDB', icon: 'document' },
+			{ name: 'Docker', icon: 'container' },
+			{ name: 'GitHub Actions', icon: 'pipeline' },
+			{ name: 'Kubernetes', icon: 'cluster' }
 		]
 	}
 ];
