@@ -111,21 +111,28 @@
 	<meta name="description" content={resume.about} />
 </svelte:head>
 
-<div class="site-wrapper">
+<div class="flex min-h-screen flex-col">
 	<!-- Navigation -->
-	<nav class="nav" data-testid="navigation">
-		<div class="nav-container">
-			<button class="logo" onclick={scrollToTop} data-testid="logo">
+	<nav
+		class="sticky top-0 z-[var(--z-nav)] border-b border-border bg-bg-primary/95 py-4 backdrop-blur-[10px]"
+		data-testid="navigation"
+	>
+		<div class="mx-auto flex max-w-[1200px] items-center justify-between px-6">
+			<button
+				class="font-[family-name:var(--font-family-display)] text-2xl font-bold text-accent-primary transition-transform duration-[var(--transition-fast)] hover:scale-105"
+				onclick={scrollToTop}
+				data-testid="logo"
+			>
 				{resume.name}
 			</button>
 
 			<!-- Desktop Navigation -->
-			<div class="nav-links-desktop" data-testid="desktop-nav">
+			<div class="hidden gap-8 md:flex" data-testid="desktop-nav">
 				{#each navLinks as link (link.href)}
 					<a
 						href={link.href}
 						onclick={(e) => handleNavClick(e, link.href)}
-						class="nav-link"
+						class="relative font-medium text-text-secondary transition-colors duration-[var(--transition-fast)] after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-accent-primary after:transition-[width] after:duration-[var(--transition-base)] after:content-[''] hover:text-accent-primary hover:after:w-full"
 						data-testid={`nav-link-${link.id}`}
 					>
 						{link.label}
@@ -135,14 +142,20 @@
 
 			<!-- Mobile Hamburger -->
 			<button
-				class="hamburger"
+				class="z-[calc(var(--z-drawer)+10)] flex flex-col gap-[5px] p-2 md:hidden"
 				onclick={toggleMobileMenu}
 				aria-label="Toggle menu"
 				data-testid="hamburger-button"
 			>
-				<span class="hamburger-line"></span>
-				<span class="hamburger-line"></span>
-				<span class="hamburger-line"></span>
+				<span
+					class="h-[2px] w-[25px] bg-text-primary transition-all duration-[var(--transition-base)]"
+				></span>
+				<span
+					class="h-[2px] w-[25px] bg-text-primary transition-all duration-[var(--transition-base)]"
+				></span>
+				<span
+					class="h-[2px] w-[25px] bg-text-primary transition-all duration-[var(--transition-base)]"
+				></span>
 			</button>
 		</div>
 	</nav>
@@ -150,7 +163,7 @@
 	<!-- Mobile Menu Drawer -->
 	{#if mobileMenuOpen}
 		<div
-			class="mobile-menu-overlay"
+			class="fixed inset-0 z-[var(--z-overlay)] animate-[fadeIn_var(--transition-base)] bg-black/70"
 			onclick={closeMobileMenu}
 			onkeydown={(e) => e.key === 'Escape' && closeMobileMenu()}
 			role="button"
@@ -158,11 +171,17 @@
 			aria-label="Close menu"
 			data-testid="mobile-overlay"
 		></div>
-		<div class="mobile-menu-drawer" data-testid="mobile-drawer">
-			<div class="mobile-menu-header">
-				<span class="mobile-menu-title">選單</span>
+		<div
+			class="fixed top-0 bottom-0 left-0 z-[var(--z-drawer)] w-[280px] max-w-[80vw] animate-[slideInLeft_var(--transition-slow)] bg-bg-secondary p-8"
+			data-testid="mobile-drawer"
+		>
+			<div class="mb-12 flex items-center justify-between">
+				<span
+					class="font-[family-name:var(--font-family-display)] text-2xl font-bold text-accent-primary"
+					>選單</span
+				>
 				<button
-					class="mobile-menu-close"
+					class="p-2 text-[2rem] text-text-secondary transition-colors duration-[var(--transition-fast)] hover:text-accent-primary"
 					onclick={closeMobileMenu}
 					aria-label="Close menu"
 					data-testid="close-menu-button"
@@ -170,12 +189,12 @@
 					✕
 				</button>
 			</div>
-			<nav class="mobile-nav-links">
+			<nav class="flex flex-col gap-6">
 				{#each navLinks as link (link.href)}
 					<a
 						href={link.href}
 						onclick={(e) => handleNavClick(e, link.href)}
-						class="mobile-nav-link"
+						class="p-4 text-lg font-medium text-text-primary transition-all duration-[var(--transition-fast)] hover:translate-x-2 hover:bg-bg-tertiary hover:text-accent-primary"
 						data-testid={`mobile-nav-link-${link.id}`}
 					>
 						{link.label}
@@ -186,25 +205,32 @@
 	{/if}
 
 	<!-- Hero Section -->
-	<section class="hero" data-testid="hero-section">
-		<div class="hero-container">
-			<div class="terminal">
-				<div class="terminal-header">
-					<span class="terminal-title">user@arch ~</span>
+	<section
+		class="relative flex min-h-screen items-center justify-center overflow-hidden bg-bg-primary px-6 py-16 before:absolute before:top-[-50%] before:right-[-50%] before:h-full before:w-full before:animate-[pulse_8s_ease-in-out_infinite] before:bg-[radial-gradient(circle,rgba(79,70,229,0.05)_0%,transparent_70%)] before:content-['']"
+		data-testid="hero-section"
+	>
+		<div class="z-[1] w-full">
+			<div class="mb-12 overflow-hidden bg-transparent">
+				<div class="flex items-center border-b border-border bg-bg-tertiary px-4 py-2">
+					<span class="font-[family-name:var(--font-family-mono)] text-xs text-text-muted"
+						>user@arch ~</span
+					>
 				</div>
-				<div class="terminal-body">
-					<div class="terminal-line">
-						<span class="terminal-prompt">[user@host]:~ $</span>
-						<span class="terminal-text" data-testid="typing-text">{typedText}</span>
-						<span class="terminal-cursor">▋</span>
+				<div class="flex min-h-[120px] items-center p-8">
+					<div
+						class="flex items-center gap-4 font-[family-name:var(--font-family-mono)] text-[clamp(1.25rem,4vw,1.75rem)] text-white"
+					>
+						<span class="font-bold text-accent-primary">[user@host]:~ $</span>
+						<span class="min-h-[1.2em] text-white" data-testid="typing-text">{typedText}</span>
+						<span class="animate-[blink_1s_step-end_infinite] text-accent-primary">▋</span>
 					</div>
 				</div>
 			</div>
-			<div class="hero-cta">
+			<div class="flex flex-wrap justify-center gap-6">
 				<a
 					href="#about"
 					onclick={(e) => handleNavClick(e, '#about')}
-					class="cmd-link"
+					class="inline-block px-4 py-2 font-[family-name:var(--font-family-mono)] text-base text-text-secondary transition-colors duration-[var(--transition-fast)] hover:text-accent-primary"
 					data-testid="cta-about"
 				>
 					$ ./about --me
@@ -212,7 +238,7 @@
 				<a
 					href="#portfolio"
 					onclick={(e) => handleNavClick(e, '#portfolio')}
-					class="cmd-link"
+					class="inline-block px-4 py-2 font-[family-name:var(--font-family-mono)] text-base text-text-secondary transition-colors duration-[var(--transition-fast)] hover:text-accent-primary"
 					data-testid="cta-portfolio"
 				>
 					$ ls ~/projects
@@ -222,41 +248,53 @@
 	</section>
 
 	<!-- About + Education Section -->
-	<section class="about-education" id="about" data-testid="about-section">
-		<div class="container">
-			<div class="about-education-grid">
+	<section class="bg-bg-secondary px-6 py-12" id="about" data-testid="about-section">
+		<div class="mx-auto w-full max-w-[1200px] px-6">
+			<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
 				<!-- About Column -->
-				<div class="about-column">
-					<h2 class="section-title">關於我</h2>
-					<div class="about-content">
-						<p class="about-paragraph">{resume.about}</p>
+				<div>
+					<h2
+						class="relative mb-12 inline-block font-[family-name:var(--font-family-display)] text-[clamp(2rem,5vw,2.5rem)] text-text-primary after:absolute after:bottom-[-0.5rem] after:left-0 after:h-[3px] after:w-full after:bg-[linear-gradient(90deg,var(--color-accent-primary),var(--color-accent-secondary))] after:content-['']"
+					>
+						關於我
+					</h2>
+					<div>
+						<p class="mb-6 leading-[1.8] text-text-secondary">{resume.about}</p>
 					</div>
 
 					<!-- Contact & Social Links -->
-					<div class="contact-section" id="contact">
-						<h3 class="subsection-title">聯絡方式</h3>
-						<div class="contact-info">
-							<div class="contact-item">
-								<span class="contact-icon">[email]</span>
+					<div class="mt-12" id="contact">
+						<h3
+							class="my-12 mb-6 font-[family-name:var(--font-family-display)] text-2xl text-text-primary"
+						>
+							聯絡方式
+						</h3>
+						<div class="mb-8 flex flex-col gap-4">
+							<div
+								class="flex items-center gap-4 p-2 text-text-secondary transition-colors duration-[var(--transition-fast)] hover:text-accent-primary"
+							>
+								<span class="text-xl">[email]</span>
 								<span>{resume.email}</span>
 							</div>
-							<div class="contact-item">
-								<span class="contact-icon">[location]</span>
+							<div
+								class="flex items-center gap-4 p-2 text-text-secondary transition-colors duration-[var(--transition-fast)] hover:text-accent-primary"
+							>
+								<span class="text-xl">[location]</span>
 								<span>{resume.location}</span>
 							</div>
 						</div>
 
-						<div class="social-links">
+						<div class="flex flex-wrap gap-6">
 							{#each socialLinks as social (social.name)}
 								<a
 									href={social.url}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="social-link"
+									class="flex items-center gap-2 border border-transparent bg-bg-tertiary px-6 py-4 transition-all duration-[var(--transition-base)] hover:border-accent-primary hover:bg-bg-primary"
 									data-testid={`social-${social.name.toLowerCase()}`}
 								>
-									<span class="social-icon">[{social.icon}]</span>
-									<span class="social-name">{social.name}</span>
+									<span class="text-2xl">[{social.icon}]</span>
+									<span class="font-medium text-text-secondary">{social.name}</span>
 								</a>
 							{/each}
 						</div>
@@ -264,16 +302,23 @@
 				</div>
 
 				<!-- Education Column -->
-				<div class="education-column">
-					<h2 class="section-title">學歷</h2>
-					<div class="education-timeline">
+				<div>
+					<h2
+						class="relative mb-12 inline-block font-[family-name:var(--font-family-display)] text-[clamp(2rem,5vw,2.5rem)] text-text-primary after:absolute after:bottom-[-0.5rem] after:left-0 after:h-[3px] after:w-full after:bg-[linear-gradient(90deg,var(--color-accent-primary),var(--color-accent-secondary))] after:content-['']"
+					>
+						學歷
+					</h2>
+					<div class="flex flex-col gap-4">
 						{#each education as edu (edu.institution)}
-							<div class="education-card" data-testid="education-card">
-								<h3 class="education-institution">{edu.institution}</h3>
+							<div
+								class="border-l-4 border-accent-primary bg-bg-tertiary px-6 py-4 transition-[border-color] duration-[var(--transition-base)]"
+								data-testid="education-card"
+							>
+								<h3 class="mb-1 font-medium text-text-secondary">{edu.institution}</h3>
 								{#if edu.degree}
-									<div class="education-degree">{edu.degree}</div>
+									<div class="mb-2 text-xl text-text-primary">{edu.degree}</div>
 								{/if}
-								<div class="education-location">{edu.location}</div>
+								<div class="mb-4 text-sm text-text-muted">{edu.location}</div>
 							</div>
 						{/each}
 					</div>
@@ -283,24 +328,30 @@
 	</section>
 
 	<!-- Skills Section -->
-	<section class="tech-stack" id="skills" data-testid="tech-stack-section">
-		<div class="container">
-			<h2 class="section-title">技能</h2>
-			<div class="tech-categories">
+	<section class="bg-bg-primary px-6 py-24" id="skills" data-testid="tech-stack-section">
+		<div class="mx-auto w-full max-w-[1200px] px-6">
+			<h2
+				class="relative mb-12 inline-block font-[family-name:var(--font-family-display)] text-[clamp(2rem,5vw,2.5rem)] text-text-primary after:absolute after:bottom-[-0.5rem] after:left-0 after:h-[3px] after:w-full after:bg-[linear-gradient(90deg,var(--color-accent-primary),var(--color-accent-secondary))] after:content-['']"
+			>
+				技能
+			</h2>
+			<div class="grid grid-cols-1 gap-12 md:grid-cols-2">
 				{#each skillCategories as category (category.category)}
 					<div
-						class="tech-category"
+						class="border border-border bg-bg-secondary p-8 transition-all duration-[var(--transition-base)] hover:border-accent-primary"
 						data-testid={`tech-category-${category.category.toLowerCase()}`}
 					>
-						<h3 class="tech-category-title">{category.category}</h3>
-						<div class="tech-skills-grid">
+						<h3 class="mb-6 text-xl text-accent-primary">{category.category}</h3>
+						<div class="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-6">
 							{#each category.skills as skill (skill.name)}
 								<div
-									class="tech-skill"
+									class="flex flex-col items-center gap-2 border border-transparent bg-bg-tertiary p-6 transition-all duration-[var(--transition-base)] hover:border-accent-primary"
 									data-testid={`tech-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
 								>
-									<span class="tech-icon">{skill.icon}</span>
-									<span class="tech-name">{skill.name}</span>
+									<span class="text-[2rem]">{skill.icon}</span>
+									<span class="text-center text-sm font-medium text-text-secondary"
+										>{skill.name}</span
+									>
 								</div>
 							{/each}
 						</div>
@@ -311,16 +362,22 @@
 	</section>
 
 	<!-- Portfolio Section -->
-	<section class="portfolio" id="portfolio" data-testid="portfolio-section">
-		<div class="container">
-			<h2 class="section-title">作品集</h2>
+	<section class="bg-bg-secondary px-6 py-24" id="portfolio" data-testid="portfolio-section">
+		<div class="mx-auto w-full max-w-[1200px] px-6">
+			<h2
+				class="relative mb-12 inline-block font-[family-name:var(--font-family-display)] text-[clamp(2rem,5vw,2.5rem)] text-text-primary after:absolute after:bottom-[-0.5rem] after:left-0 after:h-[3px] after:w-full after:bg-[linear-gradient(90deg,var(--color-accent-primary),var(--color-accent-secondary))] after:content-['']"
+			>
+				作品集
+			</h2>
 
 			<!-- Filter Buttons -->
-			<div class="portfolio-filters" data-testid="portfolio-filters">
+			<div class="mb-16 flex flex-wrap justify-center gap-4" data-testid="portfolio-filters">
 				{#each projectFilters as filter (filter.type)}
 					<button
-						class="filter-btn"
-						class:active={activeFilter === filter.type}
+						class="border-2 border-transparent bg-bg-tertiary px-6 py-4 font-medium text-text-secondary transition-all duration-[var(--transition-base)] hover:bg-bg-primary hover:text-text-primary {activeFilter ===
+						filter.type
+							? 'border-accent-primary bg-accent-primary text-white'
+							: ''}"
 						onclick={() => filterProjects(filter.type)}
 						data-testid={`filter-${filter.type}`}
 					>
@@ -330,30 +387,39 @@
 			</div>
 
 			<!-- Projects Grid -->
-			<div class="projects-grid" data-testid="projects-grid">
+			<div
+				class="grid animate-[fadeIn_var(--transition-slow)] grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+				data-testid="projects-grid"
+			>
 				{#each filteredProjects as project (project.id)}
-					<div class="project-card" data-testid={`project-${project.id}`}>
-						<h3 class="project-title">{project.title}</h3>
-						<p class="project-description">{project.description}</p>
+					<div
+						class="flex flex-col gap-6 border border-border bg-bg-tertiary p-8 transition-all duration-[var(--transition-base)] hover:border-accent-primary"
+						data-testid={`project-${project.id}`}
+					>
+						<h3 class="mb-2 text-2xl text-text-primary">{project.title}</h3>
+						<p class="flex-grow leading-[1.6] text-text-secondary">{project.description}</p>
 
-						<div class="project-tech-tags">
+						<div class="flex flex-wrap gap-2">
 							{#each project.technologies as tech (tech)}
-								<span class="tech-tag">{tech}</span>
+								<span
+									class="border border-border bg-bg-tertiary px-3 py-1 text-xs font-semibold text-accent-primary"
+									>{tech}</span
+								>
 							{/each}
 						</div>
 
-						<div class="project-links">
+						<div class="flex gap-6 border-t border-border pt-4">
 							{#if project.githubUrl}
 								<a
 									href={project.githubUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="project-link"
+									class="flex items-center gap-2 px-4 py-2 font-medium text-accent-primary transition-all duration-[var(--transition-fast)] hover:translate-x-1 hover:bg-[rgba(79,70,229,0.1)]"
 									data-testid={`project-github-${project.id}`}
 									aria-label="查看 GitHub 專案"
 								>
 									<svg
-										class="project-icon"
+										class="h-[18px] w-[18px]"
 										viewBox="0 0 24 24"
 										fill="currentColor"
 										xmlns="http://www.w3.org/2000/svg"
@@ -370,12 +436,12 @@
 									href={project.liveUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="project-link"
+									class="flex items-center gap-2 px-4 py-2 font-medium text-accent-primary transition-all duration-[var(--transition-fast)] hover:translate-x-1 hover:bg-[rgba(79,70,229,0.1)]"
 									data-testid={`project-live-${project.id}`}
 									aria-label="查看線上展示"
 								>
 									<svg
-										class="project-icon"
+										class="h-[18px] w-[18px]"
 										viewBox="0 0 24 24"
 										fill="none"
 										stroke="currentColor"
@@ -397,9 +463,9 @@
 	</section>
 
 	<!-- Footer -->
-	<footer class="footer" data-testid="footer">
-		<div class="container">
-			<p class="footer-text">
+	<footer class="mt-auto border-t border-border bg-bg-primary px-6 py-12" data-testid="footer">
+		<div class="mx-auto w-full max-w-[1200px] px-6">
+			<p class="text-left font-[family-name:var(--font-family-mono)] text-xs text-text-muted">
 				Copyright © {new Date().getFullYear()} Meng Che Hsieh. All rights reserved.
 			</p>
 		</div>
