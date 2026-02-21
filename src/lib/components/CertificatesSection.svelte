@@ -1,5 +1,12 @@
 <script lang="ts">
 	import { certificates } from '$lib/data';
+	import CertificateModal from './CertificateModal.svelte';
+
+	let selectedCert = $state<{ name: string; url: string } | null>(null);
+
+	function isValidCredentialUrl(url?: string): boolean {
+		return !!url && !url.endsWith('/');
+	}
 </script>
 
 <!-- Certificates Section -->
@@ -23,18 +30,23 @@
 					<h3 class="text-lg font-medium text-text-primary">{cert.name}</h3>
 					<p class="text-sm text-text-secondary">{cert.issuer}</p>
 					<p class="text-sm text-accent-primary">{cert.date}</p>
-					{#if cert.credentialUrl}
-						<a
-							href={cert.credentialUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="mt-auto inline-flex items-center gap-2 text-sm text-text-muted transition-colors duration-(--transition-fast) hover:text-accent-primary"
+					{#if isValidCredentialUrl(cert.credentialUrl)}
+						<button
+							onclick={() => (selectedCert = { name: cert.name, url: cert.credentialUrl! })}
+							class="mt-auto inline-flex cursor-pointer items-center gap-2 text-sm text-text-muted transition-colors duration-(--transition-fast) hover:text-accent-primary"
 						>
 							查看證書 →
-						</a>
+						</button>
 					{/if}
 				</div>
 			{/each}
 		</div>
 	</div>
+
+	<CertificateModal
+		imageUrl={selectedCert?.url ?? ''}
+		title={selectedCert?.name ?? ''}
+		isOpen={selectedCert !== null}
+		onClose={() => (selectedCert = null)}
+	/>
 </section>
