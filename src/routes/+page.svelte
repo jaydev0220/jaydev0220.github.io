@@ -403,6 +403,7 @@
 								{#if edu.degree}
 									<div class="mb-2 text-xl text-text-primary">{edu.degree}</div>
 								{/if}
+								<div class="text-sm text-accent-primary">{edu.period}</div>
 								<div class="mb-4 text-sm text-text-muted">{edu.location}</div>
 							</div>
 						{/each}
