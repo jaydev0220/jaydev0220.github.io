@@ -190,9 +190,7 @@
 		<div class="hero-container">
 			<div class="terminal">
 				<div class="terminal-header">
-					<span class="terminal-dot terminal-dot-red"></span>
-					<span class="terminal-dot terminal-dot-yellow"></span>
-					<span class="terminal-dot terminal-dot-green"></span>
+					<span class="terminal-title">user@arch ~</span>
 				</div>
 				<div class="terminal-body">
 					<div class="terminal-line">
@@ -241,15 +239,15 @@
 						<h3 class="subsection-title">聯絡方式</h3>
 						<div class="contact-info">
 							<a href={`mailto:${resume.email}`} class="contact-item">
-								<span class="contact-icon">📧</span>
+								<span class="contact-icon">[email]</span>
 								<span>{resume.email}</span>
 							</a>
 							<a href={`tel:${resume.phone}`} class="contact-item">
-								<span class="contact-icon">📱</span>
+								<span class="contact-icon">[phone]</span>
 								<span>{resume.phone}</span>
 							</a>
 							<div class="contact-item">
-								<span class="contact-icon">📍</span>
+								<span class="contact-icon">[location]</span>
 								<span>{resume.location}</span>
 							</div>
 						</div>
@@ -263,7 +261,7 @@
 									class="social-link"
 									data-testid={`social-${social.name.toLowerCase()}`}
 								>
-									<span class="social-icon">{social.icon}</span>
+									<span class="social-icon">[{social.icon}]</span>
 									<span class="social-name">{social.name}</span>
 								</a>
 							{/each}
@@ -309,7 +307,7 @@
 									class="tech-skill"
 									data-testid={`tech-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
 								>
-									<span class="tech-icon">{skill.icon}</span>
+									<span class="tech-icon">[{skill.icon}]</span>
 									<span class="tech-name">{skill.name}</span>
 								</div>
 							{/each}
