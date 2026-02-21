@@ -282,10 +282,10 @@
 		</div>
 	</section>
 
-	<!-- Tech Stack Section -->
-	<section class="tech-stack" id="tech-stack" data-testid="tech-stack-section">
+	<!-- Skills Section -->
+	<section class="tech-stack" id="skills" data-testid="tech-stack-section">
 		<div class="container">
-			<h2 class="section-title">技術棧</h2>
+			<h2 class="section-title">技能</h2>
 			<div class="tech-categories">
 				{#each skillCategories as category (category.category)}
 					<div
@@ -299,7 +299,7 @@
 									class="tech-skill"
 									data-testid={`tech-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
 								>
-									<span class="tech-icon">[{skill.icon}]</span>
+									<span class="tech-icon">{skill.icon}</span>
 									<span class="tech-name">{skill.name}</span>
 								</div>
 							{/each}
@@ -405,7 +405,3 @@
 		</div>
 	</footer>
 </div>
-
-<style>
-	/* Component-scoped styles are in layout.css */
-</style>
