@@ -221,7 +221,12 @@ export const navLinks: NavigationLink[] = [
 	{ id: 'portfolio', label: '作品', href: '#portfolio' }
 ];
 
-export const typingStrings = ['你好，我是謝孟哲。', '我是一名全端工程師。'];
+export const typingStrings = [
+	'你好，我是謝孟哲。',
+	'我是一名全端工程師。',
+	"Hi, I'm Meng Che.",
+	"I'm a Fullstack Developer."
+];
 
 export const projectFilters: { label: string; type: ProjectType }[] = [
 	{ label: '全部', type: 'all' }
