@@ -158,7 +158,28 @@ export const skillCategories: SkillCategory[] = [
 	}
 ];
 
-export const projects: Project[] = [];
+export const projects: Project[] = [
+	{
+		id: '1',
+		title: 'Daily Quote Generator',
+		description:
+			'A simple web app that displays a random daily quote, built with HTML, CSS, and JavaScript.',
+		type: [],
+		technologies: ['HTML', 'CSS', 'JavaScript'],
+		githubUrl: 'https://github.com/JayXie9499/daily-quote-generator',
+		liveUrl: '/daily-quote-generator'
+	},
+	{
+		id: '2',
+		title: 'Password Strength Checker',
+		description:
+			'A password strength checker that evaluates passwords based on length, character diversity, and common patterns, providing feedback and suggestions.',
+		type: [],
+		technologies: ['Python'],
+		githubUrl: 'https://github.com/JayXie9499/password-strength-checker',
+		liveUrl: '/password-strength-checker'
+	}
+];
 
 export const certificates: Certificate[] = [
 	{
