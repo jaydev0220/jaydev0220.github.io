@@ -51,7 +51,7 @@ export interface ResumeData {
 	title: string;
 	location: string;
 	email: string;
-	about: string;
+	about: string[];
 }
 
 export const resume: ResumeData = {
@@ -59,7 +59,11 @@ export const resume: ResumeData = {
 	title: '全端工程師',
 	location: '台灣・新竹',
 	email: 'contact@hsieh-dev.us.ci',
-	about: '專注在產品體驗與系統可維護性的全端工程師。'
+	about: [
+		'我是 謝孟哲，你可以叫我 阿哲 或 Jay！',
+		'我是一名對開發充滿熱情的學生，有 4 年全端開發經驗，熟悉 Node.js、Svelte 與 TypeScript。',
+		'目前持續精進中，也歡迎任何交流與合作機會！'
+	]
 };
 
 export const socialLinks: SocialLink[] = [

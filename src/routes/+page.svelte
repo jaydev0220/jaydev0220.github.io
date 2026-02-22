@@ -11,7 +11,7 @@
 
 <svelte:head>
 	<title>{resume.name} - {resume.title}</title>
-	<meta name="description" content={resume.about} />
+	<meta name="description" content={resume.about.join('')} />
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">

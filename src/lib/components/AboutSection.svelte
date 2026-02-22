@@ -15,7 +15,9 @@
 					關於我
 				</h2>
 				<div>
-					<p class="mb-6 leading-[1.8] text-text-secondary">{resume.about}</p>
+					{#each resume.about as line, i (i)}
+						<p class="leading-[1.8] text-text-secondary">{line}</p>
+					{/each}
 				</div>
 
 				<!-- Contact & Social Links -->
