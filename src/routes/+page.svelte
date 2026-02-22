@@ -12,6 +12,9 @@
 <svelte:head>
 	<title>{resume.name} - {resume.title}</title>
 	<meta name="description" content={resume.about.join('')} />
+	<meta name="og:title" content="謝孟哲 - 全端工程師" />
+	<meta name="og:description" content={resume.about.join('')} />
+	<link rel="alternate" hreflang="zh" href="https://www.hsieh-dev.us.ci" />
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">
