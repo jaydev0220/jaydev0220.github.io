@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { iconMap } from '$lib/iconMap';
-	import { skillIconCredits } from '$lib/data';
+	import { iconCredits } from '$lib/data';
 </script>
 
 <svelte:head>
@@ -16,7 +16,7 @@
 		<div class="mb-10 flex items-end justify-between gap-4 border-b border-border pb-5">
 			<div>
 				<h1 class="font-family-display text-[clamp(2rem,5vw,2.5rem)]">Icon Credits</h1>
-				<p class="mt-3 text-sm text-text-secondary">此頁列出技能區塊所有 icon 的來源與授權資訊。</p>
+				<p class="mt-3 text-sm text-text-secondary">此頁列出所有 Icon 的來源與授權資訊。</p>
 			</div>
 			<a
 				href="/"
@@ -38,12 +38,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each skillIconCredits as credit (credit.icon)}
+					{#each iconCredits as credit (credit.icon)}
 						<tr class="border-b border-border align-top last:border-b-0">
 							<td class="px-4 py-3">
-								<img src={iconMap[credit.icon]} alt={`${credit.skillName} icon`} class="h-auto w-6" />
+								<img src={iconMap[credit.icon]} alt={`${credit.name} icon`} class="h-6 w-auto" />
 							</td>
-							<td class="px-4 py-3">{credit.skillName}</td>
+							<td class="px-4 py-3">{credit.name}</td>
 							<td class="px-4 py-3">
 								{#if credit.sourceUrl}
 									<a
@@ -68,7 +68,7 @@
 									>
 										{credit.license}
 									</a>
-								{:else}
+								{:else if credit.license}
 									<span>{credit.license}</span>
 								{/if}
 								{#if credit.modified}

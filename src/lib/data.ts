@@ -21,12 +21,12 @@ export interface SkillCategory {
 	skills: Skill[];
 }
 
-export interface SkillIconCredit {
-	skillName: string;
+export interface IconCredit {
+	name: string;
 	icon: string;
 	sourceName: string;
 	sourceUrl?: string;
-	license: string;
+	license?: string;
 	licenseUrl?: string;
 	modified?: boolean;
 	note?: string;
@@ -170,222 +170,237 @@ export const skillCategories: SkillCategory[] = [
 	}
 ];
 
-export const skillIconCredits: SkillIconCredit[] = [
+export const iconCredits: IconCredit[] = [
 	{
-		skillName: 'HTML',
+		name: 'HTML',
 		icon: 'html5',
 		sourceName: 'Simple Icons',
 		sourceUrl: 'https://simpleicons.org/icons/html5.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
+		modified: true,
+		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'CSS',
+		name: 'CSS',
 		icon: 'css',
 		sourceName: 'Simple Icons',
 		sourceUrl: 'https://simpleicons.org/icons/css.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
+		modified: true,
+		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'JavaScript',
+		name: 'JavaScript',
 		icon: 'javascript',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/javascript.svg',
+		sourceName: 'voodootikigod/logo.js',
+		sourceUrl: 'https://raw.githubusercontent.com/voodootikigod/logo.js/refs/heads/master/js.svg',
 		license: 'MIT',
 		licenseUrl: 'https://spdx.org/licenses/MIT',
 		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'TypeScript',
+		name: 'TypeScript',
 		icon: 'typescript',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/typescript.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+		sourceName: 'TypeScript: Branding',
+		sourceUrl: 'https://www.typescriptlang.org/branding/typescript-design-assets.zip',
 		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'Svelte',
+		name: 'Svelte',
 		icon: 'svelte',
-		sourceName: 'Simple Icons',
+		sourceName: 'Wikimedia Commons',
 		sourceUrl: 'https://simpleicons.org/icons/svelte.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+		license: 'MIT',
+		licenseUrl: '',
 		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'Vue.js',
+		name: 'Vue.js',
 		icon: 'vuedotjs',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/vuedotjs.svg',
+		sourceName: 'vuejs/art',
+		sourceUrl:
+			'https://raw.githubusercontent.com/vuejs/art/a1c78b74569b70a25300925b4eacfefcc143b8f6/logo.svg',
 		license: 'CC-BY-NC-SA-4.0',
 		licenseUrl: 'https://spdx.org/licenses/CC-BY-NC-SA-4.0',
+		note: 'Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'Tailwind CSS',
+		icon: 'tailwindcss',
+		sourceName: 'Brand - Tailwind CSS',
+		sourceUrl: 'https://tailwindcss.com/_next/static/media/tailwindcss-mark.96ee6a5a.svg',
+		note: 'Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'Flutter',
+		icon: 'flutter',
+		sourceName: 'Flutter',
+		sourceUrl: 'https://flutter.dev/assets/icon_flutter.817b4a56b047d0d36b338dd9ffd44dbd.svg',
+		note: 'Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'Node.js',
+		icon: 'nodedotjs',
+		sourceName: 'Node.js — Branding of Node.js',
+		sourceUrl: 'https://nodejs.org/static/logos/jsIconGreen.svg',
+		note: 'Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'Python',
+		icon: 'python',
+		sourceName: 'Python.org',
+		sourceUrl:
+			'https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/files/python-logo-only.svg',
+		note: 'Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'Express',
+		icon: 'express',
+		sourceName: 'Simple Icons',
+		sourceUrl: 'https://simpleicons.org/icons/express.svg',
 		modified: true,
 		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'Tailwind CSS',
-		icon: 'tailwindcss',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/tailwindcss.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
-	},
-	{
-		skillName: 'Flutter',
-		icon: 'flutter',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/flutter.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
-	},
-	{
-		skillName: 'Node.js',
-		icon: 'nodedotjs',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/nodedotjs.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
-	},
-	{
-		skillName: 'Python',
-		icon: 'python',
-		sourceName: 'Python.org',
-		sourceUrl: 'https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/files/python-logo-only.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
-	},
-	{
-		skillName: 'Express',
-		icon: 'express',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/express.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
-	},
-	{
-		skillName: 'FastAPI',
+		name: 'FastAPI',
 		icon: 'fastapi',
 		sourceName: 'Simple Icons',
 		sourceUrl: 'https://simpleicons.org/icons/fastapi.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
+		modified: true,
+		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'REST',
+		name: 'REST',
 		icon: 'rest',
 		sourceName: 'Project custom icon',
 		license: 'Proprietary (this project)',
 		note: 'Drawn and maintained in this repository.'
 	},
 	{
-		skillName: 'GraphQL',
+		name: 'GraphQL',
 		icon: 'graphql',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/graphql.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+		sourceName: 'GraphQL Logo & Brand Guidelines | GraphQL',
+		sourceUrl: 'https://graphql.org/brand/',
 		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'PostgreSQL',
+		name: 'PostgreSQL',
 		icon: 'postgresql',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/postgresql.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+		sourceName: 'PostgreSQL wiki',
+		sourceUrl: 'https://wiki.postgresql.org/images/a/a4/PostgreSQL_logo.3colors.svg',
 		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'Redis',
+		name: 'Redis',
 		icon: 'redis',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/redis.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+		sourceName: 'Redis Brand Guidelines',
+		sourceUrl: 'https://brand.redis.io/document/4#/visual-guidelines/logo',
 		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'MongoDB',
+		name: 'MongoDB',
 		icon: 'mongodb',
-		sourceName: 'Simple Icons',
+		sourceName: 'MongoDB Brand Resources',
 		sourceUrl: 'https://simpleicons.org/icons/mongodb.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
 		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'SQLite',
+		name: 'SQLite',
 		icon: 'sqlite',
 		sourceName: 'Simple Icons',
 		sourceUrl: 'https://simpleicons.org/icons/sqlite.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
+		modified: true,
+		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'Docker',
+		name: 'Docker',
 		icon: 'docker',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/docker.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+		sourceName: 'Docker Brand Guidelines',
+		sourceUrl: 'https://www.docker.com/company/newsroom/media-resources/',
 		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'GitHub Actions',
+		name: 'GitHub',
+		icon: 'github',
+		sourceName: 'GitHub Brand Toolkit',
+		sourceUrl: 'https://brand.github.com/GitHub_Logos.zip',
+		note: 'Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'GitHub Actions',
 		icon: 'githubactions',
 		sourceName: 'Simple Icons',
 		sourceUrl: 'https://simpleicons.org/icons/githubactions.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-		note: 'Brand names and trademarks belong to their respective owners.'
+		modified: true,
+		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'AWS',
+		name: 'AWS',
 		icon: 'aws',
 		sourceName: 'Wikimedia Commons (source: Amazon)',
 		sourceUrl: 'https://commons.wikimedia.org/wiki/File:Amazon_Web_Services_Logo.svg',
 		license: 'Apache License 2.0',
 		licenseUrl: 'https://www.apache.org/licenses/LICENSE-2.0',
-		note: 'Copyright Amazon Web Services; trademark usage still follows AWS trademark guidelines.'
+		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'GCP',
+		name: 'GCP',
 		icon: 'googlecloud',
 		sourceName: 'Wikimedia Commons',
 		sourceUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg',
-		license: 'CC0 1.0 Universal',
 		modified: true,
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
 		note: 'Modified for text removal. Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'Railway',
+		name: 'Railway',
 		icon: 'railway',
-		sourceName: 'Simple Icons',
-		sourceUrl: 'https://simpleicons.org/icons/railway.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+		sourceName: 'Railway Design',
+		sourceUrl: 'https://railway.com/brand/logo-light.svg',
 		note: 'Brand names and trademarks belong to their respective owners.'
 	},
 	{
-		skillName: 'Cloudflare',
+		name: 'Cloudflare',
 		icon: 'cloudflare',
 		sourceName: 'Simple Icons',
 		sourceUrl: 'https://simpleicons.org/icons/cloudflare.svg',
-		license: 'CC0 1.0 Universal',
-		licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+		modified: true,
+		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'Facebook',
+		icon: 'facebook',
+		sourceName: 'Simple Icons',
+		sourceUrl: 'https://simpleicons.org/icons/facebook.svg',
+		modified: true,
+		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'Discord',
+		icon: 'discord',
+		sourceName: "Discord's Brand Guidelines",
+		sourceUrl: 'https://discord.com/branding',
 		note: 'Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'LinkedIn',
+		icon: 'linkedin',
+		sourceName: 'Wikimedia Commons',
+		sourceUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg',
+		note: 'Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'Mail',
+		icon: 'mail',
+		sourceName: 'Lucide',
+		sourceUrl: 'https://lucide.dev/icons/mail',
+		modified: true,
+		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
+	},
+	{
+		name: 'Location',
+		icon: 'location',
+		sourceName: 'Lucide',
+		sourceUrl: 'https://lucide.dev/icons/map-pin',
+		modified: true,
+		note: 'Modified for color fill. Brand names and trademarks belong to their respective owners.'
 	}
 ];
 
