@@ -37,7 +37,7 @@
 
 {#if isOpen}
 	<div
-		class="fixed inset-0 z-[300] flex animate-[fadeIn_var(--transition-base)] items-center justify-center bg-black/80"
+		class="fixed inset-0 z-300 flex animate-[fadeIn_var(--transition-base)] items-center justify-center bg-black/80"
 		role="dialog"
 		aria-modal="true"
 		aria-label={title}
@@ -59,7 +59,7 @@
 				</button>
 			</div>
 			<div class="flex items-center justify-center overflow-auto p-6">
-				<img src={imageUrl} alt={title} class="max-h-[80vh] w-auto object-contain" />
+				<img src={imageUrl} alt={title} loading="lazy" class="max-h-[80vh] w-auto object-contain" />
 			</div>
 		</div>
 	</div>

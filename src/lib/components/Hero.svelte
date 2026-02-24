@@ -53,7 +53,7 @@
 
 <!-- Hero Section -->
 <section
-	class="relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-bg-primary px-6 py-12 before:absolute before:top-[-50%] before:right-[-50%] before:h-full before:w-full before:animate-[pulse_8s_ease-in-out_infinite] before:bg-[radial-gradient(circle,rgba(132,204,22,0.05)_0%,transparent_70%)] before:content-['']"
+	class="relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-bg-primary px-6 py-12 before:absolute before:top-[-50%] before:right-[-50%] before:h-full before:w-full before:animate-[pulse_8s_ease-in-out_infinite] before:content-['']"
 	data-testid="hero-section"
 >
 	<div class="z-1 w-full text-center">

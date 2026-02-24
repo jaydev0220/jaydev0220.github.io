@@ -74,7 +74,12 @@
 										class="flex flex-col items-center gap-2 border border-transparent bg-bg-tertiary p-6 transition-all duration-(--transition-base) hover:border-accent-primary"
 										data-testid={`tech-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
 									>
-										<img src={iconMap[skill.icon]} alt={skill.name} class="h-8 w-auto" />
+										<img
+											src={iconMap[skill.icon]}
+											alt={skill.name}
+											loading="lazy"
+											class="h-8 w-auto"
+										/>
 										<span class="text-center text-sm font-medium text-text-secondary"
 											>{skill.name}</span
 										>
