@@ -92,9 +92,5 @@
 				</tbody>
 			</table>
 		</div>
-
-		<p class="mt-4 text-xs text-text-muted">
-			商標與品牌名稱歸各自權利人所有；使用品牌標誌時仍需遵循其品牌使用規範。
-		</p>
 	</div>
 </div>
