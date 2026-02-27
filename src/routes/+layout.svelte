@@ -44,9 +44,10 @@
 			"name": "謝孟哲",
 			"url": "https://www.hsieh-dev.us.ci",
 			"sameAs": [
-				"https://www.facebook.com/jayxie9499/",
+				"https://www.facebook.com/jaydev0220/",
 				"https://linkedin.com/in/mengche0220",
-				"https://github.com/JayXie9499"
+				"https://github.com/jaydev0220",
+				"https://x.com/jay_dev0220"
 			],
 			"jobTitle": "學生"
 		}

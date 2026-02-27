@@ -80,7 +80,7 @@ export const resume: ResumeData = {
 export const socialLinks: SocialLink[] = [
 	{
 		name: 'Facebook',
-		url: 'https://www.facebook.com/jayxie9499/',
+		url: 'https://www.facebook.com/jaydev0220/',
 		icon: 'facebook'
 	},
 	{
@@ -95,7 +95,7 @@ export const socialLinks: SocialLink[] = [
 	},
 	{
 		name: 'GitHub',
-		url: 'https://github.com/JayXie9499',
+		url: 'https://github.com/jaydev0220',
 		icon: 'github'
 	},
 	{
@@ -432,7 +432,7 @@ export const projects: Project[] = [
 			'A simple web app that displays a random daily quote, built with HTML, CSS, and JavaScript.',
 		type: [],
 		technologies: ['HTML', 'CSS', 'JavaScript', 'RWD', 'Local Storage'],
-		githubUrl: 'https://github.com/JayXie9499/daily-quote-generator',
+		githubUrl: 'https://github.com/jaydev0220/daily-quote-generator',
 		liveUrl: '/daily-quote-generator'
 	},
 	{
@@ -442,7 +442,7 @@ export const projects: Project[] = [
 			'A password strength checker that evaluates passwords based on length, character diversity, and common patterns, providing feedback and suggestions.',
 		type: [],
 		technologies: ['Python'],
-		githubUrl: 'https://github.com/JayXie9499/password-strength-checker',
+		githubUrl: 'https://github.com/jaydev0220/password-strength-checker',
 		liveUrl: '/password-strength-checker'
 	},
 	{
@@ -452,7 +452,7 @@ export const projects: Project[] = [
 			'A simple Pomodoro timer built with Vue 3. Supports custom intervals, plays a ringtone at phase transitions, and allows volume adjustment.',
 		type: [],
 		technologies: ['Vue.js', 'CSS', 'JavaScript', 'RWD'],
-		githubUrl: 'https://github.com/JayXie9499/pomodoro-timer',
+		githubUrl: 'https://github.com/jaydev0220/pomodoro-timer',
 		liveUrl: '/pomodoro-timer'
 	},
 	{
@@ -461,7 +461,7 @@ export const projects: Project[] = [
 		description: 'A small demo showing simple CSS 3D cubes with X/Y spin animations.',
 		type: [],
 		technologies: ['HTML', 'CSS', 'RWD'],
-		githubUrl: 'https://github.com/JayXie9499/css-3d',
+		githubUrl: 'https://github.com/jaydev0220/css-3d',
 		liveUrl: '/css-3d'
 	}
 ];
