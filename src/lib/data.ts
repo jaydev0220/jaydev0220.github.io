@@ -138,6 +138,7 @@ export const skillCategories: SkillCategory[] = [
 			{ name: 'TypeScript', icon: 'typescript' },
 			{ name: 'Svelte', icon: 'svelte' },
 			{ name: 'Vue.js', icon: 'vuedotjs' },
+			{ name: 'React', icon: 'react' },
 			{ name: 'Tailwind CSS', icon: 'tailwindcss' },
 			{ name: 'Flutter', icon: 'flutter' }
 		]
