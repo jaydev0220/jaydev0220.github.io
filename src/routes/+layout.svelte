@@ -98,6 +98,12 @@
 					"position": 7,
 					"name": "Simple TODO List",
 					"item": "https://www.hsieh-dev.us.ci/simple-todo-list"
+				},
+				{
+					"@type": "ListItem",
+					"position": 8,
+					"name": "Color Palette",
+					"item": "https://www.hsieh-dev.us.ci/color-palette"
 				}
 			]
 		}

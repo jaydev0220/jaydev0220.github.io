@@ -481,6 +481,16 @@ export const projects: Project[] = [
 		technologies: ['React', 'CSS', 'TypeScript', 'RWD'],
 		githubUrl: 'https://github.com/jaydev0220/simple-todo-list',
 		liveUrl: '/simple-todo-list'
+	},
+	{
+		id: '6',
+		title: 'Color Palette',
+		description:
+			'A fast and reactive color palette generator and theme preview tool. Built to help developers and designers visualize and tweak UI color schemes in real time, then easily export their work.',
+		type: [],
+		technologies: ['Svelte', 'Tailwind CSS', 'TypeScript'],
+		githubUrl: 'https://github.com/jaydev0220/color-palette',
+		liveUrl: '/color-palette'
 	}
 ];
 
