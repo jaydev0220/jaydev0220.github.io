@@ -491,6 +491,15 @@ export const projects: Project[] = [
 		technologies: ['Svelte', 'Tailwind CSS', 'TypeScript'],
 		githubUrl: 'https://github.com/jaydev0220/color-palette',
 		liveUrl: '/color-palette'
+	},
+	{
+		id: '7',
+		title: '水水 個人網頁',
+		description: '',
+		type: [],
+		technologies: ['Svelte', 'Tailwind CSS', 'TypeScript'],
+		githubUrl: 'https://github.com/suisui0528/suisui0528.github.io',
+		liveUrl: 'https://suisui0528.github.io'
 	}
 ];
 
