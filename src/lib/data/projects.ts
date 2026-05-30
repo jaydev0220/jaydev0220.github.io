@@ -28,6 +28,15 @@ export const projects: Project[] = [
 		liveUrl: 'https://eddyb5201314-afk.github.io'
 	},
 	{
+		title: 'EvoSnake',
+		description:
+			'EvoSnake is a fast browser snake game with special apples, surprise live events, and leaderboard pressure. It starts simple, then keeps changing the rules just enough to stay tense.',
+		type: ['creative'],
+		technologies: ['Vue.js', 'Tailwind CSS', 'TypeScript', 'RWD'],
+		githubUrl: 'https://github.com/jaydev0220/evo-snake',
+		liveUrl: 'https://snake.mengche.dev'
+	},
+	{
 		title: "SuiSui's Personal Website",
 		description:
 			'A high-performance Svelte website for VTuber 水水, optimized for static deployment, responsive presentation, and a modern branded fan experience.',
