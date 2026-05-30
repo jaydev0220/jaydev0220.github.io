@@ -43,7 +43,7 @@ export const projects: Project[] = [
 		type: ['tool'],
 		technologies: ['Vue.js', 'CSS', 'JavaScript', 'RWD'],
 		githubUrl: 'https://github.com/jaydev0220/pomodoro-timer',
-		liveUrl: '/pomodoro-timer'
+		liveUrl: 'https://www.mengche.dev/pomodoro-timer'
 	},
 	{
 		title: 'Simple TODO List',
@@ -52,7 +52,7 @@ export const projects: Project[] = [
 		type: ['tool'],
 		technologies: ['React', 'CSS', 'TypeScript', 'RWD'],
 		githubUrl: 'https://github.com/jaydev0220/simple-todo-list',
-		liveUrl: '/simple-todo-list'
+		liveUrl: 'https://www.mengche.dev/simple-todo-list'
 	},
 	{
 		title: 'Daily Quote Generator',
@@ -61,7 +61,7 @@ export const projects: Project[] = [
 		type: ['creative'],
 		technologies: ['HTML', 'CSS', 'JavaScript', 'RWD', 'Local Storage'],
 		githubUrl: 'https://github.com/jaydev0220/daily-quote-generator',
-		liveUrl: '/daily-quote-generator'
+		liveUrl: 'https://www.mengche.dev/daily-quote-generator'
 	},
 	{
 		title: 'Unlockture 2025 Memorial',
@@ -70,7 +70,7 @@ export const projects: Project[] = [
 		type: ['creative'],
 		technologies: ['Vue.js', 'Sass', 'TypeScript', 'RWD'],
 		githubUrl: 'https://github.com/jaydev0220/unlockture-2025-memorial',
-		liveUrl: '/unlockture-2025-memorial'
+		liveUrl: 'https://www.mengche.dev/unlockture-2025-memorial'
 	},
 	{
 		title: 'CSS 3D',
@@ -79,7 +79,7 @@ export const projects: Project[] = [
 		type: ['creative'],
 		technologies: ['HTML', 'CSS', 'RWD'],
 		githubUrl: 'https://github.com/jaydev0220/css-3d',
-		liveUrl: '/css-3d'
+		liveUrl: 'https://www.mengche.dev/css-3d'
 	},
 	{
 		title: 'Color Palette',
@@ -88,7 +88,7 @@ export const projects: Project[] = [
 		type: ['tool'],
 		technologies: ['Svelte', 'Tailwind CSS', 'TypeScript'],
 		githubUrl: 'https://github.com/jaydev0220/color-palette',
-		liveUrl: '/color-palette'
+		liveUrl: 'https://www.mengche.dev/color-palette'
 	},
 	{
 		title: 'Password Strength Checker',
@@ -97,7 +97,7 @@ export const projects: Project[] = [
 		type: ['tool'],
 		technologies: ['Python'],
 		githubUrl: 'https://github.com/jaydev0220/password-strength-checker',
-		liveUrl: '/password-strength-checker'
+		liveUrl: 'https://www.mengche.dev/password-strength-checker'
 	}
 ];
 
