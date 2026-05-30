@@ -1,7 +1,7 @@
 import type { OptionsSvelteSitemap } from 'svelte-sitemap';
 
 const config: OptionsSvelteSitemap = {
-	domain: process.env['SITE_URL'] ?? 'https://www.mengche.dev',
+	domain: process.env['PUBLIC_SITE_URL'] ?? 'https://www.mengche.dev',
 	resetTime: true
 };
 

@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PUBLIC_CDN_URL: ${{ vars.CDN_URL }}
+      PUBLIC_SITE_URL: https://www.${{ vars.DOMAIN }}
 
     steps:
       - name: Checkout repository
@@ -40,9 +41,6 @@ jobs:
 
       - name: Build site
         run: pnpm run build
-
-      - name: Generate sitemap
-        run: pnpm run postbuild -d https://www.${{ vars.DOMAIN }}
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

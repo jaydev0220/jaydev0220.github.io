@@ -9,11 +9,11 @@
 	import SkillsSection from '$lib/components/SkillsSection.svelte';
 	import PortfolioSection from '$lib/components/PortfolioSection.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { PUBLIC_CDN_URL } from '$env/static/public';
+	import { PUBLIC_CDN_URL, PUBLIC_SITE_URL } from '$env/static/public';
 
 	const title = '謝孟哲 - 全端工程師';
 	const description = resume.about.join('');
-	const url = page.url.toString();
+	const url = PUBLIC_SITE_URL;
 	const language = 'zh-tw';
 	const seoConfig: SeoConfig = {
 		title,
