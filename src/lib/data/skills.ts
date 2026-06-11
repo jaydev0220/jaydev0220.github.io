@@ -11,9 +11,9 @@ export const skillCategories: SkillCategory[] = [
 			{ name: 'Svelte', icon: 'skill-icons:svelte' },
 			{ name: 'Vue.js', icon: 'skill-icons:vuejs-light' },
 			{ name: 'React', icon: 'skill-icons:react-light' },
+			{ name: 'Next.js', icon: 'skill-icons:nextjs-light' },
 			{ name: 'Tailwind CSS', icon: 'skill-icons:tailwindcss-light' },
-			{ name: 'Sass', icon: 'skill-icons:sass' },
-			{ name: 'Flutter', icon: 'skill-icons:flutter-light' }
+			{ name: 'Sass', icon: 'skill-icons:sass' }
 		]
 	},
 	{
@@ -23,7 +23,7 @@ export const skillCategories: SkillCategory[] = [
 			{ name: 'Python', icon: 'skill-icons:python-light' },
 			{ name: 'Express', icon: 'skill-icons:expressjs-light' },
 			{ name: 'FastAPI', icon: 'skill-icons:fastapi' },
-			{ name: 'GraphQL', icon: 'skill-icons:graphql-light' }
+			{ name: 'Prisma', icon: 'skill-icons:prisma' }
 		]
 	},
 	{
