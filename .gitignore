@@ -1,25 +1,28 @@
 node_modules
-
-# Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
-/build
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Env
+.pnpm-store
 .env
 .env.*
 !.env.example
-!.env.test
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.DS_Store
 
-# Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
-# Playwright
+# Build output
+build
+dist
+.svelte-kit
+.wrangler
+coverage
+playwright-report
 test-results
+.lighthouseci
+
+# Generated localization output
+apps/site/src/lib/paraglide
+apps/site/project.inlang/cache
+apps/site/project.inlang/.meta.json
+apps/site/project.inlang/README.md
+
+# Temporary migration archive; must never be tracked
+plans/

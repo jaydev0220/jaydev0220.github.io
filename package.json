@@ -1,29 +1,32 @@
 {
-	"name": "personal-website",
-	"description": "A static personal website built with SvelteKit.",
-	"license": "CC-BY-NC-ND-4.0",
+	"name": "mengche-dev",
+	"description": "Bilingual freelance portfolio and inquiry service for MengChe Dev.",
 	"private": true,
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"type": "module",
+	"engines": {
+		"node": ">=24 <25"
+	},
+	"packageManager": "pnpm@10.17.1",
+	"license": "MIT",
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"postbuild": "svelte-sitemap",
-		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"dev": "pnpm --filter @mengche/site dev",
+		"dev:worker": "pnpm --filter @mengche/inquiry-worker dev",
+		"build": "pnpm -r build",
+		"check": "pnpm -r check",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"test": "vitest run --config vitest.config.ts",
+		"test:watch": "vitest --config vitest.config.ts",
+		"test:e2e": "pnpm --filter @mengche/site test:e2e",
+		"lighthouse": "lhci autorun",
+		"content:validate": "tsx packages/content/scripts/validate.ts"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.1.0",
 		"@eslint/js": "^10.0.1",
-		"@iconify/svelte": "^5.2.1",
-		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.61.1",
-		"@sveltejs/vite-plugin-svelte": "^7.1.2",
-		"@tailwindcss/vite": "^4.3.0",
+		"@lhci/cli": "^0.15.1",
+		"@playwright/test": "^1.61.1",
 		"@types/node": "^24.12.4",
 		"eslint": "^10.4.0",
 		"eslint-config-prettier": "^10.1.8",
@@ -32,13 +35,9 @@
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^4.0.1",
 		"prettier-plugin-tailwindcss": "^0.8.0",
-		"svead": "^0.0.16",
-		"svelte": "^5.55.10",
-		"svelte-check": "^4.4.8",
-		"svelte-sitemap": "^3.2.0",
-		"tailwindcss": "^4.3.0",
+		"tsx": "^4.20.6",
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.60.0",
-		"vite": "^8.0.14"
+		"vitest": "^4.1.10"
 	}
 }

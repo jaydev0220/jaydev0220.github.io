@@ -6,11 +6,21 @@ import svelte from 'eslint-plugin-svelte';
 import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 import ts from 'typescript-eslint';
-import svelteConfig from './svelte.config.js';
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 
 export default defineConfig(
+	{
+		ignores: [
+			'src/**',
+			'static/**',
+			'svelte.config.js',
+			'svelte-sitemap.config.ts',
+			'vite.config.ts',
+			'apps/site/src/lib/paraglide/**',
+			'apps/inquiry-worker/worker-configuration.d.ts'
+		]
+	},
 	includeIgnoreFile(gitignorePath),
 	js.configs.recommended,
 	...ts.configs.recommended,
@@ -18,30 +28,23 @@ export default defineConfig(
 	prettier,
 	...svelte.configs.prettier,
 	{
-		languageOptions: { globals: { ...globals.browser, ...globals.node } },
+		languageOptions: {
+			globals: { ...globals.browser, ...globals.node, ...globals.worker }
+		},
 		rules: {
 			'no-undef': 'off'
 		}
 	},
 	{
-		files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
+		files: ['**/*.svelte'],
 		languageOptions: {
 			parserOptions: {
-				projectService: true,
 				extraFileExtensions: ['.svelte'],
-				parser: ts.parser,
-				svelteConfig
+				parser: ts.parser
 			}
 		},
 		rules: {
-			// Disable no-navigation-without-resolve for links as we use custom navigation
-			// handlers (onclick with preventDefault) for smooth scrolling and external links
-			'svelte/no-navigation-without-resolve': [
-				'error',
-				{
-					ignoreLinks: true
-				}
-			]
+			'svelte/no-navigation-without-resolve': ['error', { ignoreLinks: true }]
 		}
 	}
 );

@@ -1,26 +1,16 @@
-name: Deploy to GitHub Pages
+name: Validate
 
 on:
+  pull_request:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [main]
 
 permissions:
-  id-token: write
   contents: read
-  pages: write
 
 jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  validate:
     runs-on: ubuntu-latest
-    env:
-      PUBLIC_CDN_URL: ${{ vars.CDN_URL }}
-      PUBLIC_SITE_URL: https://www.${{ vars.DOMAIN }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -28,28 +18,47 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.17.1
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '24'
-          cache: 'pnpm'
+          cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      - name: Build site
-        run: pnpm run build
+      - name: Validate content
+        run: pnpm content:validate
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Check types and Svelte
+        run: pnpm check
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: ./build
+      - name: Run unit tests
+        run: pnpm test
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Check formatting and lint
+        run: pnpm lint
+
+      - name: Build deployables
+        run: pnpm build
+        env:
+          PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
+          PUBLIC_CONTACT_API_ORIGIN: https://contact.mengche.dev
+          PUBLIC_CF_ANALYTICS_TOKEN: ''
+
+      - name: Install browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run browser tests
+        run: pnpm test:e2e
+        env:
+          PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
+          PUBLIC_CONTACT_API_ORIGIN: https://contact.mengche.dev
+          PUBLIC_CF_ANALYTICS_TOKEN: ''
+
+      - name: Run Lighthouse CI
+        run: |
+          export CHROME_PATH="$(find "$HOME/.cache/ms-playwright" -type f -path '*/chrome-linux64/chrome' | sort | tail -1)"
+          pnpm lighthouse

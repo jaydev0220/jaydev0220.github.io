@@ -1,0 +1,12 @@
+# Asset and trademark ledger
+
+> Audience: repository maintainers and contributors.
+
+| ID                     | Asset or mark                                                               | Source                                                 | Ownership or governing terms                                                     | Permitted use in this site                                                                  | Status             |
+| ---------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------ |
+| `toeic-885`            | TOEIC Gold credential image                                                 | `https://cdn.mengche.dev/certificates/toeic-2023.webp` | Personal credential image; all rights reserved except issuer rights in its marks | Linked from the About page as factual qualification evidence                                | Approved           |
+| `mengche-dev-wordmark` | “MengChe Dev” typography-only wordmark                                      | Site text and system font stack                        | Original site branding; all rights reserved                                      | Navigation, metadata, footer, and commercial pages                                          | Approved           |
+| `technology-names`     | Svelte, TypeScript, Vue, PostgreSQL, Cloudflare, and other technology names | Text records in `packages/content/src/projects.ts`     | Names and trademarks remain with their respective owners                         | Factual identification of project technologies only; no endorsement claim                   | Approved           |
+| `case-study-media`     | Future screenshots and architecture diagrams                                | Existing MengChe Dev CDN                               | Must be owned, licensed, or published with collaborator permission               | Relevant case-study pages only; customer and operational data must be synthetic or redacted | Pending media URLs |
+
+No third-party technology logos are currently rendered. Adding a logo or media asset requires a ledger row, verified usage rights, localized alternative text where applicable, and explicit dimensions in the content record.

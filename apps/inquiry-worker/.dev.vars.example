@@ -1,0 +1,2 @@
+TURNSTILE_SECRET_KEY="replace-with-a-local-turnstile-test-secret"
+RATE_LIMIT_SECRET="replace-with-a-random-local-secret"

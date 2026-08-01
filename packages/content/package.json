@@ -1,0 +1,21 @@
+{
+	"name": "@mengche/content",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts",
+		"./case-studies": "./src/case-studies.ts"
+	},
+	"scripts": {
+		"build": "tsc --noEmit",
+		"check": "tsc --noEmit",
+		"test": "vitest run"
+	},
+	"devDependencies": {
+		"@types/node": "^24.12.4",
+		"svelte": "^5.55.10",
+		"typescript": "^6.0.3",
+		"vitest": "^4.1.10"
+	}
+}

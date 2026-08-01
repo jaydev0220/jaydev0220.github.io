@@ -1,0 +1,37 @@
+{
+	"name": "@mengche/site",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"paraglide:compile": "paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide --strategy url baseLocale --emit-ts-declarations",
+		"dev": "pnpm paraglide:compile && vite dev",
+		"build": "pnpm paraglide:compile && vite build",
+		"preview": "vite preview",
+		"check": "pnpm paraglide:compile && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"test": "vitest run",
+		"test:e2e": "playwright test",
+		"deploy": "wrangler deploy"
+	},
+	"dependencies": {
+		"@inlang/paraglide-js": "^2.21.0",
+		"@mengche/content": "workspace:*",
+		"@mengche/shared": "workspace:*"
+	},
+	"devDependencies": {
+		"@iconify-svelte/tabler": "^1.0.17",
+		"@playwright/test": "^1.61.1",
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.61.1",
+		"@sveltejs/vite-plugin-svelte": "^7.1.2",
+		"@tailwindcss/vite": "^4.3.0",
+		"mdsvex": "^0.12.7",
+		"svelte": "^5.55.10",
+		"svelte-check": "^4.4.8",
+		"tailwindcss": "^4.3.0",
+		"typescript": "^6.0.3",
+		"vite": "^8.0.14",
+		"vitest": "^4.1.10",
+		"wrangler": "^4.36.0"
+	}
+}

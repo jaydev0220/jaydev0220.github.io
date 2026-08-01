@@ -1,42 +1,85 @@
-# Agent Instructions
+# Repository Instructions
 
-## Tech Stack
+## Repository Overview
 
-- **Framework:** Svelte v5, SvelteKit v2
-- **Styling:** Tailwind CSS v4
-- **Language:** TypeScript 5.9
-- **Linting:** ESLint, Prettier
-- **Icons:** Iconify (`@iconify/svelte`)
-- **Deployment:** GitHub Pages (via `@sveltejs/adapter-static`)
-- **Package Manager:** pnpm 10
+This repository is a pnpm monorepo for the MengChe Dev personal and commission website.
 
-## Directory Structure
+- `apps/site`: bilingual SvelteKit website deployed as a Cloudflare Worker with static assets
+- `apps/inquiry-worker`: Cloudflare Worker that validates and delivers contact-form inquiries
+- `packages/content`: manually maintained bilingual services, projects, profile data, and Markdown project content
+- `packages/shared`: shared inquiry schemas and TypeScript utilities
+- `docs`: content maintenance, design system, and asset licensing documentation
 
-```
-project-root/
-|-- src/
-|   |-- lib/
-|   |   |-- components/ # Reusable UI components
-|   |   |-- data/       # Page data files
-|   |   `-- utils.ts    # Utility functions
-|   `-- routes/
-|       |-- [...404]/   # Custom 404 page
-|       `-- layout.css  # Global CSS styles
-|-- static/             # Static assets
-`-- svelte.config.js    # Svelte and SvelteKit configuration
-```
+## Technology
 
-## Action Rules
+- Node.js 24
+- pnpm 10
+- TypeScript 6
+- Svelte 5 and SvelteKit 2
+- Vite 8
+- Paraglide for English and Traditional Chinese localization
+- mdsvex for long-form project content
+- Custom CSS tokens and component styles under `apps/site/src/lib/styles`
+- Iconify with locally bundled icon data
+- Vitest and Playwright
+- Cloudflare Workers and Wrangler
 
-- **Documentation Updates:** Modify README.md immediately when altering setup instructions, dependencies, or core features.
-- **Git Commits:** Commit after every discrete unit of work. Never batch unrelated changes. Use `git-commit` skill for format and examples.
+## Source of Truth
 
-## Available Scripts
+- Public structured content belongs in `packages/content/src`.
+- Long-form project pages belong in `packages/content/case-studies`.
+- Interface and marketing messages belong in `apps/site/messages/en.json` and `apps/site/messages/zh-TW.json`.
+- Shared inquiry validation belongs in `packages/shared`.
+- Generated Paraglide output under `apps/site/src/lib/paraglide` must not be edited directly.
+- Generated Worker types under `apps/inquiry-worker/worker-configuration.d.ts` must not be edited directly.
+
+Keep English and Traditional Chinese content aligned. Run `pnpm content:validate` after changing services, projects, or project Markdown.
+
+## Website Conventions
+
+- Preserve localized routes under `/en` and `/zh-tw`.
+- Use `localizedPath` for internal localized links.
+- Use Svelte 5 runes and current event syntax.
+- Use semantic HTML and accessible names for icon-only controls.
+- Reuse design tokens and shared styles instead of introducing isolated visual values.
+- Use Iconify icons already available in the site package or bundle explicit icon data when a brand icon is required.
+- Keep displayed project and service data easy to edit manually.
+- Do not add unverified client outcomes, metrics, testimonials, or adoption claims.
+
+## Development Commands
 
 ```bash
-pnpm dev       # Start dev server
-pnpm build     # Production build
-pnpm check     # Run type check
-pnpm lint      # Check formatting & lint
-pnpm format    # Auto-format code
+pnpm dev               # Start the website development server
+pnpm dev:worker        # Start the inquiry Worker locally
+pnpm content:validate  # Validate services, projects, and bilingual project content
+pnpm lint              # Check Prettier formatting and ESLint
+pnpm check             # Run TypeScript and Svelte checks across the workspace
+pnpm test              # Run Vitest tests
+pnpm test:e2e          # Run Playwright browser tests
+pnpm build             # Build all deployable workspace packages
+pnpm lighthouse        # Run Lighthouse CI locally
 ```
+
+Run the relevant focused checks while editing. Before completing repository-wide changes, run:
+
+```bash
+pnpm content:validate
+pnpm lint
+pnpm check
+pnpm test
+pnpm build
+```
+
+Run `pnpm test:e2e` when changing navigation, localization, themes, forms, or important page layout behavior.
+
+## Deployment
+
+- `.github/workflows/main.yml` validates pull requests and pushes to `main`.
+- `.github/workflows/site.yml` deploys `apps/site` to Cloudflare.
+- `.github/workflows/worker.yml` deploys `apps/inquiry-worker` to Cloudflare.
+- Website deployment requires the Cloudflare API credentials and public site environment variables documented in `README.md`.
+- Inquiry Worker secrets are managed by Wrangler and must never be committed.
+
+## Documentation
+
+Update `README.md` when setup, scripts, environment variables, deployment, or repository structure changes. Update the relevant file under `docs` when changing content maintenance rules, design tokens, or asset licensing.

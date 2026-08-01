@@ -1,9 +1,21 @@
-# Package Managers
-package-lock.json
-pnpm-lock.yaml
-yarn.lock
-bun.lock
-bun.lockb
+node_modules
+build
+.svelte-kit
+.wrangler
+coverage
+playwright-report
+test-results
+apps/site/src/lib/paraglide
+plans
 
-# Miscellaneous
-/static/
+# Superseded pre-workspace application files retained until they can be deleted
+/src
+/static
+/svelte.config.js
+/svelte-sitemap.config.ts
+/vite.config.ts
+
+# Generated files
+apps/inquiry-worker/worker-configuration.d.ts
+apps/site/project.inlang/.meta.json
+apps/site/project.inlang/README.md
