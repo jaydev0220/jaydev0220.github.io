@@ -88,7 +88,7 @@ pnpm build
 Validation errors identify the record and field, for example:
 
 ```text
-projects.nrg-commerce.live-project must be a valid HTTPS URL
-services.marketing-site.relatedProjectSlug references an unknown project
-case-studies/zh-tw/ping-board.md is missing
+projects.nrg-commerce.live-preview must be a valid HTTPS URL
+services.marketing-site prices must be positive
+case-studies/zh-tw/nrg-commerce.md is missing
 ```

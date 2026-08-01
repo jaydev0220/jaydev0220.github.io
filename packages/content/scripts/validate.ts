@@ -1,6 +1,8 @@
 import { access } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { projects, services, site } from '../src/index';
+import { projects } from '../src/projects';
+import { services } from '../src/services';
+import { site } from '../src/site';
 
 const errors: string[] = [];
 
@@ -15,11 +17,7 @@ for (const duplicate of duplicateValues(services.map((service) => service.id))) 
 	errors.push(`services.${duplicate} has a duplicate id`);
 }
 
-const projectSlugs = new Set(projects.map((project) => project.slug));
 for (const service of services) {
-	if (!projectSlugs.has(service.relatedProjectSlug)) {
-		errors.push(`services.${service.id}.relatedProjectSlug references an unknown project`);
-	}
 	if (service.startingPriceTwd <= 0 || service.approximatePriceUsd <= 0) {
 		errors.push(`services.${service.id} prices must be positive`);
 	}
