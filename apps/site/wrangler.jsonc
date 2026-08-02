@@ -3,10 +3,7 @@
   "name": "mengche-dev-site",
   "main": "worker/index.js",
   "compatibility_date": "2026-07-25",
-  "routes": [
-    { "pattern": "www.mengche.dev", "custom_domain": true },
-    { "pattern": "mengche.dev", "custom_domain": true }
-  ],
+  "routes": [{ "pattern": "www.mengche.dev", "custom_domain": true }],
   "assets": {
     "binding": "ASSETS",
     "directory": "./build",
