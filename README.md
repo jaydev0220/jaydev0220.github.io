@@ -70,8 +70,10 @@ Required GitHub Actions secrets:
 - `CLOUDFLARE_ACCOUNT_ID`
 - `TURNSTILE_SITE_KEY`
 - `CF_WEB_ANALYTICS_TOKEN`
+- `TURNSTILE_SECRET_KEY`
+- `RATE_LIMIT_SECRET`
 
-`TURNSTILE_SECRET_KEY` and `RATE_LIMIT_SECRET` are Worker secrets managed in Cloudflare, not GitHub build variables. Configure them from `apps/inquiry-worker` for production with `pnpm wrangler secret put TURNSTILE_SECRET_KEY` and `pnpm wrangler secret put RATE_LIMIT_SECRET`.
+`TURNSTILE_SECRET_KEY` and `RATE_LIMIT_SECRET` are declared as required Worker secrets in `apps/inquiry-worker/wrangler.jsonc`. The Worker deployment workflow writes their GitHub Actions values to a temporary runner file and passes it to `wrangler deploy --secrets-file`, so a fresh Worker receives the secrets in the same deployment that creates its first version. The temporary file is deleted after the deployment step.
 
 Automatic site and inquiry-Worker deployments run only after the `Validate` workflow succeeds for the pushed `main` commit. Manual `workflow_dispatch` deployments remain available for deliberate operator use.
 

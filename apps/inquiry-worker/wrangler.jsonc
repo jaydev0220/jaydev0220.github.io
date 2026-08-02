@@ -17,6 +17,9 @@
     "EMAIL_FROM": "contact@mengche.dev",
     "EMAIL_TO": "contact@mengche.dev"
   },
+  "secrets": {
+    "required": ["TURNSTILE_SECRET_KEY", "RATE_LIMIT_SECRET"]
+  },
   "send_email": [
     {
       "name": "INQUIRY_EMAIL",

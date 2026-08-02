@@ -37,8 +37,41 @@ jobs:
       - name: Validate Worker
         run: pnpm --filter @mengche/inquiry-worker check && pnpm test
 
-      - name: Deploy inquiry Worker
-        run: pnpm --filter @mengche/inquiry-worker deploy
+      - name: Prepare deployment secrets
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+          RATE_LIMIT_SECRET: ${{ secrets.RATE_LIMIT_SECRET }}
+        run: |
+          node --input-type=module --eval '
+            import { writeFileSync } from "node:fs";
+
+            const deploymentCredentials = ["CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ACCOUNT_ID"];
+            const workerSecrets = ["TURNSTILE_SECRET_KEY", "RATE_LIMIT_SECRET"];
+            const requiredValues = [...deploymentCredentials, ...workerSecrets];
+            const missingValues = requiredValues.filter((name) => !process.env[name]);
+
+            if (missingValues.length > 0) {
+              console.error(`Missing required GitHub Actions secrets: ${missingValues.join(", ")}`);
+              process.exit(1);
+            }
+
+            writeFileSync(
+              `${process.env.RUNNER_TEMP}/inquiry-worker-secrets.json`,
+              JSON.stringify(Object.fromEntries(workerSecrets.map((name) => [name, process.env[name]]))),
+              { mode: 0o600 }
+            );
+          '
+
+      - name: Deploy inquiry Worker
+        run: >-
+          pnpm --filter @mengche/inquiry-worker exec wrangler deploy
+          --secrets-file "$RUNNER_TEMP/inquiry-worker-secrets.json"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Remove deployment secret file
+        if: always()
+        run: rm -f "$RUNNER_TEMP/inquiry-worker-secrets.json"
