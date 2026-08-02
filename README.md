@@ -64,7 +64,7 @@ The rewrite uses new primitive, semantic, and component token layers. It does no
 - `www.mengche.dev`: `apps/site`, deployed through `.github/workflows/site.yml`
 - `contact.mengche.dev`: `apps/inquiry-worker`, deployed through `.github/workflows/worker.yml`
 
-Required GitHub Actions secrets:
+Required GitHub Actions `production` environment secrets:
 
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
