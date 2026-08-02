@@ -6,20 +6,20 @@
 @import './lib/styles/components.css';
 
 @theme inline {
-	--color-page: var(--surface-page);
-	--color-section: var(--surface-section);
-	--color-raised: var(--surface-raised);
-	--color-copy: var(--text-primary);
-	--color-secondary: var(--text-secondary);
-	--color-muted: var(--text-muted);
-	--color-accent: var(--accent-primary);
-	--color-border: var(--border-subtle);
-	--font-sans:
-		ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC',
-		'Microsoft JhengHei', sans-serif;
+  --color-page: var(--surface-page);
+  --color-section: var(--surface-section);
+  --color-raised: var(--surface-raised);
+  --color-copy: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent-primary);
+  --color-border: var(--border-subtle);
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC',
+    'Microsoft JhengHei', sans-serif;
 }
 
 ::selection {
-	color: var(--accent-contrast);
-	background: var(--accent-primary);
+  color: var(--accent-contrast);
+  background: var(--accent-primary);
 }

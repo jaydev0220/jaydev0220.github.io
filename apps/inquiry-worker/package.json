@@ -1,21 +1,21 @@
 {
-	"name": "@mengche/inquiry-worker",
-	"version": "1.0.0",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "wrangler dev",
-		"build": "wrangler deploy --dry-run",
-		"check": "wrangler types && tsc --noEmit",
-		"test": "vitest run",
-		"deploy": "wrangler deploy"
-	},
-	"dependencies": {
-		"@mengche/shared": "workspace:*"
-	},
-	"devDependencies": {
-		"typescript": "^6.0.3",
-		"vitest": "^4.1.10",
-		"wrangler": "^4.36.0"
-	}
+  "name": "@mengche/inquiry-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "wrangler deploy --dry-run",
+    "check": "wrangler types && tsc --noEmit",
+    "test": "vitest run",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@mengche/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.36.0"
+  }
 }

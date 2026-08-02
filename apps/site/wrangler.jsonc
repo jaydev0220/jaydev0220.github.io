@@ -1,21 +1,21 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "mengche-dev-site",
-	"main": "worker/index.js",
-	"compatibility_date": "2026-07-25",
-	"routes": [
-		{ "pattern": "www.mengche.dev", "custom_domain": true },
-		{ "pattern": "mengche.dev", "custom_domain": true }
-	],
-	"assets": {
-		"binding": "ASSETS",
-		"directory": "./build",
-		"html_handling": "drop-trailing-slash",
-		"not_found_handling": "404-page",
-		"run_worker_first": true
-	},
-	"observability": {
-		"enabled": true,
-		"head_sampling_rate": 0.1
-	}
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mengche-dev-site",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-07-25",
+  "routes": [
+    { "pattern": "www.mengche.dev", "custom_domain": true },
+    { "pattern": "mengche.dev", "custom_domain": true }
+  ],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./build",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.1
+  }
 }

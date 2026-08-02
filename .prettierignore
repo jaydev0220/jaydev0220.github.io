@@ -6,7 +6,7 @@ coverage
 playwright-report
 test-results
 apps/site/src/lib/paraglide
-plans
+pnpm-lock.yaml
 
 # Superseded pre-workspace application files retained until they can be deleted
 /src

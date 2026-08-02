@@ -1,44 +1,44 @@
 html {
-	font-family:
-		ui-sans-serif,
-		system-ui,
-		-apple-system,
-		BlinkMacSystemFont,
-		'Segoe UI',
-		'Noto Sans TC',
-		'PingFang TC',
-		'Microsoft JhengHei',
-		sans-serif;
-	font-size: 100%;
-	line-height: 1.6;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Noto Sans TC',
+    'PingFang TC',
+    'Microsoft JhengHei',
+    sans-serif;
+  font-size: 100%;
+  line-height: 1.6;
 }
 
 body {
-	color: var(--text-primary);
-	background: var(--surface-page);
-	font-size: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  font-size: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
 }
 
 h1,
 h2,
 h3 {
-	max-width: 24ch;
-	font-weight: 680;
-	line-height: 1.08;
-	letter-spacing: -0.035em;
-	text-wrap: balance;
+  max-width: 24ch;
+  font-weight: 680;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
 }
 
 h1 {
-	font-size: clamp(2.5rem, 6.5vw, 5.75rem);
+  font-size: clamp(2.5rem, 6.5vw, 5.75rem);
 }
 
 h2 {
-	font-size: clamp(1.85rem, 3.8vw, 3.5rem);
+  font-size: clamp(1.85rem, 3.8vw, 3.5rem);
 }
 
 h3 {
-	font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
 }
 
 html:lang(en) h1,
@@ -47,46 +47,46 @@ html:lang(en) h3,
 html:lang(en) p,
 html:lang(en) li,
 html:lang(en) dd {
-	overflow-wrap: normal;
-	hyphens: none;
-	text-wrap: pretty;
+  overflow-wrap: normal;
+  hyphens: none;
+  text-wrap: pretty;
 }
 
 p,
 li,
 dd {
-	max-width: var(--measure-copy);
+  max-width: var(--measure-copy);
 }
 
 small,
 .eyebrow,
 .meta {
-	font-size: 0.8125rem;
-	line-height: 1.4;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .prose {
-	max-width: var(--project-measure);
+  max-width: var(--project-measure);
 }
 
 .prose h2 {
-	margin-block: var(--space-8) var(--space-4);
-	font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+  margin-block: var(--space-8) var(--space-4);
+  font-size: clamp(1.5rem, 2.8vw, 2.15rem);
 }
 
 .prose p,
 .prose ul {
-	margin-block: var(--space-4);
-	color: var(--text-secondary);
+  margin-block: var(--space-4);
+  color: var(--text-secondary);
 }
 
 .prose ul {
-	padding-inline-start: 1.25rem;
-	list-style: disc;
+  padding-inline-start: 1.25rem;
+  list-style: disc;
 }
 
 .prose li::marker {
-	color: var(--accent-secondary);
+  color: var(--accent-secondary);
 }

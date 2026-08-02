@@ -1,43 +1,43 @@
 {
-	"name": "mengche-dev",
-	"description": "Bilingual freelance portfolio and inquiry service for MengChe Dev.",
-	"private": true,
-	"version": "1.0.0",
-	"type": "module",
-	"engines": {
-		"node": ">=24 <25"
-	},
-	"packageManager": "pnpm@10.17.1",
-	"license": "MIT",
-	"scripts": {
-		"dev": "pnpm --filter @mengche/site dev",
-		"dev:worker": "pnpm --filter @mengche/inquiry-worker dev",
-		"build": "pnpm -r build",
-		"check": "pnpm -r check",
-		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write .",
-		"test": "vitest run --config vitest.config.ts",
-		"test:watch": "vitest --config vitest.config.ts",
-		"test:e2e": "pnpm --filter @mengche/site test:e2e",
-		"lighthouse": "lhci autorun",
-		"content:validate": "tsx packages/content/scripts/validate.ts"
-	},
-	"devDependencies": {
-		"@eslint/compat": "^2.1.0",
-		"@eslint/js": "^10.0.1",
-		"@lhci/cli": "^0.15.1",
-		"@playwright/test": "^1.61.1",
-		"@types/node": "^24.12.4",
-		"eslint": "^10.4.0",
-		"eslint-config-prettier": "^10.1.8",
-		"eslint-plugin-svelte": "^3.18.0",
-		"globals": "^17.6.0",
-		"prettier": "^3.8.3",
-		"prettier-plugin-svelte": "^4.0.1",
-		"prettier-plugin-tailwindcss": "^0.8.0",
-		"tsx": "^4.20.6",
-		"typescript": "^6.0.3",
-		"typescript-eslint": "^8.60.0",
-		"vitest": "^4.1.10"
-	}
+  "name": "mengche-dev",
+  "description": "Bilingual freelance portfolio and inquiry service for MengChe Dev.",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "packageManager": "pnpm@10.17.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "pnpm --filter @mengche/site dev",
+    "dev:worker": "pnpm --filter @mengche/inquiry-worker dev",
+    "build": "pnpm -r build",
+    "check": "pnpm -r check",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write .",
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts",
+    "test:e2e": "pnpm --filter @mengche/site test:e2e",
+    "lighthouse": "lhci autorun",
+    "content:validate": "tsx packages/content/scripts/validate.ts"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^2.1.0",
+    "@eslint/js": "^10.0.1",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^24.12.4",
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-svelte": "^3.18.0",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-svelte": "^4.0.1",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "tsx": "^4.20.6",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.0",
+    "vitest": "^4.1.10"
+  }
 }

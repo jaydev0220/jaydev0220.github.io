@@ -1,43 +1,43 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "mengche-contact",
-	"main": "src/index.ts",
-	"compatibility_date": "2026-07-25",
-	"compatibility_flags": ["nodejs_compat"],
-	"routes": [
-		{
-			"pattern": "contact.mengche.dev",
-			"custom_domain": true
-		}
-	],
-	"vars": {
-		"ALLOWED_ORIGINS": "https://www.mengche.dev",
-		"EXPECTED_TURNSTILE_HOSTNAME": "www.mengche.dev",
-		"EXPECTED_TURNSTILE_ACTION": "inquiry",
-		"EMAIL_FROM": "contact@mengche.dev",
-		"EMAIL_TO": "contact@mengche.dev"
-	},
-	"send_email": [
-		{
-			"name": "INQUIRY_EMAIL",
-			"destination_address": "contact@mengche.dev",
-			"remote": true
-		}
-	],
-	"ratelimits": [
-		{
-			"name": "IP_LIMITER",
-			"namespace_id": "1001",
-			"simple": { "limit": 5, "period": 60 }
-		},
-		{
-			"name": "EMAIL_LIMITER",
-			"namespace_id": "1002",
-			"simple": { "limit": 3, "period": 60 }
-		}
-	],
-	"observability": {
-		"enabled": true,
-		"head_sampling_rate": 1
-	}
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mengche-contact",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "contact.mengche.dev",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "ALLOWED_ORIGINS": "https://www.mengche.dev",
+    "EXPECTED_TURNSTILE_HOSTNAME": "www.mengche.dev",
+    "EXPECTED_TURNSTILE_ACTION": "inquiry",
+    "EMAIL_FROM": "contact@mengche.dev",
+    "EMAIL_TO": "contact@mengche.dev"
+  },
+  "send_email": [
+    {
+      "name": "INQUIRY_EMAIL",
+      "destination_address": "contact@mengche.dev",
+      "remote": true
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "IP_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 5, "period": 60 }
+    },
+    {
+      "name": "EMAIL_LIMITER",
+      "namespace_id": "1002",
+      "simple": { "limit": 3, "period": 60 }
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
 }

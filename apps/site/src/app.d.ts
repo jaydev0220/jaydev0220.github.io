@@ -1,16 +1,16 @@
 declare global {
-	namespace App {}
+  namespace App {}
 
-	interface Window {
-		onMengcheTurnstile?: (token: string) => void;
-		turnstile?: { reset: () => void };
-	}
+  interface Window {
+    onMengcheTurnstile?: (token: string) => void;
+    turnstile?: { reset: () => void };
+  }
 }
 
 declare module '*.md' {
-	import type { Component } from 'svelte';
-	const component: Component;
-	export default component;
+  import type { Component } from 'svelte';
+  const component: Component;
+  export default component;
 }
 
 export {};

@@ -6,14 +6,14 @@ import NrgCommerceZh from '../case-studies/zh-tw/nrg-commerce.md';
 import EvoSnakeZh from '../case-studies/zh-tw/evosnake.md';
 
 export const caseStudyComponents = {
-	en: {
-		'butter-personal-website': ButterPersonalWebsiteEn,
-		'nrg-commerce': NrgCommerceEn,
-		evosnake: EvoSnakeEn
-	},
-	'zh-TW': {
-		'butter-personal-website': ButterPersonalWebsiteZh,
-		'nrg-commerce': NrgCommerceZh,
-		evosnake: EvoSnakeZh
-	}
+  en: {
+    'butter-personal-website': ButterPersonalWebsiteEn,
+    'nrg-commerce': NrgCommerceEn,
+    evosnake: EvoSnakeEn
+  },
+  'zh-TW': {
+    'butter-personal-website': ButterPersonalWebsiteZh,
+    'nrg-commerce': NrgCommerceZh,
+    evosnake: EvoSnakeZh
+  }
 } as const;
