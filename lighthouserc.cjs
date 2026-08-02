@@ -3,8 +3,9 @@ module.exports = {
     collect: {
       startServerCommand:
         'pnpm --filter @mengche/site build && pnpm --filter @mengche/site preview --host 127.0.0.1 --port 4173',
-      startServerReadyPattern: 'Local:',
+      startServerReadyPattern: 'http://127\\.0\\.0\\.1',
       startServerReadyTimeout: 120000,
+      settings: process.env.CI ? { chromeFlags: '--no-sandbox' } : undefined,
       numberOfRuns: 1,
       url: [
         'http://127.0.0.1:4173/en',
