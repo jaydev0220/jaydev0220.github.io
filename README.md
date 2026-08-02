@@ -61,8 +61,8 @@ The rewrite uses new primitive, semantic, and component token layers. It does no
 
 ## Deployment
 
-- `www.mengche.dev`: `apps/site`, deployed through `.github/workflows/site.yml`
-- `contact.mengche.dev`: `apps/inquiry-worker`, deployed through `.github/workflows/worker.yml`
+- `www.mengche.dev`: `apps/site`, deployed through `.github/workflows/main.yml`
+- `contact.mengche.dev`: `apps/inquiry-worker`, deployed through `.github/workflows/main.yml`
 
 Required GitHub Actions `production` environment secrets:
 
@@ -75,7 +75,7 @@ Required GitHub Actions `production` environment secrets:
 
 `TURNSTILE_SECRET_KEY` and `RATE_LIMIT_SECRET` are declared as required Worker secrets in `apps/inquiry-worker/wrangler.jsonc`. The Worker deployment workflow writes their GitHub Actions values to a temporary runner file and passes it to `wrangler deploy --secrets-file`, so a fresh Worker receives the secrets in the same deployment that creates its first version. The temporary file is deleted after the deployment step.
 
-Automatic site and inquiry-Worker deployments run only after the `Validate` workflow succeeds for the pushed `main` commit. Manual `workflow_dispatch` deployments remain available for deliberate operator use.
+Automatic site and inquiry-Worker deployments run only after the `validate` job in the `CI` workflow succeeds for the pushed `main` commit. Manual `workflow_dispatch` runs can deploy the site, the inquiry Worker, or both after validation succeeds.
 
 ## Licensing
 

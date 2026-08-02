@@ -74,9 +74,8 @@ Run `pnpm test:e2e` when changing navigation, localization, themes, forms, or im
 
 ## Deployment
 
-- `.github/workflows/main.yml` validates pull requests and pushes to `main`.
-- `.github/workflows/site.yml` deploys `apps/site` to Cloudflare.
-- `.github/workflows/worker.yml` deploys `apps/inquiry-worker` to Cloudflare.
+- `.github/workflows/main.yml` contains the complete CI pipeline: validation for pull requests and pushes to `main`, followed by production deployment jobs for `apps/site` and `apps/inquiry-worker` on successful `main` pushes.
+- Manual `workflow_dispatch` runs can deploy the site, the inquiry Worker, or both after validation succeeds.
 - Website deployment requires the Cloudflare API credentials and public site environment variables documented in `README.md`.
 - Inquiry Worker secrets are managed by Wrangler and must never be committed.
 

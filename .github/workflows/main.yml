@@ -1,9 +1,20 @@
-name: Validate
+name: CI
 
 on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deployment target
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - site
+          - worker
 
 permissions:
   contents: read
@@ -62,3 +73,101 @@ jobs:
         run: |
           export CHROME_PATH="$(find "$HOME/.cache/ms-playwright" -type f -path '*/chrome-linux64/chrome' | sort | tail -1)"
           pnpm lighthouse
+
+  deploy-site:
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.deploy == 'all' || inputs.deploy == 'site'))
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.17.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build site
+        run: pnpm --filter @mengche/site build
+        env:
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
+          PUBLIC_CONTACT_API_ORIGIN: https://contact.mengche.dev
+          PUBLIC_CF_ANALYTICS_TOKEN: ${{ secrets.CF_WEB_ANALYTICS_TOKEN }}
+
+      - name: Deploy site Worker
+        run: pnpm --filter @mengche/site run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+  deploy-worker:
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.deploy == 'all' || inputs.deploy == 'worker'))
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.17.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare deployment secrets
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+          RATE_LIMIT_SECRET: ${{ secrets.RATE_LIMIT_SECRET }}
+        run: |
+          node --input-type=module --eval '
+            import { writeFileSync } from "node:fs";
+
+            const deploymentCredentials = ["CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ACCOUNT_ID"];
+            const workerSecrets = ["TURNSTILE_SECRET_KEY", "RATE_LIMIT_SECRET"];
+            const requiredValues = [...deploymentCredentials, ...workerSecrets];
+            const missingValues = requiredValues.filter((name) => !process.env[name]);
+
+            if (missingValues.length > 0) {
+              console.error(`Missing required GitHub Actions secrets: ${missingValues.join(", ")}`);
+              process.exit(1);
+            }
+
+            writeFileSync(
+              `${process.env.RUNNER_TEMP}/inquiry-worker-secrets.json`,
+              JSON.stringify(Object.fromEntries(workerSecrets.map((name) => [name, process.env[name]]))),
+              { mode: 0o600 }
+            );
+          '
+
+      - name: Deploy inquiry Worker
+        run: >-
+          pnpm --filter @mengche/inquiry-worker exec wrangler deploy
+          --secrets-file "$RUNNER_TEMP/inquiry-worker-secrets.json"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Remove deployment secret file
+        if: always()
+        run: rm -f "$RUNNER_TEMP/inquiry-worker-secrets.json"
