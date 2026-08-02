@@ -4,9 +4,9 @@ const localizedRoutes = [
   '',
   '/services',
   '/projects',
-  '/projects/ping-board',
-  '/projects/commnode',
-  '/projects/suisui-personal-website',
+  '/projects/butter-personal-website',
+  '/projects/nrg-commerce',
+  '/projects/evosnake',
   '/about',
   '/contact',
   '/privacy'
@@ -50,7 +50,7 @@ test('manual theme selection persists', async ({ page }) => {
 
 test('social profiles use labeled icon buttons', async ({ page }) => {
   await page.goto('/en/about');
-  const profiles = page.locator('#main-content');
+  const profiles = page.locator('footer');
   for (const label of ['GitHub', 'LinkedIn', 'Facebook', 'Discord']) {
     const link = profiles.getByRole('link', { name: label });
     await expect(link).toBeVisible();
@@ -188,23 +188,23 @@ test('projects page uses its own technical-work introduction and approved public
     )
   ).toBeVisible();
   await expect(page.locator('.editorial-row')).toHaveCount(3);
-  for (const project of ['Ping Board', 'CommNode', "SuiSui's Personal Website"]) {
+  for (const project of ["Butter's Personal Website", 'NRG Commerce', 'EvoSnake']) {
     await expect(page.getByRole('heading', { name: project })).toBeVisible();
   }
-  for (const project of ["Butter's Personal Website", 'NRG Commerce', 'EvoSnake']) {
+  for (const project of ['Ping Board', 'CommNode', "SuiSui's Personal Website"]) {
     await expect(page.getByText(project, { exact: true })).toHaveCount(0);
   }
 });
 
 test('project detail back link returns to the previous page and falls back to projects', async ({ page }) => {
   await page.goto('/en');
-  await page.getByRole('link', { name: 'Ping Board', exact: true }).first().click();
-  await expect(page).toHaveURL(/\/en\/projects\/ping-board$/);
-  await page.getByRole('link', { name: 'Back', exact: true }).click();
+  await page.getByRole('link', { name: "Butter's Personal Website", exact: true }).first().click();
+  await expect(page).toHaveURL(/\/en\/projects\/butter-personal-website$/);
+  await page.getByRole('link', { name: /Back/ }).click();
   await expect(page).toHaveURL(/\/en\/?$/);
 
-  await page.goto('/en/projects/ping-board');
-  await page.getByRole('link', { name: 'Back', exact: true }).click();
+  await page.goto('/en/projects/butter-personal-website');
+  await page.getByRole('link', { name: /Back/ }).click();
   await expect(page).toHaveURL(/\/en\/projects$/);
 });
 
@@ -216,7 +216,7 @@ test('content lists use the intended markers and project content uses the full s
   await expect(serviceList).toBeVisible();
   expect(await serviceList.evaluate((element) => getComputedStyle(element).listStyleType)).toBe('disc');
 
-  await page.goto('/en/projects/ping-board');
+  await page.goto('/en/projects/butter-personal-website');
   await expect(page.locator('#main-content aside')).toHaveCount(0);
 
   const projectContent = page.locator('.project-content');
