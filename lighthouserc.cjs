@@ -1,7 +1,8 @@
 module.exports = {
   ci: {
     collect: {
-      startServerCommand: 'pnpm --filter @mengche/site preview --host 127.0.0.1 --port 4173',
+      startServerCommand:
+        'pnpm --filter @mengche/site build && pnpm --filter @mengche/site preview --host 127.0.0.1 --port 4173',
       startServerReadyPattern: 'Local:',
       startServerReadyTimeout: 120000,
       numberOfRuns: 1,
@@ -9,7 +10,7 @@ module.exports = {
         'http://127.0.0.1:4173/en',
         'http://127.0.0.1:4173/en/services',
         'http://127.0.0.1:4173/en/projects',
-        'http://127.0.0.1:4173/en/projects/ping-board',
+        'http://127.0.0.1:4173/en/projects/butter-personal-website',
         'http://127.0.0.1:4173/en/about',
         'http://127.0.0.1:4173/en/contact',
         'http://127.0.0.1:4173/en/privacy',

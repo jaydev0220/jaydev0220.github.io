@@ -19,6 +19,11 @@ export default defineConfig({
   ],
   webServer: {
     command: 'pnpm build && pnpm preview --host 127.0.0.1 --port 4173',
+    env: {
+      PUBLIC_TURNSTILE_SITE_KEY: '1x00000000000000000000AA',
+      PUBLIC_CONTACT_API_ORIGIN: 'http://localhost:8787',
+      PUBLIC_CF_ANALYTICS_TOKEN: ''
+    },
     url: 'http://127.0.0.1:4173/en',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000

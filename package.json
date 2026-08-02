@@ -13,13 +13,13 @@
     "dev": "pnpm --filter @mengche/site dev",
     "dev:worker": "pnpm --filter @mengche/inquiry-worker dev",
     "build": "pnpm -r build",
-    "check": "pnpm -r check",
+    "check": "PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA PUBLIC_CONTACT_API_ORIGIN=http://localhost:8787 PUBLIC_CF_ANALYTICS_TOKEN= pnpm -r check",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "test": "vitest run --config vitest.config.ts",
     "test:watch": "vitest --config vitest.config.ts",
     "test:e2e": "pnpm --filter @mengche/site test:e2e",
-    "lighthouse": "lhci autorun",
+    "lighthouse": "CHROME_PATH=$(node -e \"const { chromium } = require('@playwright/test'); process.stdout.write(chromium.executablePath())\") PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA PUBLIC_CONTACT_API_ORIGIN=http://localhost:8787 PUBLIC_CF_ANALYTICS_TOKEN= lhci autorun",
     "content:validate": "tsx packages/content/scripts/validate.ts"
   },
   "devDependencies": {
