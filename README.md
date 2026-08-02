@@ -61,7 +61,8 @@ The rewrite uses new primitive, semantic, and component token layers. It does no
 
 ## Deployment
 
-- `www.mengche.dev`: `apps/site`, deployed through `.github/workflows/main.yml`
+- `www.mengche.dev`: `apps/site`, deployed through `.github/workflows/main.yml` as the site's Cloudflare Worker Custom Domain
+- `mengche.dev`: redirected to `https://www.mengche.dev` by Cloudflare before the site Worker
 - `contact.mengche.dev`: `apps/inquiry-worker`, deployed through `.github/workflows/main.yml`
 
 Required GitHub Actions `production` environment secrets:
