@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { featuredProjects, localeFromUrl, profile, text } from '@mengche/content';
+  import { featuredProjects, localeFromUrl, pageSocialImage, profile, text } from '@mengche/content';
   import ProjectList from '$lib/components/ProjectList.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
@@ -15,6 +15,7 @@
   description={m.projects_page_intro()}
   {locale}
   path="/projects"
+  image={pageSocialImage('projects', contentLocale)}
 />
 
 <header class="shell section flow" style="--flow-space: var(--space-5)">

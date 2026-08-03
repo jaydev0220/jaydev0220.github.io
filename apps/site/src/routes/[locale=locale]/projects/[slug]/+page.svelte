@@ -2,7 +2,7 @@
   import ExternalLinkIcon from '@iconify-svelte/tabler/external-link';
   import BrandGithubIcon from '@iconify-svelte/tabler/brand-github';
   import { caseStudyComponents } from '@mengche/content';
-  import { localeFromUrl, profile, text } from '@mengche/content';
+  import { localeFromUrl, profile, projectSocialImage, site, text } from '@mengche/content';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
   import { localizedPath } from '$lib/utils';
@@ -40,12 +40,20 @@
   description={text(data.project.summary, contentLocale)}
   {locale}
   path={`/projects/${data.project.slug}`}
+  image={projectSocialImage(data.project.slug, contentLocale) ?? data.project.images[0]}
   schema={{
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     name: data.project.title,
     description: text(data.project.summary, contentLocale),
-    creator: { '@type': 'Person', name: text(profile.name, contentLocale) }
+    url: `${site.canonicalOrigin}/${locale}/projects/${data.project.slug}`,
+    inLanguage: contentLocale,
+    image: data.project.images,
+    creator: {
+      '@type': 'Person',
+      '@id': `${site.canonicalOrigin}/#person`,
+      name: text(profile.name, contentLocale)
+    }
   }}
 />
 

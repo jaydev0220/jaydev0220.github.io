@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { localeFromUrl, profile, site, text, type UrlLocale } from '@mengche/content';
+  import { site, type UrlLocale } from '@mengche/content';
   import { localizedPath } from '$lib/utils';
 
   let {
@@ -7,25 +7,29 @@
     description,
     locale,
     path = '',
-    schema
+    schema,
+    image
   }: {
     title: string;
     description: string;
     locale: UrlLocale;
     path?: string;
     schema?: Record<string, unknown>;
+    image?: string;
   } = $props();
 
   const canonical = $derived(`${site.canonicalOrigin}${localizedPath(locale, path)}`);
-  const siteName = $derived(text(profile.name, localeFromUrl(locale)));
+  const siteName = site.brand;
   const english = $derived(`${site.canonicalOrigin}${localizedPath('en', path)}`);
   const traditionalChinese = $derived(`${site.canonicalOrigin}${localizedPath('zh-tw', path)}`);
+  const alternateOpenGraphLocale = $derived(locale === 'zh-tw' ? 'en_US' : 'zh_TW');
   const structuredData = $derived(schema ? JSON.stringify(schema).replaceAll('<', '\\u003c') : '');
 </script>
 
 <svelte:head>
   <title>{title}</title>
   <meta name="description" content={description} />
+  <meta name="robots" content="max-image-preview:large" />
   <link rel="canonical" href={canonical} />
   <link rel="alternate" hreflang="en" href={english} />
   <link rel="alternate" hreflang="zh-Hant-TW" href={traditionalChinese} />
@@ -36,7 +40,18 @@
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:locale" content={locale === 'zh-tw' ? 'zh_TW' : 'en_US'} />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:locale:alternate" content={alternateOpenGraphLocale} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  {#if image}
+    <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={title} />
+  {:else}
+    <meta name="twitter:card" content="summary" />
+  {/if}
   {#if structuredData}
     <svelte:element this={"script"} type="application/ld+json">{structuredData}</svelte:element>
   {/if}

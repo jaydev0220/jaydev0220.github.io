@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { localeFromUrl, profile, site, socialLinks, text } from '@mengche/content';
+  import { localeFromUrl, pageSocialImage, profile, site, socialLinks, text } from '@mengche/content';
   import CredentialCard from '$lib/components/CredentialCard.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
@@ -15,14 +15,23 @@
   description={text(profile.biography, contentLocale)}
   {locale}
   path="/about"
+  image={pageSocialImage('about', contentLocale)}
   schema={{
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: text(profile.name, contentLocale),
-    jobTitle: text(profile.role, contentLocale),
-    email: `mailto:${site.email}`,
-    address: { '@type': 'PostalAddress', addressCountry: 'TW' },
-    sameAs: socialLinks.map((social) => social.url)
+    '@type': 'ProfilePage',
+    url: `${site.canonicalOrigin}/${locale}/about`,
+    inLanguage: contentLocale,
+    mainEntity: {
+      '@type': 'Person',
+      '@id': `${site.canonicalOrigin}/#person`,
+      name: text(profile.name, contentLocale),
+      description: text(profile.biography, contentLocale),
+      jobTitle: text(profile.role, contentLocale),
+      url: `${site.canonicalOrigin}/${locale}/about`,
+      email: `mailto:${site.email}`,
+      address: { '@type': 'PostalAddress', addressCountry: 'TW' },
+      sameAs: socialLinks.map((social) => social.url)
+    }
   }}
 />
 

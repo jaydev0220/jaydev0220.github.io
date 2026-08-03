@@ -9,7 +9,9 @@ const paths = [...staticPaths, ...featuredProjects.map((project) => `/projects/$
 const escapeXml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 export const GET: RequestHandler = () => {
-  const urls = paths
+  const root = `${site.canonicalOrigin}/`;
+  const rootUrl = `<url><loc>${escapeXml(root)}</loc><xhtml:link rel="alternate" hreflang="en" href="${escapeXml(`${site.canonicalOrigin}/en`)}"/><xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="${escapeXml(`${site.canonicalOrigin}/zh-tw`)}"/><xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(root)}"/></url>`;
+  const localizedUrls = paths
     .map((path) => {
       const en = `${site.canonicalOrigin}/en${path}`;
       const zh = `${site.canonicalOrigin}/zh-tw${path}`;
@@ -18,7 +20,12 @@ export const GET: RequestHandler = () => {
     .join('');
 
   return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}</urlset>`,
-    { headers: { 'content-type': 'application/xml; charset=utf-8' } }
+    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${rootUrl}${localizedUrls}</urlset>`,
+    {
+      headers: {
+        'content-type': 'application/xml; charset=utf-8',
+        'cache-control': 'public, max-age=3600'
+      }
+    }
   );
 };

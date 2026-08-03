@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { localeFromUrl, profile, services, text } from '@mengche/content';
+  import { localeFromUrl, pageSocialImage, profile, services, text } from '@mengche/content';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
   import { formatTwd, formatUsd, localizedPath } from '$lib/utils';
@@ -15,6 +15,7 @@
   description={m.services_page_intro()}
   {locale}
   path="/services"
+  image={pageSocialImage('services', contentLocale)}
   schema={{
     '@context': 'https://schema.org',
     '@type': 'ItemList',

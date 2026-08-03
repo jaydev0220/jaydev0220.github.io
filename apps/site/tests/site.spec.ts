@@ -25,6 +25,55 @@ test.describe('localized static routes', () => {
   }
 });
 
+test('SEO metadata and discovery endpoints stay consistent', async ({ page, request }) => {
+  await page.goto('/en/projects/nrg-commerce');
+
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://www.mengche.dev/en/projects/nrg-commerce'
+  );
+  await expect(page.locator('link[rel="alternate"][hreflang="zh-Hant-TW"]')).toHaveAttribute(
+    'href',
+    'https://www.mengche.dev/zh-tw/projects/nrg-commerce'
+  );
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'max-image-preview:large');
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    'content',
+    'https://cdn.mengche.dev/projects/nrg-1.webp'
+  );
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+
+  const projectSchemaText = await page.locator('script[type="application/ld+json"]').textContent();
+  expect(projectSchemaText).not.toBeNull();
+  const projectSchema = JSON.parse(projectSchemaText!) as Record<string, unknown>;
+  expect(projectSchema['@type']).toBe('CreativeWork');
+  expect(projectSchema.image).toEqual(['https://cdn.mengche.dev/projects/nrg-1.webp']);
+
+  await page.goto('/en/about');
+  const aboutSchemaText = await page.locator('script[type="application/ld+json"]').textContent();
+  expect(aboutSchemaText).not.toBeNull();
+  const aboutSchema = JSON.parse(aboutSchemaText!) as Record<string, unknown>;
+  expect(aboutSchema['@type']).toBe('ProfilePage');
+
+  const sitemapResponse = await request.get('/sitemap.xml');
+  expect(sitemapResponse.status()).toBe(200);
+  const sitemap = await sitemapResponse.text();
+  expect(sitemap).toContain('<loc>https://www.mengche.dev/</loc>');
+  expect(sitemap).toContain('<loc>https://www.mengche.dev/en/projects/nrg-commerce</loc>');
+  expect(sitemap).toContain('<loc>https://www.mengche.dev/zh-tw/projects/nrg-commerce</loc>');
+
+  const robotsResponse = await request.get('/robots.txt');
+  expect(robotsResponse.status()).toBe(200);
+  expect(await robotsResponse.text()).toContain('Sitemap: https://www.mengche.dev/sitemap.xml');
+
+  const rootResponse = await request.get('/');
+  expect(rootResponse.status()).toBe(200);
+  const rootHtml = await rootResponse.text();
+  expect(rootHtml).toContain('application/ld+json');
+  expect(rootHtml).toContain('WebSite');
+  expect(rootHtml).toContain('MengChe Dev');
+});
+
 test('language switch keeps the equivalent route scroll position and preference', async ({ page }) => {
   await page.goto('/en/services');
   await page.evaluate(() => window.scrollTo(0, 700));

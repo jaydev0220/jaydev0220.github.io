@@ -1,10 +1,21 @@
 <script lang="ts">
-  import { profile, site } from '@mengche/content';
+  import { profile, rootSocialImage, site } from '@mengche/content';
+
+  const image = rootSocialImage();
+  const structuredData = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${site.canonicalOrigin}/#website`,
+    name: site.brand,
+    alternateName: 'mengche.dev',
+    url: `${site.canonicalOrigin}/`
+  }).replaceAll('<', '\\u003c');
 </script>
 
 <svelte:head>
   <title>{profile.name.en} — Web development</title>
   <meta name="description" content={site.hero.summary.en} />
+  <meta name="robots" content="max-image-preview:large" />
   <link rel="canonical" href={`${site.canonicalOrigin}/`} />
   <link rel="alternate" hreflang="en" href={`${site.canonicalOrigin}/en`} />
   <link rel="alternate" hreflang="zh-Hant-TW" href={`${site.canonicalOrigin}/zh-tw`} />
@@ -13,6 +24,19 @@
   <meta property="og:description" content={site.hero.summary.en} />
   <meta property="og:url" content={`${site.canonicalOrigin}/`} />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site.brand} />
+  <meta name="twitter:title" content={`${profile.name.en} — Web development`} />
+  <meta name="twitter:description" content={site.hero.summary.en} />
+  {#if image}
+    <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content={`${profile.name.en} — Web development`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={`${profile.name.en} — Web development`} />
+  {:else}
+    <meta name="twitter:card" content="summary" />
+  {/if}
+  <svelte:element this={"script"} type="application/ld+json">{structuredData}</svelte:element>
   <script>
     (() => {
       const saved = localStorage.getItem('locale');

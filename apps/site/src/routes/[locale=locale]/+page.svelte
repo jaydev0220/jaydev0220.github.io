@@ -1,5 +1,13 @@
 <script lang="ts">
-  import { featuredProjects, localeFromUrl, profile, services, site, text } from '@mengche/content';
+  import {
+    featuredProjects,
+    localeFromUrl,
+    pageSocialImage,
+    profile,
+    services,
+    site,
+    text
+  } from '@mengche/content';
   import ProjectList from '$lib/components/ProjectList.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
@@ -14,13 +22,18 @@
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'WebSite',
-        name: text(profile.name, contentLocale),
+        '@type': 'WebPage',
+        '@id': `${site.canonicalOrigin}/${locale}#webpage`,
+        name: `${text(profile.name, contentLocale)} — ${text(site.hero.title, contentLocale)}`,
+        description,
         url: `${site.canonicalOrigin}/${locale}`,
-        inLanguage: contentLocale
+        inLanguage: contentLocale,
+        isPartOf: { '@id': `${site.canonicalOrigin}/#website` },
+        about: { '@id': `${site.canonicalOrigin}/#person` }
       },
       {
         '@type': 'Person',
+        '@id': `${site.canonicalOrigin}/#person`,
         name: text(profile.name, contentLocale),
         url: `${site.canonicalOrigin}/${locale}/about`,
         jobTitle: text(profile.role, contentLocale)
@@ -33,6 +46,7 @@
   title={`${text(profile.name, contentLocale)} — ${text(site.hero.title, contentLocale)}`}
   {description}
   {locale}
+  image={pageSocialImage('home', contentLocale)}
   {schema}
 />
 

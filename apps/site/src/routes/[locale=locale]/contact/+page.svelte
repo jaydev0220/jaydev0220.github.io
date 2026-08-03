@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { localeFromUrl, profile, site, text } from '@mengche/content';
+  import { localeFromUrl, pageSocialImage, profile, site, text } from '@mengche/content';
   import ContactForm from '$lib/components/ContactForm.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import SocialLinks from '$lib/components/SocialLinks.svelte';
@@ -16,6 +16,7 @@
   description={m.contact_page_intro()}
   {locale}
   path="/contact"
+  image={pageSocialImage('contact', contentLocale)}
 />
 
 <header class="shell section flow" style="--flow-space: var(--space-5)">

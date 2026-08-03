@@ -17,6 +17,7 @@ All public display data is edited manually. Page components should not be change
 | English case studies                              | `packages/content/case-studies/en/*.md`    |
 | Traditional Chinese case studies                  | `packages/content/case-studies/zh-tw/*.md` |
 | CDN project screenshot URLs                       | `packages/content/src/projects.ts`         |
+| Open Graph and social banner URLs                 | `packages/content/src/seo.ts`              |
 
 ## Update availability
 
@@ -62,6 +63,30 @@ A non-featured project remains in the internal content data but is not listed pu
 3. Register both imports in `packages/content/src/case-studies.ts`.
 4. Add the two localized project routes to `apps/site/svelte.config.js` prerender entries.
 5. Run `pnpm content:validate && pnpm --filter @mengche/site check`.
+
+## Add or update social banners
+
+Edit `packages/content/src/seo.ts`. Page components do not need to change when banner files change.
+
+- `socialImageOrigin` is the base URL used for relative banner filenames.
+- Each indexable localized page has separate `en` and `zh-TW` entries.
+- Each project has separate localized banner entries.
+- `root` configures the unlocalized `/` language-selection page.
+- Use a filename relative to `socialImageOrigin` or a full HTTPS URL.
+- Keep an entry as `null` until its banner exists; no broken image metadata will be emitted.
+- Project pages fall back to their first project screenshot until a dedicated banner is configured.
+
+Example:
+
+```ts
+socialImageOrigin: 'https://cdn.mengche.dev/og',
+socialImageFiles: {
+  root: 'root.webp',
+  pages: {
+    home: { en: 'home-en.webp', 'zh-TW': 'home-zh-tw.webp' }
+  }
+}
+```
 
 ## Add a social link or qualification
 
