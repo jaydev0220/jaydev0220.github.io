@@ -7,7 +7,7 @@
   let { data, children }: LayoutProps = $props();
 
   onMount(() => {
-    localStorage.setItem('mengche-locale', data.locale);
+    localStorage.setItem('locale', data.locale);
   });
 </script>
 

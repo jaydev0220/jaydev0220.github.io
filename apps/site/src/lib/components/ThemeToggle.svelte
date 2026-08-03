@@ -9,8 +9,8 @@
 
   const themes: readonly Theme[] = ['system', 'light', 'dark'];
   let theme = $state<Theme>(
-    browser && themes.includes(localStorage.getItem('mengche-theme') as Theme)
-      ? (localStorage.getItem('mengche-theme') as Theme)
+    browser && themes.includes(localStorage.getItem('theme') as Theme)
+      ? (localStorage.getItem('theme') as Theme)
       : 'system'
   );
   const currentLabel = $derived(
@@ -21,7 +21,7 @@
     const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
     theme = nextTheme;
     document.documentElement.dataset.theme = nextTheme;
-    localStorage.setItem('mengche-theme', nextTheme);
+    localStorage.setItem('theme', nextTheme);
   }
 </script>
 

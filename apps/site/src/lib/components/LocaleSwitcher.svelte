@@ -5,7 +5,7 @@
   import { m } from '$lib/paraglide/messages.js';
   import { switchLocalePath } from '$lib/utils';
 
-  const scrollKeyPrefix = 'mengche-locale-scroll:';
+  const scrollKeyPrefix = 'locale-scroll:';
 
   let { locale }: { locale: UrlLocale } = $props();
 
@@ -29,7 +29,7 @@
     const targetUrl = `${targetPath}${page.url.search}${page.url.hash}`;
     const scrollKey = `${scrollKeyPrefix}${targetPath}${page.url.search}`;
     sessionStorage.setItem(scrollKey, JSON.stringify({ x: window.scrollX, y: window.scrollY }));
-    localStorage.setItem('mengche-locale', nextLocale);
+    localStorage.setItem('locale', nextLocale);
     window.location.assign(targetUrl);
   }
 </script>

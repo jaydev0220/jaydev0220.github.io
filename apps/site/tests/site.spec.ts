@@ -33,12 +33,12 @@ test('language switch keeps the equivalent route scroll position and preference'
   await page.getByLabel('Language').selectOption('zh-tw');
   await expect(page).toHaveURL(/\/zh-tw\/services$/);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(600);
-  await expect.poll(() => page.evaluate(() => localStorage.getItem('mengche-locale'))).toBe('zh-tw');
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('locale'))).toBe('zh-tw');
 });
 
 test('manual theme selection persists', async ({ page }) => {
   await page.goto('/en');
-  await page.evaluate(() => localStorage.removeItem('mengche-theme'));
+  await page.evaluate(() => localStorage.removeItem('theme'));
   await page.reload();
   await page.getByRole('button', { name: 'Theme: System' }).click();
   await page.getByRole('button', { name: 'Theme: Light' }).click();

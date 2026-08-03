@@ -15,7 +15,7 @@
   <meta property="og:type" content="website" />
   <script>
     (() => {
-      const saved = localStorage.getItem('mengche-locale');
+      const saved = localStorage.getItem('locale');
       const locale =
         saved === 'en' || saved === 'zh-tw'
           ? saved
