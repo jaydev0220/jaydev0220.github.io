@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { projectSocialImage } from '../../../packages/content/src/seo';
 
 const localizedRoutes = [
   '',
@@ -37,10 +38,9 @@ test('SEO metadata and discovery endpoints stay consistent', async ({ page, requ
     'https://www.mengche.dev/zh-tw/projects/nrg-commerce'
   );
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'max-image-preview:large');
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
-    'content',
-    'https://cdn.mengche.dev/projects/nrg-1.webp'
-  );
+  const expectedSocialImage = projectSocialImage('nrg-commerce', 'en');
+  expect(expectedSocialImage).toBeDefined();
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', expectedSocialImage!);
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
 
   const projectSchemaText = await page.locator('script[type="application/ld+json"]').textContent();
