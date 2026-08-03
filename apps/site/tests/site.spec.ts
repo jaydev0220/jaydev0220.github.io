@@ -64,7 +64,9 @@ test('SEO metadata and discovery endpoints stay consistent', async ({ page, requ
 
   const robotsResponse = await request.get('/robots.txt');
   expect(robotsResponse.status()).toBe(200);
-  expect(await robotsResponse.text()).toContain('Sitemap: https://www.mengche.dev/sitemap.xml');
+  const robots = await robotsResponse.text();
+  expect(robots).toContain('Content-Signal: ai-train=no, search=yes, ai-input=yes');
+  expect(robots).toContain('Sitemap: https://www.mengche.dev/sitemap.xml');
 
   const rootResponse = await request.get('/');
   expect(rootResponse.status()).toBe(200);
