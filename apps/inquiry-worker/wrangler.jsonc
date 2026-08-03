@@ -14,7 +14,7 @@
     "ALLOWED_ORIGINS": "https://www.mengche.dev",
     "EXPECTED_TURNSTILE_HOSTNAME": "www.mengche.dev",
     "EXPECTED_TURNSTILE_ACTION": "inquiry",
-    "EMAIL_FROM": "contact@mengche.dev",
+    "EMAIL_FROM": "noreply@mengche.dev",
     "EMAIL_TO": "contact@mengche.dev"
   },
   "secrets": {
