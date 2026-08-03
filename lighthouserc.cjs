@@ -5,7 +5,12 @@ module.exports = {
         'pnpm --filter @mengche/site build && pnpm --filter @mengche/site preview --host 127.0.0.1 --port 4173',
       startServerReadyPattern: 'http://127\\.0\\.0\\.1',
       startServerReadyTimeout: 120000,
-      settings: process.env.CI ? { chromeFlags: '--no-sandbox' } : undefined,
+      settings: {
+        // Lighthouse 12.6.1 treats the Content Signals robots.txt extension as an unknown directive.
+        // Keep the extension for AI usage policy and skip only this incompatible audit.
+        skipAudits: ['robots-txt'],
+        ...(process.env.CI ? { chromeFlags: '--no-sandbox' } : {})
+      },
       numberOfRuns: 1,
       url: [
         'http://127.0.0.1:4173/en',
