@@ -70,9 +70,9 @@ Every published case uses `publishedAt` for the date it first became a public ca
 
 ## Maintain commercial sections and relationships
 
-Home, Services, Projects, and About buyer guidance belongs in `packages/content/src/commercial-pages.ts`, not Paraglide. Keep section IDs stable, write both locales substantively, and preserve the primary Taiwan individual and small-business audience. Paraglide remains the source for reusable interface labels; mdsvex remains the source for long-form case narratives.
+Home, Services, Projects, and About buyer guidance belongs in `packages/content/src/commercial-pages.ts`, not Paraglide. Keep section IDs stable, write both locales substantively, and preserve the primary Taiwan individual and small-business audience. The six Services entries render as the FAQ after the contact CTA; write each heading as a buyer question and keep its answer concise. Paraglide remains the source for reusable interface labels; mdsvex remains the source for long-form case narratives.
 
-`serviceProjectRelationships` is the single relationship map used in both directions. Every referenced service and project must exist. Add a project to a service only when the public case provides relevant evidence for that service; the same map generates service-to-case links, case-to-service links, and related cases.
+`serviceProjectRelationships` is the single relationship map used in both directions. Every referenced service and project must exist. The current evidence map is Marketing site → Butter, Portfolio/business site → NRG Commerce, and Full-stack application → NRG Commerce plus EvoSnake. Add a project only when its public case supports that service; the same map generates service-to-case links, case-to-service links, and related cases.
 
 ## Maintain project images
 

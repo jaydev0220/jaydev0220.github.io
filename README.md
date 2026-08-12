@@ -46,7 +46,8 @@ pnpm check             # TypeScript, Svelte, generated Worker types
 pnpm test              # unit tests
 pnpm lint              # formatting and ESLint
 pnpm build             # production builds for both deployables
-pnpm test:e2e          # Playwright route, locale, theme, and critical interaction flows
+pnpm test:e2e:dev      # focused Vite-development hydration and navbar smoke test
+pnpm test:e2e          # production Worker route, locale, theme, and critical interaction flows
 ```
 
 ## Content editing
