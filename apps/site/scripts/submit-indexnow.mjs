@@ -35,7 +35,12 @@ export function parseSitemapLocations(xml, expectedHost = INDEXNOW_HOST) {
 }
 
 export function mergeSitemapLocations(oldXml, newXml, expectedHost = INDEXNOW_HOST) {
-  return [...new Set([...parseSitemapLocations(oldXml, expectedHost), ...parseSitemapLocations(newXml, expectedHost)])];
+  return [
+    ...new Set([
+      ...parseSitemapLocations(oldXml, expectedHost),
+      ...parseSitemapLocations(newXml, expectedHost)
+    ])
+  ];
 }
 
 const isRetryable = (status) => RETRYABLE_STATUSES.has(status) || status >= 500;
@@ -62,7 +67,8 @@ export async function submitIndexNow(urlList, options = {}) {
       body: JSON.stringify(payload)
     });
 
-    if (ACCEPTED_STATUSES.has(response.status)) return { status: response.status, count: payload.urlList.length };
+    if (ACCEPTED_STATUSES.has(response.status))
+      return { status: response.status, count: payload.urlList.length };
     if (!isRetryable(response.status) || attempt === 2) {
       throw new Error(`IndexNow submission failed with HTTP ${response.status}`);
     }

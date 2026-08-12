@@ -1,10 +1,7 @@
 <script lang="ts">
   import { text, type CommercialSection, type Locale } from '@mengche/content';
 
-  let {
-    sections,
-    locale
-  }: { sections: readonly CommercialSection[]; locale: Locale } = $props();
+  let { sections, locale }: { sections: readonly CommercialSection[]; locale: Locale } = $props();
 </script>
 
 {#each sections as section (section.id)}

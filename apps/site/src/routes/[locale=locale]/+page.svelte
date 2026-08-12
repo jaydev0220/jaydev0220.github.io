@@ -5,7 +5,6 @@
     buildHomeSchema,
     localeFromUrl,
     pageSocialImage,
-    profile,
     services,
     site,
     text

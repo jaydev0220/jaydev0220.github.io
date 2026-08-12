@@ -1,9 +1,4 @@
-import type {
-  CommercialPage,
-  CommercialPageId,
-  LocalizedText,
-  ServiceProjectRelationship
-} from './types';
+import type { CommercialPage, CommercialPageId, LocalizedText, ServiceProjectRelationship } from './types';
 
 const copy = (en: string, zh: string): LocalizedText => ({ en, 'zh-TW': zh });
 
@@ -14,10 +9,7 @@ export const commercialPages: Record<CommercialPageId, CommercialPage> = {
       'Web Development for Taiwan Small Businesses | Jay Hsieh',
       '台灣個人與小型企業網站開發｜謝孟哲'
     ),
-    heading: copy(
-      'Web development for Taiwan small businesses',
-      '台灣個人與小型企業網站開發'
-    ),
+    heading: copy('Web development for Taiwan small businesses', '台灣個人與小型企業網站開發'),
     description: copy(
       'Jay Hsieh plans and builds maintainable websites and web applications for individuals and small businesses in Taiwan, with English support available.',
       '謝孟哲為台灣個人與小型企業規劃及開發可維護的網站與 Web 應用程式，並可提供英文溝通支援。'
@@ -200,10 +192,7 @@ export const commercialPages: Record<CommercialPageId, CommercialPage> = {
   },
   projects: {
     publishedAt: '2026-08-01',
-    title: copy(
-      'Web Development Projects & Case Studies | Jay Hsieh',
-      '網站開發專案與案例研究｜謝孟哲'
-    ),
+    title: copy('Web Development Projects & Case Studies | Jay Hsieh', '網站開發專案與案例研究｜謝孟哲'),
     heading: copy('Web development projects and case studies', '網站開發專案與案例研究'),
     description: copy(
       'Review public website and application case studies by Jay Hsieh, including scope, responsibilities, technical decisions, risks, and verifiable evidence.',
@@ -343,8 +332,10 @@ export const serviceProjectRelationships: readonly ServiceProjectRelationship[] 
 ] as const;
 
 export function projectSlugsForService(serviceId: ServiceProjectRelationship['serviceId']) {
-  return serviceProjectRelationships.find((relationship) => relationship.serviceId === serviceId)
-    ?.projectSlugs ?? [];
+  return (
+    serviceProjectRelationships.find((relationship) => relationship.serviceId === serviceId)?.projectSlugs ??
+    []
+  );
 }
 
 export function serviceIdsForProject(projectSlug: ServiceProjectRelationship['projectSlugs'][number]) {

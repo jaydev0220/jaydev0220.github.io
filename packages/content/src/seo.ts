@@ -36,9 +36,15 @@ export const seo = {
 };
 
 const pageAlt: Record<SeoPageId, LocalizedText> = {
-  home: { en: 'Jay Hsieh web development for Taiwan small businesses', 'zh-TW': '謝孟哲為台灣個人與小型企業提供網站開發' },
+  home: {
+    en: 'Jay Hsieh web development for Taiwan small businesses',
+    'zh-TW': '謝孟哲為台灣個人與小型企業提供網站開發'
+  },
   services: { en: 'Jay Hsieh web development services', 'zh-TW': '謝孟哲網站開發服務' },
-  projects: { en: 'Jay Hsieh web development projects and case studies', 'zh-TW': '謝孟哲網站開發專案與案例研究' },
+  projects: {
+    en: 'Jay Hsieh web development projects and case studies',
+    'zh-TW': '謝孟哲網站開發專案與案例研究'
+  },
   about: { en: 'About Jay Hsieh, Taiwan full-stack developer', 'zh-TW': '關於台灣全端開發者謝孟哲' },
   contact: { en: 'Start a web development project with Jay Hsieh', 'zh-TW': '與謝孟哲開始網站開發專案' },
   privacy: { en: 'MengChe Dev privacy policy', 'zh-TW': 'MengChe Dev 隱私權政策' }
@@ -46,7 +52,10 @@ const pageAlt: Record<SeoPageId, LocalizedText> = {
 
 const projectAlt: Record<ProjectSlug, LocalizedText> = {
   'butter-personal-website': { en: 'Butter personal website case study', 'zh-TW': 'Butter 個人網站案例研究' },
-  'nrg-commerce': { en: 'NRG Commerce full-stack application case study', 'zh-TW': 'NRG Commerce 全端應用程式案例研究' },
+  'nrg-commerce': {
+    en: 'NRG Commerce full-stack application case study',
+    'zh-TW': 'NRG Commerce 全端應用程式案例研究'
+  },
   evosnake: { en: 'EvoSnake browser game case study', 'zh-TW': 'EvoSnake 瀏覽器遊戲案例研究' }
 };
 

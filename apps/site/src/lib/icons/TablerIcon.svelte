@@ -6,13 +6,7 @@
     filled?: boolean;
   };
 
-  let {
-    pathData,
-    filled = false,
-    width = '1em',
-    height = '1em',
-    ...attributes
-  }: Props = $props();
+  let { pathData, filled = false, width = '1em', height = '1em', ...attributes }: Props = $props();
 </script>
 
 <svg

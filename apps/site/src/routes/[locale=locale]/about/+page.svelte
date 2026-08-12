@@ -7,7 +7,6 @@
     pageSocialImage,
     profile,
     site,
-    socialLinks,
     text
   } from '@mengche/content';
   import CommercialSections from '$lib/components/CommercialSections.svelte';

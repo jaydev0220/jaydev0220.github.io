@@ -5,13 +5,11 @@
   import {
     localeFromUrl,
     buildProjectSchema,
-    profile,
     projectBySlug,
     projectSocialImage,
     relatedProjectSlugs,
     serviceById,
     serviceIdsForProject,
-    site,
     text
   } from '@mengche/content';
   import Seo from '$lib/components/Seo.svelte';

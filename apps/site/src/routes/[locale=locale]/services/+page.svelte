@@ -4,7 +4,6 @@
     buildServicesSchema,
     localeFromUrl,
     pageSocialImage,
-    profile,
     projectBySlug,
     projectSlugsForService,
     services,

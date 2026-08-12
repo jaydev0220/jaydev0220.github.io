@@ -1,5 +1,12 @@
 <script lang="ts">
-  import { buildProjectsSchema, commercialPages, featuredProjects, localeFromUrl, pageSocialImage, text } from '@mengche/content';
+  import {
+    buildProjectsSchema,
+    commercialPages,
+    featuredProjects,
+    localeFromUrl,
+    pageSocialImage,
+    text
+  } from '@mengche/content';
   import CommercialSections from '$lib/components/CommercialSections.svelte';
   import ProjectList from '$lib/components/ProjectList.svelte';
   import Seo from '$lib/components/Seo.svelte';

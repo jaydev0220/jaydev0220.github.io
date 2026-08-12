@@ -24,9 +24,30 @@ export const projects: readonly Project[] = [
     publishedAt: '2026-08-01',
     subjectType: 'WebSite',
     images: [
-      { url: 'https://cdn.mengche.dev/projects/butter-1.webp', width: 1280, height: 720, mimeType: 'image/webp', alt: { en: 'Butter personal website hero introducing the site owner', 'zh-TW': 'Butter 個人網站介紹站主的首頁主視覺' } },
-      { url: 'https://cdn.mengche.dev/projects/butter-2.webp', width: 1280, height: 720, mimeType: 'image/webp', alt: { en: 'Butter website teaching-results carousel', 'zh-TW': 'Butter 網站的教學成果輪播區' } },
-      { url: 'https://cdn.mengche.dev/projects/butter-3.webp', width: 1280, height: 720, mimeType: 'image/webp', alt: { en: 'Butter website music section', 'zh-TW': 'Butter 網站的音樂作品區' } }
+      {
+        url: 'https://cdn.mengche.dev/projects/butter-1.webp',
+        width: 1280,
+        height: 720,
+        mimeType: 'image/webp',
+        alt: {
+          en: 'Butter personal website hero introducing the site owner',
+          'zh-TW': 'Butter 個人網站介紹站主的首頁主視覺'
+        }
+      },
+      {
+        url: 'https://cdn.mengche.dev/projects/butter-2.webp',
+        width: 1280,
+        height: 720,
+        mimeType: 'image/webp',
+        alt: { en: 'Butter website teaching-results carousel', 'zh-TW': 'Butter 網站的教學成果輪播區' }
+      },
+      {
+        url: 'https://cdn.mengche.dev/projects/butter-3.webp',
+        width: 1280,
+        height: 720,
+        mimeType: 'image/webp',
+        alt: { en: 'Butter website music section', 'zh-TW': 'Butter 網站的音樂作品區' }
+      }
     ],
     actions: [
       { label: 'repository', url: 'https://github.com/eddyb5201314-afk/eddyb5201314-afk.github.io' },
@@ -56,7 +77,16 @@ export const projects: readonly Project[] = [
     publishedAt: '2026-08-01',
     subjectType: 'WebApplication',
     images: [
-      { url: 'https://cdn.mengche.dev/projects/nrg-1.webp', width: 1280, height: 720, mimeType: 'image/webp', alt: { en: 'NRG Commerce laboratory-glass storefront with product categories', 'zh-TW': 'NRG Commerce 實驗室玻璃器材商店首頁與商品分類' } }
+      {
+        url: 'https://cdn.mengche.dev/projects/nrg-1.webp',
+        width: 1280,
+        height: 720,
+        mimeType: 'image/webp',
+        alt: {
+          en: 'NRG Commerce laboratory-glass storefront with product categories',
+          'zh-TW': 'NRG Commerce 實驗室玻璃器材商店首頁與商品分類'
+        }
+      }
     ],
     actions: [
       { label: 'repository', url: 'https://github.com/jaydev0220/nrg-commerce' },
@@ -86,9 +116,30 @@ export const projects: readonly Project[] = [
     publishedAt: '2026-08-01',
     subjectType: 'VideoGame',
     images: [
-      { url: 'https://cdn.mengche.dev/projects/snake-1.webp', width: 1280, height: 720, mimeType: 'image/webp', alt: { en: 'EvoSnake setup and leaderboard screen', 'zh-TW': 'EvoSnake 設定與排行榜畫面' } },
-      { url: 'https://cdn.mengche.dev/projects/snake-2.webp', width: 1280, height: 720, mimeType: 'image/webp', alt: { en: 'EvoSnake instructions dialog', 'zh-TW': 'EvoSnake 遊戲說明對話框' } },
-      { url: 'https://cdn.mengche.dev/projects/snake-3.webp', width: 1280, height: 720, mimeType: 'image/webp', alt: { en: 'EvoSnake active game board with controls and score', 'zh-TW': 'EvoSnake 進行中的遊戲版面、控制與分數' } }
+      {
+        url: 'https://cdn.mengche.dev/projects/snake-1.webp',
+        width: 1280,
+        height: 720,
+        mimeType: 'image/webp',
+        alt: { en: 'EvoSnake setup and leaderboard screen', 'zh-TW': 'EvoSnake 設定與排行榜畫面' }
+      },
+      {
+        url: 'https://cdn.mengche.dev/projects/snake-2.webp',
+        width: 1280,
+        height: 720,
+        mimeType: 'image/webp',
+        alt: { en: 'EvoSnake instructions dialog', 'zh-TW': 'EvoSnake 遊戲說明對話框' }
+      },
+      {
+        url: 'https://cdn.mengche.dev/projects/snake-3.webp',
+        width: 1280,
+        height: 720,
+        mimeType: 'image/webp',
+        alt: {
+          en: 'EvoSnake active game board with controls and score',
+          'zh-TW': 'EvoSnake 進行中的遊戲版面、控制與分數'
+        }
+      }
     ],
     actions: [
       { label: 'repository', url: 'https://github.com/jaydev0220/evo-snake' },
