@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Menu2Icon from '@iconify-svelte/tabler/menu-2';
-  import XIcon from '@iconify-svelte/tabler/x';
+  import Menu2Icon from '$lib/icons/Menu2.svelte';
+  import XIcon from '$lib/icons/X.svelte';
   import { page } from '$app/state';
   import { localeFromUrl, navigation, site, text, type UrlLocale } from '@mengche/content';
   import { m } from '$lib/paraglide/messages.js';

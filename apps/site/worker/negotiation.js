@@ -1,4 +1,7 @@
 const CONTENT_SIGNAL = 'ai-train=no, search=yes, ai-input=yes';
+const X_FRAME_OPTIONS = 'DENY';
+const REFERRER_POLICY = 'strict-origin-when-cross-origin';
+const MARKDOWN_ROBOTS_POLICY = 'noindex, follow';
 
 function acceptsMarkdown(request) {
   const accept = request.headers.get('accept');
@@ -39,6 +42,13 @@ function pageResponse(response, contentType) {
   const headers = new Headers(response.headers);
   headers.set('content-type', contentType);
   headers.set('content-signal', CONTENT_SIGNAL);
+  headers.set('x-frame-options', X_FRAME_OPTIONS);
+  headers.set('referrer-policy', REFERRER_POLICY);
+  if (contentType.toLowerCase().startsWith('text/markdown')) {
+    headers.set('x-robots-tag', MARKDOWN_ROBOTS_POLICY);
+  } else {
+    headers.delete('x-robots-tag');
+  }
   withVaryAccept(headers);
 
   return new Response(response.body, {
@@ -52,4 +62,13 @@ function isSuccessfulHtml(response) {
   return response.ok && response.headers.get('content-type')?.toLowerCase().includes('text/html');
 }
 
-export { CONTENT_SIGNAL, acceptsMarkdown, isSuccessfulHtml, markdownPathname, pageResponse };
+export {
+  CONTENT_SIGNAL,
+  MARKDOWN_ROBOTS_POLICY,
+  REFERRER_POLICY,
+  X_FRAME_OPTIONS,
+  acceptsMarkdown,
+  isSuccessfulHtml,
+  markdownPathname,
+  pageResponse
+};

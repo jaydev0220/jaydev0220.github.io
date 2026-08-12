@@ -1,7 +1,7 @@
 <script lang="ts">
-  import ExternalLinkIcon from '@iconify-svelte/tabler/external-link';
-  import FolderOpenIcon from '@iconify-svelte/tabler/folder-open';
-  import BrandGithubIcon from '@iconify-svelte/tabler/brand-github';
+  import ExternalLinkIcon from '$lib/icons/ExternalLink.svelte';
+  import FolderOpenIcon from '$lib/icons/FolderOpen.svelte';
+  import BrandGithubIcon from '$lib/icons/BrandGithub.svelte';
   import { localeFromUrl, text, type Project, type UrlLocale } from '@mengche/content';
   import { m } from '$lib/paraglide/messages.js';
   import { localizedPath } from '$lib/utils';

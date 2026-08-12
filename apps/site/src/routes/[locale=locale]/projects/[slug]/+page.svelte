@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ExternalLinkIcon from '@iconify-svelte/tabler/external-link';
-  import BrandGithubIcon from '@iconify-svelte/tabler/brand-github';
+  import ExternalLinkIcon from '$lib/icons/ExternalLink.svelte';
+  import BrandGithubIcon from '$lib/icons/BrandGithub.svelte';
   import { caseStudyComponents } from '@mengche/content';
   import { localeFromUrl, profile, projectSocialImage, site, text } from '@mengche/content';
   import Seo from '$lib/components/Seo.svelte';

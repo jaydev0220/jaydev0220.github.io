@@ -1,7 +1,7 @@
 <script lang="ts">
-  import BrightnessAutoFilledIcon from '@iconify-svelte/tabler/brightness-auto-filled';
-  import SunHighIcon from '@iconify-svelte/tabler/sun-high';
-  import MoonIcon from '@iconify-svelte/tabler/moon';
+  import BrightnessAutoFilledIcon from '$lib/icons/BrightnessAutoFilled.svelte';
+  import SunHighIcon from '$lib/icons/SunHigh.svelte';
+  import MoonIcon from '$lib/icons/Moon.svelte';
   import { browser } from '$app/environment';
   import { m } from '$lib/paraglide/messages.js';
 

@@ -199,19 +199,23 @@ function renderDefinitionList(node, context) {
   const lines = [];
   let term = '';
 
-  for (const child of node.children) {
-    if ('text' in child) continue;
-    if (child.tag === 'dt') {
-      term = normalizeInline(renderChildren(child, context));
-      continue;
+  const visit = (current) => {
+    for (const child of current.children) {
+      if ('text' in child) continue;
+      if (child.tag === 'dt') {
+        term = normalizeInline(renderChildren(child, context));
+      } else if (child.tag === 'dd') {
+        const description = normalizeInline(renderChildren(child, context));
+        if (term && description) lines.push(`- **${term}:** ${description}`);
+        else if (description) lines.push(`- ${description}`);
+        term = '';
+      } else if (child.tag !== 'dl') {
+        visit(child);
+      }
     }
-    if (child.tag === 'dd') {
-      const description = normalizeInline(renderChildren(child, context));
-      if (term && description) lines.push(`- **${term}:** ${description}`);
-      else if (description) lines.push(`- ${description}`);
-      term = '';
-    }
-  }
+  };
+
+  visit(node);
 
   return lines.length > 0 ? `\n\n${lines.join('\n')}\n\n` : '';
 }

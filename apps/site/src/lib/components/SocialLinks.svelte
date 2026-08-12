@@ -1,8 +1,8 @@
 <script lang="ts">
-  import BrandGithubIcon from '@iconify-svelte/tabler/brand-github';
-  import BrandFacebookFilledIcon from '@iconify-svelte/tabler/brand-facebook-filled';
-  import BrandLinkedinFilledIcon from '@iconify-svelte/tabler/brand-linkedin-filled';
-  import BrandDiscordFilledIcon from '@iconify-svelte/tabler/brand-discord-filled';
+  import BrandGithubIcon from '$lib/icons/BrandGithub.svelte';
+  import BrandFacebookFilledIcon from '$lib/icons/BrandFacebookFilled.svelte';
+  import BrandLinkedinFilledIcon from '$lib/icons/BrandLinkedinFilled.svelte';
+  import BrandDiscordFilledIcon from '$lib/icons/BrandDiscordFilled.svelte';
   import { socialLinks } from '@mengche/content';
   import { m } from '$lib/paraglide/messages.js';
 
@@ -16,6 +16,7 @@
 
 <ul class="social-list" aria-label={m.public_profiles()}>
   {#each socialLinks as social (social.id)}
+    {@const SocialIcon = socialIcons[social.id]}
     <li>
       <a
         class="icon-button"
@@ -25,7 +26,7 @@
         aria-label={social.label}
         title={social.label}
       >
-        <svelte:component this={socialIcons[social.id]} aria-hidden="true" />
+        <SocialIcon aria-hidden="true" />
       </a>
     </li>
   {/each}

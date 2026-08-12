@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import worker from './index.js';
-import { CONTENT_SIGNAL, acceptsMarkdown, markdownPathname } from './negotiation.js';
+import {
+  CONTENT_SIGNAL,
+  MARKDOWN_ROBOTS_POLICY,
+  REFERRER_POLICY,
+  X_FRAME_OPTIONS,
+  acceptsMarkdown,
+  markdownPathname
+} from './negotiation.js';
 
 function createEnv() {
   return {
@@ -50,6 +57,9 @@ describe('site worker markdown negotiation', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toBe('text/markdown; charset=utf-8');
     expect(response.headers.get('content-signal')).toBe(CONTENT_SIGNAL);
+    expect(response.headers.get('x-robots-tag')).toBe(MARKDOWN_ROBOTS_POLICY);
+    expect(response.headers.get('x-frame-options')).toBe(X_FRAME_OPTIONS);
+    expect(response.headers.get('referrer-policy')).toBe(REFERRER_POLICY);
     expect(response.headers.get('vary')).toBe('Accept');
     expect(await response.text()).toBe('# About\n');
   });
@@ -65,6 +75,9 @@ describe('site worker markdown negotiation', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8');
     expect(response.headers.get('content-signal')).toBe(CONTENT_SIGNAL);
+    expect(response.headers.get('x-robots-tag')).toBeNull();
+    expect(response.headers.get('x-frame-options')).toBe(X_FRAME_OPTIONS);
+    expect(response.headers.get('referrer-policy')).toBe(REFERRER_POLICY);
     expect(response.headers.get('vary')).toBe('Accept-Encoding, Accept');
   });
 
@@ -94,6 +107,7 @@ describe('site worker markdown negotiation', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toBe('text/markdown; charset=utf-8');
     expect(response.headers.get('content-signal')).toBe(CONTENT_SIGNAL);
+    expect(response.headers.get('x-robots-tag')).toBe(MARKDOWN_ROBOTS_POLICY);
     expect(response.headers.get('vary')).toBe('Accept');
   });
 

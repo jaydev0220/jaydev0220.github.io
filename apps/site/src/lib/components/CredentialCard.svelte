@@ -1,5 +1,5 @@
 <script lang="ts">
-  import XIcon from '@iconify-svelte/tabler/x';
+  import XIcon from '$lib/icons/X.svelte';
   import { profile } from '@mengche/content';
   import { m } from '$lib/paraglide/messages.js';
 
