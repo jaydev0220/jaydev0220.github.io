@@ -8,7 +8,6 @@ This repository is a pnpm monorepo for the MengChe Dev personal and commission w
 - `apps/inquiry-worker`: Cloudflare Worker that validates and delivers contact-form inquiries
 - `packages/content`: manually maintained bilingual services, projects, profile data, and Markdown project content
 - `packages/shared`: shared inquiry schemas and TypeScript utilities
-- `docs`: content maintenance, design system, and asset licensing documentation
 
 ## Technology
 
@@ -81,4 +80,4 @@ Run `pnpm test:e2e` when changing navigation, localization, themes, forms, or im
 
 ## Documentation
 
-Update `README.md` when setup, scripts, environment variables, deployment, or repository structure changes. Update the relevant file under `docs` when changing content maintenance rules, design tokens, or asset licensing.
+Do not create new documentation files or documentation directories unless the user explicitly requests them. Update `README.md` only when a requested change affects setup, scripts, environment variables, deployment, or repository structure. Keep implementation guidance close to the relevant code when it cannot be expressed clearly through naming and structure.

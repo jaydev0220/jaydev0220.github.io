@@ -54,11 +54,9 @@ pnpm test:e2e          # production Worker route, locale, theme, and critical in
 
 Public display data is maintained in `packages/content`. UI labels and reusable short copy are in `apps/site/messages` and long case studies are in `packages/content/case-studies`.
 
-See [Content maintenance](docs/content-maintenance.md) for exact file paths and edit examples.
-
 ## Design system
 
-The rewrite uses new primitive, semantic, and component token layers. It does not reuse the previous site's theme. See [Design system](docs/design-system.md) and the [asset and trademark ledger](docs/asset-ledger.md).
+The rewrite uses primitive, semantic, and component token layers under `apps/site/src/lib/styles`. It does not reuse the previous site's theme.
 
 ## Deployment
 
@@ -79,7 +77,7 @@ Required GitHub Actions `production` environment secrets:
 
 Automatic site and inquiry-Worker deployments run only after the `validate` job in the `CI` workflow succeeds for the pushed `main` commit. Manual `workflow_dispatch` runs can deploy the site, the inquiry Worker, or both after validation succeeds.
 
-The production site job captures the previous live sitemap before deployment and submits the deduplicated old/new URL union to IndexNow after a successful deploy. The notification is non-blocking: a search-engine outage cannot invalidate a healthy deployment. The root verification file and rotation procedure are documented in [Content maintenance](docs/content-maintenance.md). IndexNow acceptance does not guarantee crawling or indexing.
+The production site job captures the previous live sitemap before deployment and submits the deduplicated old/new URL union to IndexNow after a successful deploy. The notification is non-blocking: a search-engine outage cannot invalidate a healthy deployment. IndexNow acceptance does not guarantee crawling or indexing.
 
 ## Licensing
 
