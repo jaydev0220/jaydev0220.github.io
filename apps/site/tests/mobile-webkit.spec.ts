@@ -15,7 +15,7 @@ test('mobile WebKit renders local icons and core navigation controls', async ({ 
 
   await page.getByLabel('Language').selectOption('zh-tw');
   await expect(page).toHaveURL(/\/zh-tw\/?$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('台灣個人與小型企業網站開發');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('打造真正好用的網站');
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
     await page.evaluate(() => window.innerWidth)
   );

@@ -39,9 +39,8 @@
   <div class="availability">{text(site.availability.label, contentLocale)}</div>
   <div class="flow" style="--flow-space: var(--space-5)">
     <p class="eyebrow">{text(site.hero.eyebrow, contentLocale)}</p>
-    <h1>{text(pageContent.heading, contentLocale)}</h1>
+    <h1>{text(site.hero.title, contentLocale)}</h1>
     <p class="hero-summary">{description}</p>
-    <p class="secondary-text">{text(site.hero.title, contentLocale)}</p>
   </div>
   <div class="cluster">
     <a class="button" href={localizedPath(locale, '/contact')}>{m.contact_cta()}</a>

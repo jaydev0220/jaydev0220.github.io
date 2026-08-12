@@ -19,7 +19,7 @@ test('Vite development hydration enables navbar controls promptly', async ({ pag
 
   await page.getByLabel('Language').selectOption('zh-tw');
   await expect(page).toHaveURL(/\/zh-tw\/?$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('台灣個人與小型企業網站開發');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('打造真正好用的網站');
 
   await page.setViewportSize({ width: 390, height: 844 });
   const menuButton = page.getByRole('button', { name: '開啟選單' });

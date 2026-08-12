@@ -116,9 +116,7 @@ test('commercial metadata, contextual links, and Markdown policy stay index-safe
 }) => {
   await page.goto('/en');
   await expect(page).toHaveTitle('Web Development for Taiwan Small Businesses | Jay Hsieh');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Web development for Taiwan small businesses'
-  );
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Websites built to work');
 
   await page.goto('/en/services');
   await expect(page.getByRole('link', { name: "Butter's Personal Website" })).toHaveCount(1);
