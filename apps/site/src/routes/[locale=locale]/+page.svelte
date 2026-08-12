@@ -21,6 +21,9 @@
   const contentLocale = $derived(localeFromUrl(locale));
   const description = $derived(text(site.hero.summary, contentLocale));
   const pageContent = $derived(commercialPages.home);
+  const audienceSection = $derived(pageContent.sections.filter((section) => section.id === 'audience'));
+  const fitSection = $derived(pageContent.sections.filter((section) => section.id === 'fit'));
+  const startingSection = $derived(pageContent.sections.filter((section) => section.id === 'starting'));
   const schema = $derived(buildHomeSchema(locale));
 </script>
 
@@ -46,7 +49,7 @@
   </div>
 </section>
 
-<CommercialSections sections={pageContent.sections} locale={contentLocale} />
+<CommercialSections sections={audienceSection} locale={contentLocale} />
 
 <section class="section section-rule">
   <div class="shell flow" style="--flow-space: var(--space-7)">
@@ -110,6 +113,8 @@
   </div>
 </section>
 
+<CommercialSections sections={fitSection} locale={contentLocale} />
+
 <section class="section section-rule">
   <div class="shell flow" style="--flow-space: var(--space-7)">
     <h2>{m.process_heading()}</h2>
@@ -126,6 +131,8 @@
     </div>
   </div>
 </section>
+
+<CommercialSections sections={startingSection} locale={contentLocale} />
 
 <section class="section section-rule">
   <div class="shell split">

@@ -107,5 +107,6 @@
   "not_found_body": "目前版本的網站不存在此頁面。",
   "error_title": "發生問題",
   "error_body": "頁面目前無法載入，請返回首頁後再試一次。",
-  "return_home": "返回首頁"
+  "return_home": "返回首頁",
+  "faq_heading": "常見問題"
 }

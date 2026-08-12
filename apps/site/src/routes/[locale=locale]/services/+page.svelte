@@ -9,8 +9,9 @@
     services,
     text
   } from '@mengche/content';
-  import CommercialSections from '$lib/components/CommercialSections.svelte';
   import Seo from '$lib/components/Seo.svelte';
+  import ServiceComparison from '$lib/components/ServiceComparison.svelte';
+  import ServiceFaq from '$lib/components/ServiceFaq.svelte';
   import { m } from '$lib/paraglide/messages.js';
   import { formatTwd, formatUsd, localizedPath } from '$lib/utils';
   import type { PageProps } from './$types';
@@ -91,56 +92,19 @@
 
       <div class="service-detail flow" style="--flow-space: var(--space-3)">
         <h3>{m.related_project()}</h3>
-        <ul class="plain-list">
+        <div class="cluster related-projects">
           {#each projectSlugsForService(service.id) as slug (slug)}
-            <li>
-              <a class="text-link" href={localizedPath(locale, `/projects/${slug}`)}>
-                {projectBySlug[slug].title}
-              </a>
-            </li>
+            <a class="button secondary compact-button" href={localizedPath(locale, `/projects/${slug}`)}>
+              {projectBySlug[slug].title}
+            </a>
           {/each}
-        </ul>
+        </div>
       </div>
     </article>
   </section>
 {/each}
 
-<CommercialSections sections={pageContent.sections} locale={contentLocale} />
-
-<section class="section section-rule">
-  <div class="shell flow" style="--flow-space: var(--space-6)">
-    <h2>{m.comparison()}</h2>
-    <div class="comparison-wrap">
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th scope="col">{m.form_service()}</th>
-            <th scope="col">{m.starting_from()}</th>
-            <th scope="col">{m.estimated_timeline()}</th>
-            <th scope="col">{m.ideal_for()}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {#each services as service (service.id)}
-            <tr>
-              <th scope="row">{text(service.title, contentLocale)}</th>
-              <td>{formatTwd(service.startingPriceTwd, contentLocale)}</td>
-              <td>
-                {service.deliveryRange.maximumWeeks
-                  ? m.weeks_range({
-                      minimum: service.deliveryRange.minimumWeeks,
-                      maximum: service.deliveryRange.maximumWeeks
-                    })
-                  : m.weeks_plus({ minimum: service.deliveryRange.minimumWeeks })}
-              </td>
-              <td>{text(service.idealFor, contentLocale)}</td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+<ServiceComparison {locale} />
 
 <section class="section section-rule">
   <div class="shell flow" style="--flow-space: var(--space-7)">
@@ -170,12 +134,16 @@
 </section>
 
 <section class="section section-rule">
-  <div class="shell service-cta">
+  <div class="shell service-cta split">
     <div class="flow" style="--flow-space: var(--space-3)">
       <p class="eyebrow">{m.next_step()}</p>
       <h2>{m.services_cta_heading()}</h2>
-      <p class="secondary-text">{m.services_cta_body()}</p>
     </div>
-    <a class="button" href={localizedPath(locale, '/contact')}>{m.contact_cta()}</a>
+    <div class="flow" style="--flow-space: var(--space-4)">
+      <p class="secondary-text">{m.services_cta_body()}</p>
+      <a class="button" href={localizedPath(locale, '/contact')}>{m.contact_cta()}</a>
+    </div>
   </div>
 </section>
+
+<ServiceFaq sections={pageContent.sections} locale={contentLocale} />

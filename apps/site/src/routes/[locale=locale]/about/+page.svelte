@@ -2,18 +2,15 @@
   import {
     commercialPages,
     buildAboutSchema,
-    featuredProjects,
     localeFromUrl,
     pageSocialImage,
     profile,
     site,
     text
   } from '@mengche/content';
-  import CommercialSections from '$lib/components/CommercialSections.svelte';
   import CredentialCard from '$lib/components/CredentialCard.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
-  import { localizedPath } from '$lib/utils';
   import type { PageProps } from './$types';
 
   let { data }: PageProps = $props();
@@ -51,23 +48,6 @@
         </div>
       {/each}
     </div>
-  </div>
-</section>
-
-<CommercialSections sections={pageContent.sections} locale={contentLocale} />
-
-<section class="section section-rule">
-  <div class="shell flow" style="--flow-space: var(--space-6)">
-    <h2>{m.featured_projects()}</h2>
-    <ul class="plain-list">
-      {#each featuredProjects as project (project.slug)}
-        <li>
-          <a class="text-link" href={localizedPath(locale, `/projects/${project.slug}`)}>
-            {project.title} — {text(project.summary, contentLocale)}
-          </a>
-        </li>
-      {/each}
-    </ul>
   </div>
 </section>
 

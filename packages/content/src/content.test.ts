@@ -32,7 +32,7 @@ describe('public content relationships', () => {
       { serviceId: 'marketing-site', projectSlugs: ['butter-personal-website'] },
       {
         serviceId: 'portfolio-business-site',
-        projectSlugs: ['butter-personal-website', 'nrg-commerce']
+        projectSlugs: ['nrg-commerce']
       },
       { serviceId: 'full-stack-application', projectSlugs: ['nrg-commerce', 'evosnake'] }
     ]);
@@ -51,13 +51,29 @@ describe('public content relationships', () => {
     for (const page of pages) {
       expect(page.description.en.length).toBeGreaterThanOrEqual(120);
       expect(page.description.en.length).toBeLessThanOrEqual(160);
-      expect(page.sections.length).toBeGreaterThan(0);
+      if (page === commercialPages.about) expect(page.sections).toEqual([]);
+      else expect(page.sections.length).toBeGreaterThan(0);
       for (const section of page.sections) {
         expect(section.heading.en).toBeTruthy();
         expect(section.heading['zh-TW']).toBeTruthy();
         expect(section.paragraphs.every((paragraph) => paragraph.en && paragraph['zh-TW'])).toBe(true);
       }
     }
+
+    expect(commercialPages.home.sections.map((section) => section.id)).toEqual([
+      'audience',
+      'fit',
+      'starting'
+    ]);
+    expect(commercialPages.services.sections.map((section) => section.id)).toEqual([
+      'choosing',
+      'inputs',
+      'quality',
+      'risk',
+      'after-launch',
+      'questions'
+    ]);
+    expect(commercialPages.projects.sections.map((section) => section.id)).not.toContain('limits');
   });
 
   it('publishes typed project dates, subjects, and descriptive image metadata', () => {

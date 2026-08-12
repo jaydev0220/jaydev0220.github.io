@@ -100,6 +100,22 @@ for (const relationship of serviceProjectRelationships) {
   }
 }
 
+const expectedCommercialSectionIds = {
+  home: ['audience', 'fit', 'starting'],
+  services: ['choosing', 'inputs', 'quality', 'risk', 'after-launch', 'questions'],
+  projects: ['reading', 'selection', 'decision-records'],
+  about: []
+} as const;
+
+for (const [pageId, expectedIds] of Object.entries(expectedCommercialSectionIds)) {
+  const actualIds = commercialPages[pageId as keyof typeof expectedCommercialSectionIds].sections.map(
+    (section) => section.id
+  );
+  if (actualIds.join('|') !== expectedIds.join('|')) {
+    errors.push(`commercialPages.${pageId}.sections must match the maintained page structure`);
+  }
+}
+
 const titles = Object.values(commercialPages).flatMap((page) => [page.title.en, page.title['zh-TW']]);
 for (const duplicate of duplicateValues(titles))
   errors.push(`commercial metadata title is duplicated: ${duplicate}`);

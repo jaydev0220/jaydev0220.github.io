@@ -1,6 +1,18 @@
 import { expect, test } from '@playwright/test';
 import { projectSocialImage } from '../../../packages/content/src/seo';
 
+const waitForHydration = (page: import('@playwright/test').Page, selector: string) =>
+  page.waitForFunction((target) => {
+    const element = document.querySelector(target);
+    return (
+      element &&
+      Reflect.ownKeys(element).some(
+        (key) =>
+          typeof key === 'symbol' && typeof (element as unknown as Record<symbol, unknown>)[key] === 'object'
+      )
+    );
+  }, selector);
+
 const localizedRoutes = [
   '',
   '/services',
@@ -109,7 +121,7 @@ test('commercial metadata, contextual links, and Markdown policy stay index-safe
   );
 
   await page.goto('/en/services');
-  await expect(page.getByRole('link', { name: "Butter's Personal Website" })).toHaveCount(2);
+  await expect(page.getByRole('link', { name: "Butter's Personal Website" })).toHaveCount(1);
   await expect(page.getByRole('link', { name: 'NRG Commerce' })).toHaveCount(2);
 
   await page.goto('/en/projects/nrg-commerce');
@@ -134,11 +146,58 @@ test('commercial metadata, contextual links, and Markdown policy stay index-safe
   expect(html.headers()['referrer-policy']).toBe('strict-origin-when-cross-origin');
 });
 
+test('simplified pages keep the intended order, cards, and FAQ behavior', async ({ page, request }) => {
+  await page.goto('/en');
+  await expect(page.locator('main h2')).toHaveText([
+    'A practical partner for a defined web need',
+    'Built with care',
+    'Websites and web applications',
+    'How to judge fit before requesting a proposal',
+    'Four-stage project process',
+    'What happens after you make contact',
+    'Full-stack work with clear decisions',
+    'Have a defined problem to solve?'
+  ]);
+  await expect(page.getByRole('heading', { name: 'What the working process produces' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Evidence instead of unsupported promises' })).toHaveCount(
+    0
+  );
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/en/services');
+  await expect(page.locator('.comparison-card')).toHaveCount(3);
+  await expect(page.locator('.comparison-pagination button')).toHaveCount(3);
+  await page.locator('.comparison-pagination button').nth(1).click();
+  await expect(page.locator('.comparison-pagination button').nth(1)).toHaveAttribute('aria-current', 'true');
+  await expect(page.locator('.faq-item')).toHaveCount(6);
+  await expect(page.locator('.faq-item').first()).not.toHaveAttribute('open');
+  await page.locator('.faq-item').first().locator('summary').click();
+  await expect(page.locator('.faq-item').first()).toHaveAttribute('open', '');
+
+  await page.goto('/en/projects');
+  await expect(page.getByRole('heading', { name: 'What these examples do not establish' })).toHaveCount(0);
+
+  await page.goto('/en/about');
+  for (const heading of [
+    'How I approach web development',
+    'What collaboration looks like',
+    'Public proof and ongoing learning',
+    'When I am likely to be a good fit',
+    'Featured projects'
+  ]) {
+    await expect(page.getByRole('heading', { name: heading })).toHaveCount(0);
+  }
+
+  const servicesMarkdown = await request.get('/en/services.md');
+  expect(await servicesMarkdown.text()).toContain('Which service should I choose?');
+});
+
 test('language switch keeps the equivalent route scroll position and preference', async ({ page }) => {
   await page.goto('/en/services');
   await page.evaluate(() => window.scrollTo(0, 700));
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(600);
 
+  await waitForHydration(page, 'select[aria-label="Language"]');
   await page.getByLabel('Language').selectOption('zh-tw');
   await expect(page).toHaveURL(/\/zh-tw\/services$/);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(600);
@@ -149,6 +208,7 @@ test('manual theme selection persists', async ({ page }) => {
   await page.goto('/en');
   await page.evaluate(() => localStorage.removeItem('theme'));
   await page.reload();
+  await waitForHydration(page, 'button[aria-label="Theme: System"]');
   await page.getByRole('button', { name: 'Theme: System' }).click();
   await page.getByRole('button', { name: 'Theme: Light' }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
@@ -252,6 +312,7 @@ test('mobile navigation opens from a hamburger button', async ({ page }) => {
   await expect(navigation).toBeHidden();
 
   const openMenu = page.getByRole('button', { name: 'Open menu' });
+  await waitForHydration(page, 'button[aria-label="Open menu"]');
   await openMenu.click();
   await expect(navigation).toBeVisible();
   await expect(page.getByRole('button', { name: 'Close menu' })).toHaveAttribute('aria-expanded', 'true');
@@ -363,7 +424,7 @@ test('content lists use the intended markers and project content uses the full s
   expect(await projectList.evaluate((element) => getComputedStyle(element).listStyleType)).toBe('disc');
 });
 
-test('about page presents proof and opens credentials in a lightbox', async ({ page }) => {
+test('about page presents profile details and opens credentials in a lightbox', async ({ page }) => {
   await page.goto('/en/about');
 
   await expect(page.getByText('Full-stack developer', { exact: true }).first()).toBeVisible();
@@ -376,7 +437,6 @@ test('about page presents proof and opens credentials in a lightbox', async ({ p
   await expect(page.locator('.about-facts .fact')).toHaveCount(2);
   await expect(page.getByRole('heading', { name: 'Certificates and language credentials' })).toBeVisible();
   await expect(page.locator('.credential-card')).toHaveCount(2);
-  await expect(page.getByRole('link', { name: 'NRG Commerce' })).toBeVisible();
 
   const toeicCard = page.locator('.credential-card').filter({ hasText: 'TOEIC Gold (885)' });
   await expect(toeicCard.getByRole('link', { name: 'View credential' })).toHaveAttribute(

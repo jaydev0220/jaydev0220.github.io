@@ -107,5 +107,6 @@
   "not_found_body": "This page does not exist in the current site.",
   "error_title": "Something went wrong",
   "error_body": "The page could not be loaded. Please return home and try again.",
-  "return_home": "Return home"
+  "return_home": "Return home",
+  "faq_heading": "Frequently asked questions"
 }
