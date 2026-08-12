@@ -4,6 +4,7 @@
   import { caseStudyComponents } from '@mengche/content';
   import {
     localeFromUrl,
+    buildProjectSchema,
     profile,
     projectBySlug,
     projectSocialImage,
@@ -46,25 +47,12 @@
 </script>
 
 <Seo
-  title={`${data.project.title} — ${text(profile.name, contentLocale)}`}
-  description={text(data.project.summary, contentLocale)}
+  title={text(data.project.seoTitle, contentLocale)}
+  description={text(data.project.seoDescription, contentLocale)}
   {locale}
   path={`/projects/${data.project.slug}`}
   image={projectSocialImage(data.project.slug, contentLocale) ?? data.project.images[0]}
-  schema={{
-    '@context': 'https://schema.org',
-    '@type': 'CreativeWork',
-    name: data.project.title,
-    description: text(data.project.summary, contentLocale),
-    url: `${site.canonicalOrigin}/${locale}/projects/${data.project.slug}`,
-    inLanguage: contentLocale,
-    image: data.project.images,
-    creator: {
-      '@type': 'Person',
-      '@id': `${site.canonicalOrigin}/#person`,
-      name: text(profile.name, contentLocale)
-    }
-  }}
+  schema={buildProjectSchema(locale, data.project)}
 />
 
 <header class="shell project-header">
@@ -99,13 +87,13 @@
 
 {#if projectImages.length > 0}
   <div class="shell project-gallery">
-    {#each projectImages as imageUrl, index (imageUrl)}
+    {#each projectImages as image, index (image.url)}
       <figure class="project-gallery-item">
         <img
-          src={imageUrl}
-          alt={`${data.project.title} screenshot ${index + 1}`}
-          width="1280"
-          height="720"
+          src={image.url}
+          alt={text(image.alt, contentLocale)}
+          width={image.width}
+          height={image.height}
           loading={index === 0 ? 'eager' : 'lazy'}
           fetchpriority={index === 0 ? 'high' : 'auto'}
           decoding="async"

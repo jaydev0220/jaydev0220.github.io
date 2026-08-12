@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { localeFromUrl, pageSocialImage, profile, text } from '@mengche/content';
+  import { buildPrivacySchema, localeFromUrl, pageSocialImage, profile, text } from '@mengche/content';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
   import type { PageProps } from './$types';
@@ -15,6 +15,7 @@
   {locale}
   path="/privacy"
   image={pageSocialImage('privacy', contentLocale)}
+  schema={buildPrivacySchema(locale)}
 />
 
 <header class="shell section flow" style="--flow-space: var(--space-5)">

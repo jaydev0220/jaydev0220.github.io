@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { site, type UrlLocale } from '@mengche/content';
+  import { site, type ImageRecord, type UrlLocale } from '@mengche/content';
   import { localizedPath } from '$lib/utils';
 
   let {
@@ -15,7 +15,7 @@
     locale: UrlLocale;
     path?: string;
     schema?: Record<string, unknown>;
-    image?: string;
+    image?: ImageRecord;
   } = $props();
 
   const canonical = $derived(`${site.canonicalOrigin}${localizedPath(locale, path)}`);
@@ -44,11 +44,15 @@
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   {#if image}
-    <meta property="og:image" content={image} />
-    <meta property="og:image:alt" content={title} />
+    <meta property="og:image" content={image.url} />
+    <meta property="og:image:secure_url" content={image.url} />
+    <meta property="og:image:type" content={image.mimeType} />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={image.alt[locale === 'zh-tw' ? 'zh-TW' : 'en']} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={image} />
-    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:image" content={image.url} />
+    <meta name="twitter:image:alt" content={image.alt[locale === 'zh-tw' ? 'zh-TW' : 'en']} />
   {:else}
     <meta name="twitter:card" content="summary" />
   {/if}

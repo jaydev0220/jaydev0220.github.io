@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { commercialPages, featuredProjects, localeFromUrl, pageSocialImage, text } from '@mengche/content';
+  import { buildProjectsSchema, commercialPages, featuredProjects, localeFromUrl, pageSocialImage, text } from '@mengche/content';
   import CommercialSections from '$lib/components/CommercialSections.svelte';
   import ProjectList from '$lib/components/ProjectList.svelte';
   import Seo from '$lib/components/Seo.svelte';
@@ -18,6 +18,7 @@
   {locale}
   path="/projects"
   image={pageSocialImage('projects', contentLocale)}
+  schema={buildProjectsSchema(locale)}
 />
 
 <header class="shell section flow" style="--flow-space: var(--space-5)">

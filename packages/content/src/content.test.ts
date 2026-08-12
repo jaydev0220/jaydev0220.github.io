@@ -59,4 +59,23 @@ describe('public content relationships', () => {
       }
     }
   });
+
+  it('publishes typed project dates, subjects, and descriptive image metadata', () => {
+    expect(projects.map((project) => project.subjectType)).toEqual([
+      'WebSite',
+      'WebApplication',
+      'VideoGame'
+    ]);
+    for (const project of projects) {
+      expect(project.publishedAt).toBe('2026-08-01');
+      expect(project.updatedAt).toBeUndefined();
+      expect(project.seoDescription.en.length).toBeGreaterThanOrEqual(120);
+      expect(project.seoDescription.en.length).toBeLessThanOrEqual(160);
+      for (const image of project.images) {
+        expect(image).toMatchObject({ width: 1280, height: 720, mimeType: 'image/webp' });
+        expect(image.alt.en).not.toMatch(/screenshot \d/i);
+        expect(image.alt['zh-TW']).toBeTruthy();
+      }
+    }
+  });
 });

@@ -109,14 +109,18 @@ export const profile = {
       name: 'Full Stack Open',
       issuer: 'University of Helsinki',
       year: 2026,
-      credentialUrl: 'https://cdn.mengche.dev/certificates/full-stack-open.webp'
+      credentialUrl: 'https://cdn.mengche.dev/certificates/full-stack-open.webp',
+      credentialWidth: 1528,
+      credentialHeight: 1080
     },
     {
       id: 'toeic-885',
       name: 'TOEIC Gold (885)',
       issuer: 'ETS',
       year: 2023,
-      credentialUrl: 'https://cdn.mengche.dev/certificates/toeic-2023.webp'
+      credentialUrl: 'https://cdn.mengche.dev/certificates/toeic-2023.webp',
+      credentialWidth: 930,
+      credentialHeight: 719
     }
   ],
   capabilities: [

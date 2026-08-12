@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     commercialPages,
+    buildServicesSchema,
     localeFromUrl,
     pageSocialImage,
     profile,
@@ -27,18 +28,7 @@
   {locale}
   path="/services"
   image={pageSocialImage('services', contentLocale)}
-  schema={{
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: m.services_page_title(),
-    itemListElement: services.map((service, index) => ({
-      '@type': 'Service',
-      position: index + 1,
-      name: text(service.title, contentLocale),
-      description: text(service.summary, contentLocale),
-      provider: { '@type': 'Person', name: text(profile.name, contentLocale) }
-    }))
-  }}
+  schema={buildServicesSchema(locale)}
 />
 
 <header class="shell section flow" style="--flow-space: var(--space-5)">
@@ -48,7 +38,7 @@
 </header>
 
 {#each services as service, index (service.id)}
-  <section class="section section-rule">
+  <section class="section section-rule" id={service.id}>
     <article class="shell service-card">
       <div class="service-card-heading">
         <span class="service-index">{String(index + 1).padStart(2, '0')}</span>

@@ -1,15 +1,8 @@
 <script lang="ts">
-  import { profile, rootSocialImage, site } from '@mengche/content';
+  import { buildWebsiteSchema, profile, rootSocialImage, site } from '@mengche/content';
 
   const image = rootSocialImage();
-  const structuredData = JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': `${site.canonicalOrigin}/#website`,
-    name: site.brand,
-    alternateName: 'mengche.dev',
-    url: `${site.canonicalOrigin}/`
-  }).replaceAll('<', '\\u003c');
+  const structuredData = JSON.stringify(buildWebsiteSchema()).replaceAll('<', '\\u003c');
 </script>
 
 <svelte:head>
@@ -28,11 +21,15 @@
   <meta name="twitter:title" content={`${profile.name.en} — Web development`} />
   <meta name="twitter:description" content={site.hero.summary.en} />
   {#if image}
-    <meta property="og:image" content={image} />
-    <meta property="og:image:alt" content={`${profile.name.en} — Web development`} />
+    <meta property="og:image" content={image.url} />
+    <meta property="og:image:secure_url" content={image.url} />
+    <meta property="og:image:type" content={image.mimeType} />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={image.alt.en} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={image} />
-    <meta name="twitter:image:alt" content={`${profile.name.en} — Web development`} />
+    <meta name="twitter:image" content={image.url} />
+    <meta name="twitter:image:alt" content={image.alt.en} />
   {:else}
     <meta name="twitter:card" content="summary" />
   {/if}

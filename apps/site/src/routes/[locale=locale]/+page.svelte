@@ -2,6 +2,7 @@
   import {
     featuredProjects,
     commercialPages,
+    buildHomeSchema,
     localeFromUrl,
     pageSocialImage,
     profile,
@@ -21,28 +22,7 @@
   const contentLocale = $derived(localeFromUrl(locale));
   const description = $derived(text(site.hero.summary, contentLocale));
   const pageContent = $derived(commercialPages.home);
-  const schema = $derived({
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'WebPage',
-        '@id': `${site.canonicalOrigin}/${locale}#webpage`,
-        name: `${text(profile.name, contentLocale)} — ${text(site.hero.title, contentLocale)}`,
-        description,
-        url: `${site.canonicalOrigin}/${locale}`,
-        inLanguage: contentLocale,
-        isPartOf: { '@id': `${site.canonicalOrigin}/#website` },
-        about: { '@id': `${site.canonicalOrigin}/#person` }
-      },
-      {
-        '@type': 'Person',
-        '@id': `${site.canonicalOrigin}/#person`,
-        name: text(profile.name, contentLocale),
-        url: `${site.canonicalOrigin}/${locale}/about`,
-        jobTitle: text(profile.role, contentLocale)
-      }
-    ]
-  });
+  const schema = $derived(buildHomeSchema(locale));
 </script>
 
 <Seo

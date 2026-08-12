@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     commercialPages,
+    buildAboutSchema,
     featuredProjects,
     localeFromUrl,
     pageSocialImage,
@@ -28,23 +29,7 @@
   {locale}
   path="/about"
   image={pageSocialImage('about', contentLocale)}
-  schema={{
-    '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    url: `${site.canonicalOrigin}/${locale}/about`,
-    inLanguage: contentLocale,
-    mainEntity: {
-      '@type': 'Person',
-      '@id': `${site.canonicalOrigin}/#person`,
-      name: text(profile.name, contentLocale),
-      description: text(profile.biography, contentLocale),
-      jobTitle: text(profile.role, contentLocale),
-      url: `${site.canonicalOrigin}/${locale}/about`,
-      email: `mailto:${site.email}`,
-      address: { '@type': 'PostalAddress', addressCountry: 'TW' },
-      sameAs: socialLinks.map((social) => social.url)
-    }
-  }}
+  schema={buildAboutSchema(locale)}
 />
 
 <header class="shell section flow" style="--flow-space: var(--space-5)">

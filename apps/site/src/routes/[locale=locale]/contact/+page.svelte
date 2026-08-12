@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { localeFromUrl, pageSocialImage, profile, site, text } from '@mengche/content';
+  import { buildContactSchema, localeFromUrl, pageSocialImage, profile, site, text } from '@mengche/content';
   import ContactForm from '$lib/components/ContactForm.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import SocialLinks from '$lib/components/SocialLinks.svelte';
@@ -17,6 +17,7 @@
   {locale}
   path="/contact"
   image={pageSocialImage('contact', contentLocale)}
+  schema={buildContactSchema(locale)}
 />
 
 <header class="shell section flow" style="--flow-space: var(--space-5)">

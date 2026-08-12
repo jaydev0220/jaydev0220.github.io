@@ -40,20 +40,38 @@ test('SEO metadata and discovery endpoints stay consistent', async ({ page, requ
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'max-image-preview:large');
   const expectedSocialImage = projectSocialImage('nrg-commerce', 'en');
   expect(expectedSocialImage).toBeDefined();
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', expectedSocialImage!);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', expectedSocialImage!.url);
+  await expect(page.locator('meta[property="og:image:secure_url"]')).toHaveAttribute(
+    'content',
+    expectedSocialImage!.url
+  );
+  await expect(page.locator('meta[property="og:image:type"]')).toHaveAttribute('content', 'image/webp');
+  await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute('content', '1200');
+  await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute('content', '630');
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
 
   const projectSchemaText = await page.locator('script[type="application/ld+json"]').textContent();
   expect(projectSchemaText).not.toBeNull();
   const projectSchema = JSON.parse(projectSchemaText!) as Record<string, unknown>;
-  expect(projectSchema['@type']).toBe('CreativeWork');
-  expect(projectSchema.image).toEqual(['https://cdn.mengche.dev/projects/nrg-1.webp']);
+  const projectGraph = projectSchema['@graph'] as Record<string, unknown>[];
+  const article = projectGraph.find((node) => node['@type'] === 'Article');
+  expect(article).toMatchObject({
+    headline: 'NRG Commerce',
+    datePublished: '2026-08-01',
+    author: { '@id': 'https://www.mengche.dev/#person' },
+    about: { '@type': 'WebApplication' }
+  });
+  expect(article?.image).toMatchObject([
+    { url: 'https://cdn.mengche.dev/projects/nrg-1.webp', width: 1280, height: 720 }
+  ]);
 
   await page.goto('/en/about');
   const aboutSchemaText = await page.locator('script[type="application/ld+json"]').textContent();
   expect(aboutSchemaText).not.toBeNull();
   const aboutSchema = JSON.parse(aboutSchemaText!) as Record<string, unknown>;
-  expect(aboutSchema['@type']).toBe('ProfilePage');
+  const aboutGraph = aboutSchema['@graph'] as Record<string, unknown>[];
+  expect(aboutGraph.some((node) => node['@type'] === 'ProfilePage')).toBe(true);
+  expect(aboutGraph.some((node) => node['@type'] === 'BreadcrumbList')).toBe(true);
 
   const sitemapResponse = await request.get('/sitemap.xml');
   expect(sitemapResponse.status()).toBe(200);
@@ -61,6 +79,7 @@ test('SEO metadata and discovery endpoints stay consistent', async ({ page, requ
   expect(sitemap).toContain('<loc>https://www.mengche.dev/</loc>');
   expect(sitemap).toContain('<loc>https://www.mengche.dev/en/projects/nrg-commerce</loc>');
   expect(sitemap).toContain('<loc>https://www.mengche.dev/zh-tw/projects/nrg-commerce</loc>');
+  expect(sitemap).toContain('<lastmod>2026-08-01</lastmod>');
 
   const robotsResponse = await request.get('/robots.txt');
   expect(robotsResponse.status()).toBe(200);

@@ -15,6 +15,8 @@ export type CommercialSection = {
 };
 
 export type CommercialPage = {
+  publishedAt: string;
+  updatedAt?: string;
   title: LocalizedText;
   heading: LocalizedText;
   description: LocalizedText;
@@ -31,16 +33,31 @@ export type ProjectAction = {
   url: string;
 };
 
+export type ImageRecord = {
+  url: string;
+  width: number;
+  height: number;
+  alt: LocalizedText;
+  mimeType: 'image/webp';
+};
+
+export type ProjectSubjectType = 'WebSite' | 'WebApplication' | 'VideoGame';
+
 export type Project = {
   slug: ProjectSlug;
   title: string;
   category: LocalizedText;
   summary: LocalizedText;
+  seoTitle: LocalizedText;
+  seoDescription: LocalizedText;
   relationship: 'collaborative' | 'independent';
   featured: boolean;
   order: number;
   technologies: readonly string[];
-  images: readonly string[];
+  publishedAt: string;
+  updatedAt?: string;
+  subjectType: ProjectSubjectType;
+  images: readonly ImageRecord[];
   actions: readonly ProjectAction[];
 };
 

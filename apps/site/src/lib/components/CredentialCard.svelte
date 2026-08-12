@@ -67,8 +67,8 @@
       <img
         src={qualification.credentialUrl}
         alt={m.credential_image_alt({ name: qualification.name })}
-        width="930"
-        height="719"
+        width={qualification.credentialWidth}
+        height={qualification.credentialHeight}
         loading="lazy"
         decoding="async"
       />

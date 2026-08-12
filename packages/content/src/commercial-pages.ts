@@ -9,6 +9,7 @@ const copy = (en: string, zh: string): LocalizedText => ({ en, 'zh-TW': zh });
 
 export const commercialPages: Record<CommercialPageId, CommercialPage> = {
   home: {
+    publishedAt: '2026-08-01',
     title: copy(
       'Web Development for Taiwan Small Businesses | Jay Hsieh',
       '台灣個人與小型企業網站開發｜謝孟哲'
@@ -95,6 +96,7 @@ export const commercialPages: Record<CommercialPageId, CommercialPage> = {
     ]
   },
   services: {
+    publishedAt: '2026-08-01',
     title: copy('Web Development Services in Taiwan | Jay Hsieh', '台灣網站開發服務｜謝孟哲'),
     heading: copy('Web development services', '網站開發服務'),
     description: copy(
@@ -197,6 +199,7 @@ export const commercialPages: Record<CommercialPageId, CommercialPage> = {
     ]
   },
   projects: {
+    publishedAt: '2026-08-01',
     title: copy(
       'Web Development Projects & Case Studies | Jay Hsieh',
       '網站開發專案與案例研究｜謝孟哲'
@@ -262,6 +265,7 @@ export const commercialPages: Record<CommercialPageId, CommercialPage> = {
     ]
   },
   about: {
+    publishedAt: '2026-08-01',
     title: copy('About Jay Hsieh | Taiwan Full-Stack Developer', '關於謝孟哲｜台灣全端開發者'),
     heading: copy('About Jay Hsieh', '關於謝孟哲'),
     description: copy(

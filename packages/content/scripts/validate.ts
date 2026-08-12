@@ -40,12 +40,28 @@ for (const project of projects) {
     }
   }
 
-  for (const [index, imageUrl] of project.images.entries()) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(project.publishedAt) || Number.isNaN(Date.parse(project.publishedAt))) {
+    errors.push(`projects.${project.slug}.publishedAt must be an ISO date`);
+  }
+  if (project.updatedAt && (Number.isNaN(Date.parse(project.updatedAt)) || project.updatedAt < project.publishedAt)) {
+    errors.push(`projects.${project.slug}.updatedAt must be an ISO date on or after publishedAt`);
+  }
+  if (project.seoDescription.en.length < 120 || project.seoDescription.en.length > 160) {
+    errors.push(`projects.${project.slug}.seoDescription.en must be 120-160 characters`);
+  }
+
+  for (const [index, image] of project.images.entries()) {
     try {
-      const url = new URL(imageUrl);
+      const url = new URL(image.url);
       if (url.protocol !== 'https:') throw new Error('HTTPS required');
     } catch {
       errors.push(`projects.${project.slug}.images.${index} must be a valid HTTPS URL`);
+    }
+    if (image.width <= 0 || image.height <= 0 || image.mimeType !== 'image/webp') {
+      errors.push(`projects.${project.slug}.images.${index} needs WebP dimensions`);
+    }
+    if (!image.alt.en || !image.alt['zh-TW'] || /screenshot\s+\d/i.test(image.alt.en)) {
+      errors.push(`projects.${project.slug}.images.${index} needs descriptive bilingual alt text`);
     }
   }
 
@@ -85,6 +101,9 @@ const titles = Object.values(commercialPages).flatMap((page) => [page.title.en, 
 for (const duplicate of duplicateValues(titles)) errors.push(`commercial metadata title is duplicated: ${duplicate}`);
 
 for (const [pageId, page] of Object.entries(commercialPages)) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(page.publishedAt) || Number.isNaN(Date.parse(page.publishedAt))) {
+    errors.push(`commercialPages.${pageId}.publishedAt must be an ISO date`);
+  }
   if (page.description.en.length < 120 || page.description.en.length > 160) {
     errors.push(`commercialPages.${pageId}.description.en must be 120-160 characters`);
   }
