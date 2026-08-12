@@ -62,6 +62,9 @@ jobs:
       - name: Install browser
         run: pnpm exec playwright install --with-deps chromium webkit
 
+      - name: Run Vite development smoke test
+        run: pnpm test:e2e:dev
+
       - name: Run browser tests
         run: pnpm test:e2e
         env:
