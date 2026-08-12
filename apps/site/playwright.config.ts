@@ -8,23 +8,31 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
-    baseURL: 'http://127.0.0.1:4173',
+    baseURL: 'https://127.0.0.1:4173',
+    ignoreHTTPSErrors: true,
     trace: 'on-first-retry'
   },
   projects: [
     {
       name: 'chromium',
+      testIgnore: '**/mobile-webkit.spec.ts',
       use: { ...devices['Desktop Chrome'] }
+    },
+    {
+      name: 'mobile-webkit',
+      testMatch: '**/mobile-webkit.spec.ts',
+      use: { ...devices['iPhone 13'] }
     }
   ],
   webServer: {
-    command: 'pnpm build && pnpm preview --host 127.0.0.1 --port 4173',
+    command: 'pnpm build && pnpm exec wrangler dev --local --local-protocol https --port 4173',
     env: {
       PUBLIC_TURNSTILE_SITE_KEY: '1x00000000000000000000AA',
-      PUBLIC_CONTACT_API_ORIGIN: 'http://localhost:8787',
+      PUBLIC_CONTACT_API_ORIGIN: 'https://127.0.0.1:4173',
       PUBLIC_CF_ANALYTICS_TOKEN: ''
     },
-    url: 'http://127.0.0.1:4173/en',
+    url: 'https://127.0.0.1:4173/en',
+    ignoreHTTPSErrors: true,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000
   }

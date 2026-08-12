@@ -40,7 +40,10 @@ test('SEO metadata and discovery endpoints stay consistent', async ({ page, requ
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'max-image-preview:large');
   const expectedSocialImage = projectSocialImage('nrg-commerce', 'en');
   expect(expectedSocialImage).toBeDefined();
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', expectedSocialImage!.url);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    'content',
+    expectedSocialImage!.url
+  );
   await expect(page.locator('meta[property="og:image:secure_url"]')).toHaveAttribute(
     'content',
     expectedSocialImage!.url
@@ -95,6 +98,42 @@ test('SEO metadata and discovery endpoints stay consistent', async ({ page, requ
   expect(rootHtml).toContain('MengChe Dev');
 });
 
+test('commercial metadata, contextual links, and Markdown policy stay index-safe', async ({
+  page,
+  request
+}) => {
+  await page.goto('/en');
+  await expect(page).toHaveTitle('Web Development for Taiwan Small Businesses | Jay Hsieh');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Web development for Taiwan small businesses'
+  );
+
+  await page.goto('/en/services');
+  await expect(page.getByRole('link', { name: "Butter's Personal Website" })).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'NRG Commerce' })).toHaveCount(2);
+
+  await page.goto('/en/projects/nrg-commerce');
+  await expect(page).toHaveTitle('NRG Commerce Web Application Case Study | Jay Hsieh');
+  await expect(page.getByRole('link', { name: 'Portfolio or business site' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Small full-stack app' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'EvoSnake' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Start a project' }).last()).toBeVisible();
+
+  const markdown = await request.get('/en/services.md');
+  expect(markdown.status()).toBe(200);
+  expect(markdown.headers()['x-robots-tag']).toBe('noindex, follow');
+  expect(await markdown.text()).toContain('**Payment:**');
+
+  const negotiated = await request.get('/en/services', { headers: { accept: 'text/markdown' } });
+  expect(negotiated.headers()['content-type']).toContain('text/markdown');
+  expect(negotiated.headers()['x-robots-tag']).toBe('noindex, follow');
+
+  const html = await request.get('/en/services', { headers: { accept: 'text/html' } });
+  expect(html.headers()['x-robots-tag']).toBeUndefined();
+  expect(html.headers()['x-frame-options']).toBe('DENY');
+  expect(html.headers()['referrer-policy']).toBe('strict-origin-when-cross-origin');
+});
+
 test('language switch keeps the equivalent route scroll position and preference', async ({ page }) => {
   await page.goto('/en/services');
   await page.evaluate(() => window.scrollTo(0, 700));
@@ -141,11 +180,16 @@ test('contact page exposes the qualified lead fields without an email heading', 
 
 test('contact form blocks invalid fields before sending', async ({ page }) => {
   let requestCount = 0;
-  await page.route('http://localhost:8787/v1/inquiries', async (route) => {
+  await page.route('**/v1/inquiries', async (route) => {
     requestCount += 1;
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
+      headers: {
+        'access-control-allow-origin': '*',
+        'access-control-allow-methods': 'POST, OPTIONS',
+        'access-control-allow-headers': 'content-type'
+      },
       body: JSON.stringify({ ok: true })
     });
   });
@@ -161,10 +205,15 @@ test('contact form blocks invalid fields before sending', async ({ page }) => {
 });
 
 test('contact form displays the localized success state', async ({ page }) => {
-  await page.route('http://localhost:8787/v1/inquiries', async (route) => {
+  await page.route('**/v1/inquiries', async (route) => {
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
+      headers: {
+        'access-control-allow-origin': '*',
+        'access-control-allow-methods': 'POST, OPTIONS',
+        'access-control-allow-headers': 'content-type'
+      },
       body: JSON.stringify({ ok: true })
     });
   });
@@ -240,7 +289,7 @@ test('services page uses clear service cards terms and an explained CTA', async 
   await expect(page.getByText('For individuals and small businesses')).toBeVisible();
   await expect(page.locator('.service-card')).toHaveCount(3);
   await expect(page.locator('.service-meta')).toHaveCount(3);
-  await expect(page.locator('.service-detail')).toHaveCount(9);
+  await expect(page.locator('.service-detail')).toHaveCount(12);
   await expect(page.locator('.term-card')).toHaveCount(4);
   await expect(page.getByRole('heading', { name: 'Not sure which service fits?' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Start a project' })).toBeVisible();
@@ -314,7 +363,7 @@ test('content lists use the intended markers and project content uses the full s
   expect(await projectList.evaluate((element) => getComputedStyle(element).listStyleType)).toBe('disc');
 });
 
-test('about page uses concise English copy and opens credentials in a lightbox', async ({ page }) => {
+test('about page presents proof and opens credentials in a lightbox', async ({ page }) => {
   await page.goto('/en/about');
 
   await expect(page.getByText('Full-stack developer', { exact: true }).first()).toBeVisible();
@@ -327,8 +376,13 @@ test('about page uses concise English copy and opens credentials in a lightbox',
   await expect(page.locator('.about-facts .fact')).toHaveCount(2);
   await expect(page.getByRole('heading', { name: 'Certificates and language credentials' })).toBeVisible();
   await expect(page.locator('.credential-card')).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'NRG Commerce' })).toBeVisible();
 
   const toeicCard = page.locator('.credential-card').filter({ hasText: 'TOEIC Gold (885)' });
+  await expect(toeicCard.getByRole('link', { name: 'View credential' })).toHaveAttribute(
+    'href',
+    'https://cdn.mengche.dev/certificates/toeic-2023.webp'
+  );
   const dialog = page.getByRole('dialog', { name: 'TOEIC Gold (885)' });
   await expect(dialog).toBeHidden();
   await toeicCard.getByRole('button', { name: 'View credential' }).click();

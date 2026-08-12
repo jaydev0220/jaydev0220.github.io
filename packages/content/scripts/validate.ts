@@ -43,7 +43,10 @@ for (const project of projects) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(project.publishedAt) || Number.isNaN(Date.parse(project.publishedAt))) {
     errors.push(`projects.${project.slug}.publishedAt must be an ISO date`);
   }
-  if (project.updatedAt && (Number.isNaN(Date.parse(project.updatedAt)) || project.updatedAt < project.publishedAt)) {
+  if (
+    project.updatedAt &&
+    (Number.isNaN(Date.parse(project.updatedAt)) || project.updatedAt < project.publishedAt)
+  ) {
     errors.push(`projects.${project.slug}.updatedAt must be an ISO date on or after publishedAt`);
   }
   if (project.seoDescription.en.length < 120 || project.seoDescription.en.length > 160) {
@@ -98,7 +101,8 @@ for (const relationship of serviceProjectRelationships) {
 }
 
 const titles = Object.values(commercialPages).flatMap((page) => [page.title.en, page.title['zh-TW']]);
-for (const duplicate of duplicateValues(titles)) errors.push(`commercial metadata title is duplicated: ${duplicate}`);
+for (const duplicate of duplicateValues(titles))
+  errors.push(`commercial metadata title is duplicated: ${duplicate}`);
 
 for (const [pageId, page] of Object.entries(commercialPages)) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(page.publishedAt) || Number.isNaN(Date.parse(page.publishedAt))) {
@@ -152,7 +156,8 @@ const pageCoverage = (pageId: keyof typeof commercialPages) => {
 const coverageFloors = { home: 500, services: 800, projects: 400, about: 400 } as const;
 for (const [pageId, floor] of Object.entries(coverageFloors)) {
   const count = pageCoverage(pageId as keyof typeof coverageFloors);
-  if (count < floor) console.warn(`Quality warning: ${pageId} English coverage is ${count} words; review target is ${floor}+`);
+  if (count < floor)
+    console.warn(`Quality warning: ${pageId} English coverage is ${count} words; review target is ${floor}+`);
 }
 
 const publishedServiceIds = services.map((service) => service.id).sort();

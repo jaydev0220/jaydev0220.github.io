@@ -8,6 +8,10 @@ test-results
 apps/site/src/lib/paraglide
 pnpm-lock.yaml
 
+# Historical audit documents
+ACTION-PLAN.md
+FULL-AUDIT-REPORT.md
+
 # Superseded pre-workspace application files retained until they can be deleted
 /src
 /static

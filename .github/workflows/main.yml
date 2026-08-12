@@ -60,7 +60,7 @@ jobs:
           PUBLIC_CF_ANALYTICS_TOKEN: ''
 
       - name: Install browser
-        run: pnpm exec playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps chromium webkit
 
       - name: Run browser tests
         run: pnpm test:e2e
