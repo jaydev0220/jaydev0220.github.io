@@ -1,8 +1,9 @@
-import { access } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { projects } from '../src/projects';
 import { services } from '../src/services';
-import { site } from '../src/site';
+import { profile, site } from '../src/site';
+import { commercialPages, serviceProjectRelationships } from '../src/commercial-pages';
 
 const errors: string[] = [];
 
@@ -53,11 +54,86 @@ for (const project of projects) {
       const path = fileURLToPath(new URL(`../case-studies/${locale}/${project.slug}.md`, import.meta.url));
       try {
         await access(path);
+        const markdown = await readFile(path, 'utf8');
+        for (const heading of [
+          locale === 'en' ? '## Fit, deliverables, and exclusions' : '## 適合情況、交付物與排除項目',
+          locale === 'en' ? '## Risks and review questions' : '## 風險與審查問題'
+        ]) {
+          if (!markdown.includes(heading)) {
+            errors.push(`case-studies/${locale}/${project.slug}.md is missing ${heading}`);
+          }
+        }
       } catch {
         errors.push(`case-studies/${locale}/${project.slug}.md is missing`);
       }
     }
   }
+}
+
+for (const relationship of serviceProjectRelationships) {
+  if (!services.some((service) => service.id === relationship.serviceId)) {
+    errors.push(`relationships.${relationship.serviceId} references an unknown service`);
+  }
+  for (const slug of relationship.projectSlugs) {
+    if (!projects.some((project) => project.slug === slug)) {
+      errors.push(`relationships.${relationship.serviceId} references unknown project ${slug}`);
+    }
+  }
+}
+
+const titles = Object.values(commercialPages).flatMap((page) => [page.title.en, page.title['zh-TW']]);
+for (const duplicate of duplicateValues(titles)) errors.push(`commercial metadata title is duplicated: ${duplicate}`);
+
+for (const [pageId, page] of Object.entries(commercialPages)) {
+  if (page.description.en.length < 120 || page.description.en.length > 160) {
+    errors.push(`commercialPages.${pageId}.description.en must be 120-160 characters`);
+  }
+  for (const section of page.sections) {
+    if (!section.heading.en || !section.heading['zh-TW'] || section.paragraphs.length === 0) {
+      errors.push(`commercialPages.${pageId}.sections.${section.id} must have bilingual substantive content`);
+    }
+    if (section.paragraphs.some((paragraph) => !paragraph.en || !paragraph['zh-TW'])) {
+      errors.push(`commercialPages.${pageId}.sections.${section.id} has incomplete locale parity`);
+    }
+  }
+}
+
+const englishWords = (value: string) => value.trim().split(/\s+/).filter(Boolean).length;
+const pageCoverage = (pageId: keyof typeof commercialPages) => {
+  const page = commercialPages[pageId];
+  let text = [
+    page.heading.en,
+    page.description.en,
+    ...page.sections.flatMap((section) => [
+      section.heading.en,
+      ...section.paragraphs.map((paragraph) => paragraph.en),
+      ...(section.bullets?.map((bullet) => bullet.en) ?? [])
+    ])
+  ].join(' ');
+  if (pageId === 'services') {
+    text += ` ${services
+      .flatMap((service) => [
+        service.title.en,
+        service.summary.en,
+        service.idealFor.en,
+        ...service.deliverables.map((item) => item.en),
+        ...service.exclusions.map((item) => item.en)
+      ])
+      .join(' ')}`;
+  }
+  if (pageId === 'projects') {
+    text += ` ${projects.flatMap((project) => [project.category.en, project.summary.en]).join(' ')}`;
+  }
+  if (pageId === 'about') {
+    text += ` ${[profile.biography.en, ...profile.capabilities.map((item) => item.en)].join(' ')}`;
+  }
+  return englishWords(text);
+};
+
+const coverageFloors = { home: 500, services: 800, projects: 400, about: 400 } as const;
+for (const [pageId, floor] of Object.entries(coverageFloors)) {
+  const count = pageCoverage(pageId as keyof typeof coverageFloors);
+  if (count < floor) console.warn(`Quality warning: ${pageId} English coverage is ${count} words; review target is ${floor}+`);
 }
 
 const publishedServiceIds = services.map((service) => service.id).sort();

@@ -1,18 +1,30 @@
 <script lang="ts">
-  import { localeFromUrl, pageSocialImage, profile, site, socialLinks, text } from '@mengche/content';
+  import {
+    commercialPages,
+    featuredProjects,
+    localeFromUrl,
+    pageSocialImage,
+    profile,
+    site,
+    socialLinks,
+    text
+  } from '@mengche/content';
+  import CommercialSections from '$lib/components/CommercialSections.svelte';
   import CredentialCard from '$lib/components/CredentialCard.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
+  import { localizedPath } from '$lib/utils';
   import type { PageProps } from './$types';
 
   let { data }: PageProps = $props();
   const locale = $derived(data.locale);
   const contentLocale = $derived(localeFromUrl(locale));
+  const pageContent = $derived(commercialPages.about);
 </script>
 
 <Seo
-  title={`${m.about_page_title()} — ${text(profile.name, contentLocale)}`}
-  description={text(profile.biography, contentLocale)}
+  title={text(pageContent.title, contentLocale)}
+  description={text(pageContent.description, contentLocale)}
   {locale}
   path="/about"
   image={pageSocialImage('about', contentLocale)}
@@ -37,7 +49,7 @@
 
 <header class="shell section flow" style="--flow-space: var(--space-5)">
   <p class="eyebrow">{m.about_page_intro()}</p>
-  <h1>{m.about_page_title()}</h1>
+  <h1>{text(pageContent.heading, contentLocale)}</h1>
   <p class="hero-summary">{text(profile.biography, contentLocale)}</p>
 </header>
 
@@ -55,6 +67,23 @@
         </div>
       {/each}
     </div>
+  </div>
+</section>
+
+<CommercialSections sections={pageContent.sections} locale={contentLocale} />
+
+<section class="section section-rule">
+  <div class="shell flow" style="--flow-space: var(--space-6)">
+    <h2>{m.featured_projects()}</h2>
+    <ul class="plain-list">
+      {#each featuredProjects as project (project.slug)}
+        <li>
+          <a class="text-link" href={localizedPath(locale, `/projects/${project.slug}`)}>
+            {project.title} — {text(project.summary, contentLocale)}
+          </a>
+        </li>
+      {/each}
+    </ul>
   </div>
 </section>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     featuredProjects,
+    commercialPages,
     localeFromUrl,
     pageSocialImage,
     profile,
@@ -9,6 +10,7 @@
     text
   } from '@mengche/content';
   import ProjectList from '$lib/components/ProjectList.svelte';
+  import CommercialSections from '$lib/components/CommercialSections.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
   import { formatTwd, formatUsd, localizedPath } from '$lib/utils';
@@ -18,6 +20,7 @@
   const locale = $derived(data.locale);
   const contentLocale = $derived(localeFromUrl(locale));
   const description = $derived(text(site.hero.summary, contentLocale));
+  const pageContent = $derived(commercialPages.home);
   const schema = $derived({
     '@context': 'https://schema.org',
     '@graph': [
@@ -43,8 +46,8 @@
 </script>
 
 <Seo
-  title={`${text(profile.name, contentLocale)} — ${text(site.hero.title, contentLocale)}`}
-  {description}
+  title={text(pageContent.title, contentLocale)}
+  description={text(pageContent.description, contentLocale)}
   {locale}
   image={pageSocialImage('home', contentLocale)}
   {schema}
@@ -54,14 +57,17 @@
   <div class="availability">{text(site.availability.label, contentLocale)}</div>
   <div class="flow" style="--flow-space: var(--space-5)">
     <p class="eyebrow">{text(site.hero.eyebrow, contentLocale)}</p>
-    <h1>{text(site.hero.title, contentLocale)}</h1>
+    <h1>{text(pageContent.heading, contentLocale)}</h1>
     <p class="hero-summary">{description}</p>
+    <p class="secondary-text">{text(site.hero.title, contentLocale)}</p>
   </div>
   <div class="cluster">
     <a class="button" href={localizedPath(locale, '/contact')}>{m.contact_cta()}</a>
     <a class="button secondary" href={localizedPath(locale, '/projects')}>{m.view_projects()}</a>
   </div>
 </section>
+
+<CommercialSections sections={pageContent.sections} locale={contentLocale} />
 
 <section class="section section-rule">
   <div class="shell flow" style="--flow-space: var(--space-7)">

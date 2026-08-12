@@ -1,5 +1,15 @@
 <script lang="ts">
-  import { localeFromUrl, pageSocialImage, profile, services, text } from '@mengche/content';
+  import {
+    commercialPages,
+    localeFromUrl,
+    pageSocialImage,
+    profile,
+    projectBySlug,
+    projectSlugsForService,
+    services,
+    text
+  } from '@mengche/content';
+  import CommercialSections from '$lib/components/CommercialSections.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
   import { formatTwd, formatUsd, localizedPath } from '$lib/utils';
@@ -8,11 +18,12 @@
   let { data }: PageProps = $props();
   const locale = $derived(data.locale);
   const contentLocale = $derived(localeFromUrl(locale));
+  const pageContent = $derived(commercialPages.services);
 </script>
 
 <Seo
-  title={`${m.services_page_title()} — ${text(profile.name, contentLocale)}`}
-  description={m.services_page_intro()}
+  title={text(pageContent.title, contentLocale)}
+  description={text(pageContent.description, contentLocale)}
   {locale}
   path="/services"
   image={pageSocialImage('services', contentLocale)}
@@ -32,7 +43,7 @@
 
 <header class="shell section flow" style="--flow-space: var(--space-5)">
   <p class="eyebrow">{m.services_page_eyebrow()}</p>
-  <h1>{m.services_page_title()}</h1>
+  <h1>{text(pageContent.heading, contentLocale)}</h1>
   <p class="hero-summary">{m.services_page_intro()}</p>
 </header>
 
@@ -88,9 +99,24 @@
           </ul>
         </div>
       </div>
+
+      <div class="service-detail flow" style="--flow-space: var(--space-3)">
+        <h3>{m.related_project()}</h3>
+        <ul class="plain-list">
+          {#each projectSlugsForService(service.id) as slug (slug)}
+            <li>
+              <a class="text-link" href={localizedPath(locale, `/projects/${slug}`)}>
+                {projectBySlug[slug].title}
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </div>
     </article>
   </section>
 {/each}
+
+<CommercialSections sections={pageContent.sections} locale={contentLocale} />
 
 <section class="section section-rule">
   <div class="shell flow" style="--flow-space: var(--space-6)">

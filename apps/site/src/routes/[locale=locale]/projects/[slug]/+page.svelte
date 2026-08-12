@@ -2,7 +2,17 @@
   import ExternalLinkIcon from '$lib/icons/ExternalLink.svelte';
   import BrandGithubIcon from '$lib/icons/BrandGithub.svelte';
   import { caseStudyComponents } from '@mengche/content';
-  import { localeFromUrl, profile, projectSocialImage, site, text } from '@mengche/content';
+  import {
+    localeFromUrl,
+    profile,
+    projectBySlug,
+    projectSocialImage,
+    relatedProjectSlugs,
+    serviceById,
+    serviceIdsForProject,
+    site,
+    text
+  } from '@mengche/content';
   import Seo from '$lib/components/Seo.svelte';
   import { m } from '$lib/paraglide/messages.js';
   import { localizedPath } from '$lib/utils';
@@ -110,5 +120,45 @@
     <article class="prose project-content">
       <ProjectContent />
     </article>
+  </div>
+</section>
+
+<section class="section section-rule">
+  <div class="shell split">
+    <div class="flow">
+      <h2>{m.services_page_title()}</h2>
+      <ul class="plain-list">
+        {#each serviceIdsForProject(data.project.slug) as serviceId (serviceId)}
+          <li>
+            <a class="text-link" href={localizedPath(locale, '/services')}>
+              {text(serviceById[serviceId].title, contentLocale)}
+            </a>
+          </li>
+        {/each}
+      </ul>
+    </div>
+    <div class="flow">
+      <h2>{m.related_project()}</h2>
+      <ul class="plain-list">
+        {#each relatedProjectSlugs(data.project.slug) as slug (slug)}
+          <li>
+            <a class="text-link" href={localizedPath(locale, `/projects/${slug}`)}>
+              {projectBySlug[slug].title}
+            </a>
+          </li>
+        {/each}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-rule">
+  <div class="shell service-cta">
+    <div class="flow">
+      <p class="eyebrow">{m.next_step()}</p>
+      <h2>{m.contact_section_heading()}</h2>
+      <p>{m.contact_section_body()}</p>
+    </div>
+    <a class="button" href={localizedPath(locale, '/contact')}>{m.contact_cta()}</a>
   </div>
 </section>

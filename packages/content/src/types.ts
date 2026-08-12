@@ -5,6 +5,26 @@ export type LocalizedText = Record<Locale, string>;
 
 export type ServiceId = 'marketing-site' | 'portfolio-business-site' | 'full-stack-application';
 export type ProjectSlug = 'butter-personal-website' | 'nrg-commerce' | 'evosnake';
+export type CommercialPageId = 'home' | 'services' | 'projects' | 'about';
+
+export type CommercialSection = {
+  id: string;
+  heading: LocalizedText;
+  paragraphs: readonly LocalizedText[];
+  bullets?: readonly LocalizedText[];
+};
+
+export type CommercialPage = {
+  title: LocalizedText;
+  heading: LocalizedText;
+  description: LocalizedText;
+  sections: readonly CommercialSection[];
+};
+
+export type ServiceProjectRelationship = {
+  serviceId: ServiceId;
+  projectSlugs: readonly ProjectSlug[];
+};
 
 export type ProjectAction = {
   label: 'repository' | 'live-preview';
