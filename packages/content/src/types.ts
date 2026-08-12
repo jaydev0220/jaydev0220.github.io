@@ -3,6 +3,11 @@ export type Locale = (typeof locales)[number];
 export type UrlLocale = 'en' | 'zh-tw';
 export type LocalizedText = Record<Locale, string>;
 
+export type DatedContent = {
+  publishedAt: string;
+  updatedAt?: string;
+};
+
 export type ServiceId = 'marketing-site' | 'portfolio-business-site' | 'full-stack-application';
 export type ProjectSlug = 'butter-personal-website' | 'nrg-commerce' | 'evosnake';
 export type CommercialPageId = 'home' | 'services' | 'projects' | 'about';
@@ -77,3 +82,5 @@ export type Service = {
 export const localeFromUrl = (locale: UrlLocale): Locale => (locale === 'zh-tw' ? 'zh-TW' : 'en');
 export const urlLocaleFromLocale = (locale: Locale): UrlLocale => (locale === 'zh-TW' ? 'zh-tw' : 'en');
 export const text = (value: LocalizedText, locale: Locale): string => value[locale];
+export const preferredContentDate = (content: DatedContent): string =>
+  content.updatedAt ?? content.publishedAt;

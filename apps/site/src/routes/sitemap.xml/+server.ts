@@ -1,13 +1,13 @@
-import { commercialPages, featuredProjects, pageDates, site } from '@mengche/content';
+import { commercialPages, featuredProjects, pageDates, preferredContentDate, site } from '@mengche/content';
 import type { RequestHandler } from './$types';
 
 export const prerender = true;
 
 const staticPages = [
-  { path: '', date: commercialPages.home.updatedAt ?? commercialPages.home.publishedAt },
-  { path: '/services', date: commercialPages.services.updatedAt ?? commercialPages.services.publishedAt },
-  { path: '/projects', date: commercialPages.projects.updatedAt ?? commercialPages.projects.publishedAt },
-  { path: '/about', date: commercialPages.about.updatedAt ?? commercialPages.about.publishedAt },
+  { path: '', date: preferredContentDate(commercialPages.home) },
+  { path: '/services', date: preferredContentDate(commercialPages.services) },
+  { path: '/projects', date: preferredContentDate(commercialPages.projects) },
+  { path: '/about', date: preferredContentDate(commercialPages.about) },
   { path: '/contact', date: pageDates.contact.publishedAt },
   { path: '/privacy', date: pageDates.privacy.publishedAt }
 ];
@@ -15,7 +15,7 @@ const pages = [
   ...staticPages,
   ...featuredProjects.map((project) => ({
     path: `/projects/${project.slug}`,
-    date: project.updatedAt ?? project.publishedAt
+    date: preferredContentDate(project)
   }))
 ];
 
@@ -23,7 +23,8 @@ const escapeXml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, 
 
 export const GET: RequestHandler = () => {
   const root = `${site.canonicalOrigin}/`;
-  const rootUrl = `<url><loc>${escapeXml(root)}</loc><lastmod>${pageDates.home.publishedAt}</lastmod><xhtml:link rel="alternate" hreflang="en" href="${escapeXml(`${site.canonicalOrigin}/en`)}"/><xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="${escapeXml(`${site.canonicalOrigin}/zh-tw`)}"/><xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(root)}"/></url>`;
+  const homeDate = preferredContentDate(commercialPages.home);
+  const rootUrl = `<url><loc>${escapeXml(root)}</loc><lastmod>${homeDate}</lastmod><xhtml:link rel="alternate" hreflang="en" href="${escapeXml(`${site.canonicalOrigin}/en`)}"/><xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="${escapeXml(`${site.canonicalOrigin}/zh-tw`)}"/><xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(root)}"/></url>`;
   const localizedUrls = pages
     .map(({ path, date }) => {
       const en = `${site.canonicalOrigin}/en${path}`;

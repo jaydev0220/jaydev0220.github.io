@@ -116,7 +116,7 @@
       <ul class="plain-list">
         {#each serviceIdsForProject(data.project.slug) as serviceId (serviceId)}
           <li>
-            <a class="text-link" href={localizedPath(locale, '/services')}>
+            <a class="text-link" href={`${localizedPath(locale, '/services')}#${serviceId}`}>
               {text(serviceById[serviceId].title, contentLocale)}
             </a>
           </li>

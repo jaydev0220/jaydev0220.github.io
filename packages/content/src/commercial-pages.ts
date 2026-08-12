@@ -187,7 +187,7 @@ export const serviceProjectRelationships: readonly ServiceProjectRelationship[] 
   { serviceId: 'marketing-site', projectSlugs: ['butter-personal-website'] },
   {
     serviceId: 'portfolio-business-site',
-    projectSlugs: ['nrg-commerce']
+    projectSlugs: ['butter-personal-website', 'nrg-commerce']
   },
   { serviceId: 'full-stack-application', projectSlugs: ['nrg-commerce', 'evosnake'] }
 ] as const;

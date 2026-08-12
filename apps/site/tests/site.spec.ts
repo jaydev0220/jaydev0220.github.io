@@ -95,6 +95,13 @@ test('SEO metadata and discovery endpoints stay consistent', async ({ page, requ
   expect(sitemap).toContain('<loc>https://www.mengche.dev/en/projects/nrg-commerce</loc>');
   expect(sitemap).toContain('<loc>https://www.mengche.dev/zh-tw/projects/nrg-commerce</loc>');
   expect(sitemap).toContain('<lastmod>2026-08-01</lastmod>');
+  for (const homeUrl of [
+    'https://www.mengche.dev/',
+    'https://www.mengche.dev/en',
+    'https://www.mengche.dev/zh-tw'
+  ]) {
+    expect(sitemap).toContain(`<url><loc>${homeUrl}</loc><lastmod>2026-08-01</lastmod>`);
+  }
 
   const robotsResponse = await request.get('/robots.txt');
   expect(robotsResponse.status()).toBe(200);
@@ -119,15 +126,36 @@ test('commercial metadata, contextual links, and Markdown policy stay index-safe
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Websites built to work');
 
   await page.goto('/en/services');
-  await expect(page.getByRole('link', { name: "Butter's Personal Website" })).toHaveCount(1);
+  await expect(page.getByRole('link', { name: "Butter's Personal Website" })).toHaveCount(2);
   await expect(page.getByRole('link', { name: 'NRG Commerce' })).toHaveCount(2);
+
+  await page.goto('/en/projects/butter-personal-website');
+  await expect(page.getByRole('link', { name: 'Marketing website' })).toHaveAttribute(
+    'href',
+    '/en/services#marketing-site'
+  );
+  await expect(page.getByRole('link', { name: 'Portfolio or business site' })).toHaveAttribute(
+    'href',
+    '/en/services#portfolio-business-site'
+  );
+  await expect(page.getByRole('link', { name: 'NRG Commerce' })).toBeVisible();
 
   await page.goto('/en/projects/nrg-commerce');
   await expect(page).toHaveTitle('NRG Commerce Web Application Case Study | Jay Hsieh');
-  await expect(page.getByRole('link', { name: 'Portfolio or business site' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Small full-stack app' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Portfolio or business site' })).toHaveAttribute(
+    'href',
+    '/en/services#portfolio-business-site'
+  );
+  await expect(page.getByRole('link', { name: 'Small full-stack app' })).toHaveAttribute(
+    'href',
+    '/en/services#full-stack-application'
+  );
+  await expect(page.getByRole('link', { name: "Butter's Personal Website" })).toBeVisible();
   await expect(page.getByRole('link', { name: 'EvoSnake' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Start a project' }).last()).toBeVisible();
+
+  await page.goto('/en/projects/evosnake');
+  await expect(page.getByRole('link', { name: 'NRG Commerce' })).toBeVisible();
 
   const markdown = await request.get('/en/services.md');
   expect(markdown.status()).toBe(200);

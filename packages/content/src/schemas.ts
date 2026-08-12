@@ -7,10 +7,6 @@ import { localeFromUrl, text, type Project, type UrlLocale } from './types';
 type SchemaNode = Record<string, unknown>;
 
 export const pageDates = {
-  home: { publishedAt: '2026-08-01' },
-  services: { publishedAt: '2026-08-01' },
-  projects: { publishedAt: '2026-08-01' },
-  about: { publishedAt: '2026-08-01' },
   contact: { publishedAt: '2026-08-01' },
   privacy: { publishedAt: '2026-08-01' }
 } as const;
@@ -18,16 +14,13 @@ export const pageDates = {
 const language = (locale: UrlLocale) => localeFromUrl(locale);
 const pageUrl = (locale: UrlLocale, path = '') => `${site.canonicalOrigin}/${locale}${path}`;
 
-export function buildPersonNode(locale: UrlLocale): SchemaNode {
-  const contentLocale = language(locale);
+export function buildPersonNode(): SchemaNode {
   return {
     '@type': 'Person',
     '@id': `${site.canonicalOrigin}/#person`,
     name: '謝孟哲',
     alternateName: 'Jay Hsieh',
-    description: text(profile.biography, contentLocale),
-    jobTitle: text(profile.role, contentLocale),
-    url: pageUrl(locale, '/about'),
+    url: `${site.canonicalOrigin}/#person`,
     email: `mailto:${site.email}`,
     address: { '@type': 'PostalAddress', addressCountry: 'TW' },
     sameAs: socialLinks.map((social) => social.url),
@@ -82,7 +75,7 @@ function projectBreadcrumb(locale: UrlLocale, project: Project): SchemaNode {
 function pageGraph(locale: UrlLocale, page: SchemaNode, extras: SchemaNode[] = []): SchemaNode {
   return {
     '@context': 'https://schema.org',
-    '@graph': [page, buildPersonNode(locale), ...extras]
+    '@graph': [page, buildPersonNode(), ...extras]
   };
 }
 

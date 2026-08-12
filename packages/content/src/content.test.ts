@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { featuredProjects, projects } from './projects';
 import { services } from './services';
 import { site } from './site';
+import { preferredContentDate } from './types';
 import {
   commercialPages,
   relatedProjectSlugs,
@@ -32,14 +33,20 @@ describe('public content relationships', () => {
       { serviceId: 'marketing-site', projectSlugs: ['butter-personal-website'] },
       {
         serviceId: 'portfolio-business-site',
-        projectSlugs: ['nrg-commerce']
+        projectSlugs: ['butter-personal-website', 'nrg-commerce']
       },
       { serviceId: 'full-stack-application', projectSlugs: ['nrg-commerce', 'evosnake'] }
+    ]);
+    expect(serviceIdsForProject('butter-personal-website')).toEqual([
+      'marketing-site',
+      'portfolio-business-site'
     ]);
     expect(serviceIdsForProject('nrg-commerce')).toEqual([
       'portfolio-business-site',
       'full-stack-application'
     ]);
+    expect(relatedProjectSlugs('butter-personal-website')).toEqual(['nrg-commerce']);
+    expect(relatedProjectSlugs('nrg-commerce')).toEqual(['butter-personal-website', 'evosnake']);
     expect(relatedProjectSlugs('evosnake')).toEqual(['nrg-commerce']);
   });
 
@@ -93,5 +100,10 @@ describe('public content relationships', () => {
         expect(image.alt['zh-TW']).toBeTruthy();
       }
     }
+  });
+
+  it('prefers updated content dates and falls back to publication dates', () => {
+    expect(preferredContentDate({ publishedAt: '2026-08-01' })).toBe('2026-08-01');
+    expect(preferredContentDate({ publishedAt: '2026-08-01', updatedAt: '2026-08-13' })).toBe('2026-08-13');
   });
 });

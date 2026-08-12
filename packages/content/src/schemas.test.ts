@@ -14,15 +14,22 @@ const graph = (schema: Record<string, unknown>) => schema['@graph'] as Record<st
 
 describe('schema builders', () => {
   it('uses one stable person identity with profiles, contact, and credentials', () => {
-    const person = buildPersonNode('en');
+    const person = buildPersonNode();
     expect(person).toMatchObject({
       '@id': 'https://www.mengche.dev/#person',
       name: '謝孟哲',
       alternateName: 'Jay Hsieh',
+      url: 'https://www.mengche.dev/#person',
       email: 'mailto:contact@mengche.dev'
     });
+    expect(person).not.toHaveProperty('description');
+    expect(person).not.toHaveProperty('jobTitle');
     expect(person.sameAs).toHaveLength(4);
     expect(person.hasCredential).toHaveLength(2);
+
+    const enPerson = graph(buildAboutSchema('en')).find((node) => node['@type'] === 'Person');
+    const zhPerson = graph(buildAboutSchema('zh-tw')).find((node) => node['@type'] === 'Person');
+    expect(enPerson).toEqual(zhPerson);
   });
 
   it('builds services as positioned ListItems containing Service nodes', () => {
