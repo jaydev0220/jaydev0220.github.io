@@ -13,7 +13,7 @@ packages/
 └── shared/            Inquiry contracts and validation shared by both apps
 ```
 
-The site is prerendered for English and Traditional Chinese. The production build also generates Markdown siblings for every successful public HTML page. The site Worker serves those files when a client sends `Accept: text/markdown`, while normal requests continue to receive HTML. The inquiry endpoint is deployed separately at `contact.mengche.dev` and does not persist submissions in a database.
+The site is prerendered for English and Traditional Chinese. The production build also generates Markdown siblings for every successful public HTML page. The site Worker serves those files when a client sends `Accept: text/markdown`, while normal requests continue to receive HTML. Markdown responses send `X-Robots-Tag: noindex, follow`; canonical HTML remains indexable. The inquiry endpoint is deployed separately at `contact.mengche.dev` and does not persist submissions in a database.
 
 ## Requirements
 
@@ -61,7 +61,7 @@ The rewrite uses new primitive, semantic, and component token layers. It does no
 
 ## Deployment
 
-- `www.mengche.dev`: `apps/site`, deployed through `.github/workflows/main.yml` as the site's Cloudflare Worker Custom Domain; the Worker performs HTML/Markdown content negotiation and returns `Content-Signal: ai-train=no, search=yes, ai-input=yes` on successful page responses
+- `www.mengche.dev`: `apps/site`, deployed through `.github/workflows/main.yml` as the site's Cloudflare Worker Custom Domain; the Worker performs HTML/Markdown content negotiation, applies the shared security-header policy, and returns `Content-Signal: ai-train=no, search=yes, ai-input=yes` on successful page responses
 - `mengche.dev`: redirected to `https://www.mengche.dev` by Cloudflare before the site Worker
 - `contact.mengche.dev`: `apps/inquiry-worker`, deployed through `.github/workflows/main.yml`
 
@@ -77,6 +77,8 @@ Required GitHub Actions `production` environment secrets:
 `TURNSTILE_SECRET_KEY` and `RATE_LIMIT_SECRET` are declared as required Worker secrets in `apps/inquiry-worker/wrangler.jsonc`. The Worker deployment workflow writes their GitHub Actions values to a temporary runner file and passes it to `wrangler deploy --secrets-file`, so a fresh Worker receives the secrets in the same deployment that creates its first version. The temporary file is deleted after the deployment step.
 
 Automatic site and inquiry-Worker deployments run only after the `validate` job in the `CI` workflow succeeds for the pushed `main` commit. Manual `workflow_dispatch` runs can deploy the site, the inquiry Worker, or both after validation succeeds.
+
+The production site job captures the previous live sitemap before deployment and submits the deduplicated old/new URL union to IndexNow after a successful deploy. The notification is non-blocking: a search-engine outage cannot invalidate a healthy deployment. The root verification file and rotation procedure are documented in [Content maintenance](docs/content-maintenance.md). IndexNow acceptance does not guarantee crawling or indexing.
 
 ## Licensing
 
