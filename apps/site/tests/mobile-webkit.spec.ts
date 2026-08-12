@@ -24,7 +24,9 @@ test('mobile WebKit renders local icons and core navigation controls', async ({ 
 test('mobile WebKit supports credential and external project controls', async ({ page }) => {
   await page.goto('/en/about');
   const card = page.locator('.credential-card').filter({ hasText: 'Full Stack Open' });
-  await expect(card.getByRole('link', { name: 'View credential' })).toHaveAttribute(
+  const markdownCredentialLink = card.locator('.credential-markdown-link');
+  await expect(markdownCredentialLink).toBeHidden();
+  await expect(markdownCredentialLink).toHaveAttribute(
     'href',
     'https://cdn.mengche.dev/certificates/full-stack-open.webp'
   );

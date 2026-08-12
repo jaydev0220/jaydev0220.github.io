@@ -20,6 +20,7 @@ const sampleHtml = `<!doctype html>
         <ul><li>Frontend</li><li>Backend</li></ul>
         <a href="/en/projects">Projects</a>
         <a href="https://example.org" aria-label="Profile"><svg><path></path></svg></a>
+        <a href="https://example.org/credential" hidden>View credential</a>
         <img src="/portrait.webp" alt="Profile portrait">
       </section>
       <section>
@@ -52,6 +53,7 @@ describe('build-time HTML to Markdown generation', () => {
     expect(markdown).toContain('- Frontend\n- Backend');
     expect(markdown).toContain('[Projects](https://example.com/en/projects)');
     expect(markdown).toContain('[Profile](https://example.org/)');
+    expect(markdown).toContain('[View credential](https://example.org/credential)');
     expect(markdown).toContain('![Profile portrait](https://example.com/portrait.webp)');
     expect(markdown).toContain('| Skill | Usage |');
     expect(markdown).toContain('| TypeScript | Daily |');

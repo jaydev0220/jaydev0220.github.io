@@ -437,7 +437,9 @@ test('about page presents profile details and opens credentials in a lightbox', 
   await expect(page.locator('.credential-card')).toHaveCount(2);
 
   const toeicCard = page.locator('.credential-card').filter({ hasText: 'TOEIC Gold (885)' });
-  await expect(toeicCard.getByRole('link', { name: 'View credential' })).toHaveAttribute(
+  const markdownCredentialLink = toeicCard.locator('.credential-markdown-link');
+  await expect(markdownCredentialLink).toBeHidden();
+  await expect(markdownCredentialLink).toHaveAttribute(
     'href',
     'https://cdn.mengche.dev/certificates/toeic-2023.webp'
   );

@@ -36,7 +36,13 @@
   <button class="button secondary" type="button" aria-haspopup="dialog" onclick={openCredential}>
     {m.view_credential()}
   </button>
-  <a class="text-link" href={qualification.credentialUrl} target="_blank" rel="noreferrer">
+  <a
+    class="credential-markdown-link"
+    href={qualification.credentialUrl}
+    target="_blank"
+    rel="noreferrer"
+    hidden
+  >
     {m.view_credential()}
   </a>
 </article>
