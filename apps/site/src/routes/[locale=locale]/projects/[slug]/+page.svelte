@@ -1,7 +1,7 @@
 <script lang="ts">
   import ExternalLinkIcon from '$lib/icons/ExternalLink.svelte';
   import BrandGithubIcon from '$lib/icons/BrandGithub.svelte';
-  import { caseStudyComponents } from '@mengche/content';
+  import { caseStudyComponents } from '@mengche/content/case-studies';
   import {
     localeFromUrl,
     buildProjectSchema,
