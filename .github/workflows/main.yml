@@ -97,6 +97,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Fetch previous sitemap
+        run: curl --fail --silent --show-error --output "$RUNNER_TEMP/previous-sitemap.xml" https://www.mengche.dev/sitemap.xml || true
+
       - name: Build site
         run: pnpm --filter @mengche/site build
         env:
@@ -109,6 +112,13 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Notify IndexNow
+        continue-on-error: true
+        run: >-
+          pnpm --filter @mengche/site indexnow:submit
+          --old "$RUNNER_TEMP/previous-sitemap.xml"
+          --new build/sitemap.xml
 
   deploy-worker:
     if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.deploy == 'all' || inputs.deploy == 'worker'))

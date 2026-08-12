@@ -11,6 +11,7 @@
     "check": "pnpm paraglide:compile && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "indexnow:submit": "node scripts/submit-indexnow.mjs",
     "deploy": "wrangler deploy"
   },
   "dependencies": {
