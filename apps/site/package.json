@@ -19,7 +19,6 @@
     "@mengche/shared": "workspace:*"
   },
   "devDependencies": {
-    "@iconify-svelte/tabler": "^1.0.17",
     "@playwright/test": "^1.61.1",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.61.1",
