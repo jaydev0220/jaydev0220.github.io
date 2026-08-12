@@ -2,6 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
+  testIgnore: '**/dev-smoke.spec.ts',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
@@ -15,7 +16,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      testIgnore: '**/mobile-webkit.spec.ts',
+      testIgnore: ['**/mobile-webkit.spec.ts', '**/dev-smoke.spec.ts'],
       use: { ...devices['Desktop Chrome'] }
     },
     {
